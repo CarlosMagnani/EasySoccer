@@ -12,6 +12,10 @@ _Avoid_: Store offer, purchasable pack
 A single user-authorized request to open a chosen quantity of one selected Owned Pack type.
 _Avoid_: Auto grind, unlimited opening
 
+**Pack Batch Summary**:
+The final account of a Pack Batch, including its opened packs, packed Items, best players, duplicate outcomes, and incomplete actions.
+_Avoid_: Package aggregation store, pack history
+
 **Tradeable Duplicate**:
 A newly opened duplicate Item that can be exchanged for Coins through either the Transfer List or Quick Sell.
 _Avoid_: Untradeable duplicate
