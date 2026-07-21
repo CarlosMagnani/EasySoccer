@@ -10,8 +10,10 @@ O EasySoccer adiciona ao EA FC Ultimate Team Web App uma fila supervisionada par
 
 ## O que o projeto faz
 
-- adiciona o botão **Repeatables locais** na tela de SBCs;
-- permite escolher um SBC repetível e uma quantidade limitada de conclusões;
+- adiciona o botão **Fila de Packs** na tela de SBCs;
+- mostra um catálogo visual para escolher vários SBCs/packs na mesma fila;
+- permite definir uma quantidade exata ou **Máximo possível** separadamente para cada pack;
+- permite revisar e alterar a ordem real de execução antes de confirmar;
 - lê os requisitos do desafio e os jogadores disponíveis no clube;
 - usa OR-Tools para calcular uma combinação válida localmente;
 - permite proteger uma carta específica para ela nunca ser usada ou enviada em SBC;
@@ -72,7 +74,7 @@ Feche o servidor com `Ctrl+C` e abra `2_REINSTALAR.cmd`. Esse atalho apaga exclu
 2. No painel do Tampermonkey, desative ou exclua versões antigas do Auto-SBC.
 3. Entre em **Utilitários → Importar de arquivo**.
 4. Selecione `tampermonkey-ai-sbc.user.js` desta pasta.
-5. Confirme a instalação e verifique se a versão exibida é **26.1.13.7** e se o ícone verde do EasySoccer aparece ao lado do script.
+5. Confirme a instalação e verifique se a versão exibida é **26.1.13.8** e se o ícone verde do EasySoccer aparece ao lado do script.
 6. Nos detalhes da extensão Tampermonkey, habilite **Permitir scripts de usuário**.
 7. Deixe somente esta versão do Auto-SBC habilitada.
 8. Volte ao Web App da EA e pressione `Ctrl+F5`.
@@ -109,12 +111,12 @@ O EasySoccer aplica duas travas: o solver remove cartas protegidas antes do cál
 
 1. Abra `3_INICIAR_PROJETO.cmd` e mantenha a janela aberta.
 2. Acesse a área de SBCs do Web App.
-3. Clique em **Repeatables locais**.
-4. Escolha o SBC repetível.
-5. Comece com a quantidade `1`.
-6. Marque a confirmação de consumo dos jogadores.
-7. Revise as opções e clique em **Confirmar e executar**.
-8. Acompanhe o status até a conclusão.
+3. Clique em **Fila de Packs**.
+4. Adicione ao painel **Sua fila** todos os SBCs/packs que deseja fazer.
+5. Em cada card, escolha **Quantidade** e informe o número exato ou selecione **Máximo**.
+6. Use as setas no resumo lateral para ajustar a ordem de execução.
+7. Clique em **Revisar fila**, confira o limite máximo e marque a confirmação de consumo dos jogadores.
+8. Clique em **Confirmar e iniciar** e acompanhe o progresso separado por pack.
 
 Para encerrar o backend, volte à janela do servidor e pressione `Ctrl+C`.
 
@@ -157,7 +159,8 @@ A resposta esperada contém `status: ok` e `service: auto-sbc-local`.
 
 - Automação pode contrariar as regras da EA e causar softban, limitação, suspensão ou perda de acesso. O projeto não contorna essas proteções.
 - O botão **Parar** impede o próximo envio, mas não desfaz uma requisição que já tenha chegado à EA.
-- A quantidade escolhida é um limite máximo, não uma garantia. A fila pode parar antes por falta de jogadores, erro ou indisponibilidade do SBC.
+- Em **Máximo**, o EasySoccer tenta até o limite atual informado pela EA, até faltar uma solução segura ou até o teto local de 50 conclusões por pack.
+- Se faltar jogador em um pack configurado como **Máximo**, ele é marcado como esgotado e a fila avança. Em quantidade exata, a fila para para não executar um plano diferente do confirmado.
 - Cartas negociáveis e especiais começam protegidas. Revise as preferências antes de liberar itens valiosos.
 - A proteção manual da carta é uma camada adicional, mas ainda é sua responsabilidade conferir o elenco antes de confirmar.
 - Não use outra aba, extensão ou userscript que também manipule SBCs ao mesmo tempo.
@@ -187,7 +190,7 @@ Esse é o comportamento de segurança esperado. Leia o erro mostrado, corrija a 
 
 ### Grid Mode, Wide Mode ou Card Info não aparece
 
-Confirme que instalou a versão `26.1.13.7`, desative o Paletools e outras versões concorrentes e recarregue o Web App com `Ctrl+F5`. Se o clube já estava aberto durante a atualização, saia dele e entre novamente para disparar uma nova busca.
+Confirme que instalou a versão `26.1.13.8`, desative o Paletools e outras versões concorrentes e recarregue o Web App com `Ctrl+F5`. Se o clube já estava aberto durante a atualização, saia dele e entre novamente para disparar uma nova busca.
 
 ## Testes
 

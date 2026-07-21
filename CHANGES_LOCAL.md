@@ -4,16 +4,23 @@ Base: `titiroMonkey/Auto-SBC`, commit `9827990`, licença MIT.
 
 ## Runner de repetíveis
 
-- botão `Repeatables locais` dentro da UI SBC;
+- botão `Fila de Packs` dentro da UI SBC;
 - filtro por `repeatabilityMode`/flags do modelo EA;
-- escolha do conjunto e quantidade exata entre 1 e 50, limitada também pelas repetições restantes informadas pela EA;
-- confirmação dupla antes do primeiro envio;
+- catálogo visual responsivo com busca, cards de packs e resumo lateral persistente;
+- seleção de até 12 SBCs/packs diferentes na mesma fila, com ordem ajustável;
+- quantidade exata ou `Máximo possível` configurada separadamente por pack;
+- limite de 1 a 50 conclusões por pack, respeitando também as repetições restantes informadas pela EA;
+- etapa própria de revisão e confirmação, sem depender do diálogo nativo do Chrome;
+- plano confirmado imutável e de uso único antes do primeiro envio;
 - autorização centralizada: somente um lote gerenciado marcado como confirmado pode chamar o submit;
-- execução sequencial de todos os desafios do conjunto;
+- execução sequencial de todos os desafios e de todos os packs da fila;
 - nova leitura do conjunto/inventário entre envios;
-- parada no primeiro erro, resposta incerta, falta de desafio ou possível softban (`429`, `426`, `512`);
+- em modo `Máximo`, falta de solução encerra somente aquele pack e avança para o próximo;
+- quantidade exata, resposta incerta, falha de sessão/backend ou possível softban (`429`, `426`, `512`) interrompe toda a fila;
 - timeout de 30 segundos no submit, sem retry de uma operação irreversível;
-- botão `Parar`, que cancela o solver local e impede o próximo envio, sem fingir rollback do que já chegou à EA;
+- indicador de disponibilidade do servidor local antes da execução;
+- progresso e resumo final separados por pack;
+- botão `Parar com segurança`, que impede um novo envio sem fingir rollback do que já chegou à EA;
 - repetição infinita removida e correção do comportamento `N+1` do projeto-base.
 
 ## Correções de integridade
@@ -49,7 +56,7 @@ Base: `titiroMonkey/Auto-SBC`, commit `9827990`, licença MIT.
 - logo transparente próprio adicionado aos arquivos do projeto;
 - ícone embutido no userscript e exibido pelo Tampermonkey;
 - selo EasySoccer agrupando os controles `Grid Mode`, `Wide Mode` e `Card Info`;
-- marca no botão e no painel de `Repeatables locais`;
+- marca no botão e no painel de `Fila de Packs`;
 - ações e notificações de proteção identificadas como recursos do EasySoccer;
 - logo horizontal no topo do `README.md`.
 
@@ -76,7 +83,7 @@ Base: `titiroMonkey/Auto-SBC`, commit `9827990`, licença MIT.
 ## Testes executados
 
 - parser/sintaxe do userscript;
-- 12 testes do userscript, incluindo URL localizada, identidade visual, proteção por item, trava pré-submit, preferências de layout e melhorias do clube;
+- 16 testes do userscript, incluindo fila multi-pack, quantidade exata/máxima, catálogo visual, URL localizada, identidade, proteção e layout;
 - 8 testes de API/hardening do backend;
 - 2 smoke tests reais do OR-Tools, incluindo o formato de requisitos do `10x 84+ Upgrade`;
 - inicialização HTTP real, `/health` e preflight CORS da origem EA;

@@ -109,7 +109,7 @@ test("brands EasySoccer-owned controls and Tampermonkey entry", () => {
     "PNG"
   );
   assert.match(source, /createEasySoccerLayoutBrand\(\)/);
-  assert.match(source, /titleLogo = createEasySoccerLogoImage/);
+  assert.match(source, /createEasySoccerLogoImage\("esq-header-logo"/);
   assert.match(source, /src="\$\{EASY_SOCCER_LOGO_DATA_URL\}" alt="EasySoccer"/);
 });
 
@@ -284,6 +284,93 @@ test("rejects zero, infinite and over-limit completion counts", () => {
   assert.equal(core.validateCompletionCount(-1, repeatability).ok, false);
   assert.equal(core.validateCompletionCount(4, repeatability).ok, false);
   assert.equal(core.validateCompletionCount(Infinity, repeatability).ok, false);
+});
+
+test("resolves exact and maximum targets for a queued pack", () => {
+  const bounded = { repeatable: true, remaining: 5 };
+  const unlimited = { repeatable: true, remaining: Infinity };
+
+  assert.deepEqual(
+    { ...core.resolveQueueTarget({ mode: "exact", count: 3 }, bounded) },
+    { ok: true, count: 3, limit: 5, mode: "exact" }
+  );
+  assert.deepEqual(
+    { ...core.resolveQueueTarget({ mode: "max" }, bounded) },
+    { ok: true, mode: "max", count: 5, limit: 5 }
+  );
+  assert.equal(
+    core.resolveQueueTarget({ mode: "max" }, unlimited).count,
+    50
+  );
+});
+
+test("validates an ordered multi-pack queue and rejects duplicate sets", () => {
+  const repeatability = {
+    1187: { repeatable: true, remaining: 5 },
+    1302: { repeatable: true, remaining: 3 },
+  };
+  const entries = [
+    {
+      setId: 1187,
+      nameSnapshot: "10x 84+ Upgrade",
+      target: { mode: "max" },
+    },
+    {
+      setId: 1302,
+      nameSnapshot: "3x 85+ Upgrade",
+      target: { mode: "exact", count: 2 },
+    },
+  ];
+
+  const plan = core.validateQueuePlan(entries, repeatability);
+  assert.equal(plan.ok, true);
+  assert.deepEqual(
+    Array.from(plan.entries, (entry) => entry.setId),
+    ["1187", "1302"]
+  );
+  assert.equal(plan.maximumCompletions, 7);
+
+  const duplicate = core.validateQueuePlan(
+    [...entries, { ...entries[0] }],
+    repeatability
+  );
+  assert.equal(duplicate.ok, false);
+  assert.match(duplicate.error, /duas vezes/);
+});
+
+test("continues maximum mode only for safe exhaustion failures", () => {
+  for (const code of [
+    "SET_NOT_FOUND",
+    "NOT_REPEATABLE",
+    "NO_INCOMPLETE_CHALLENGE",
+    "SBC_NOT_AVAILABLE",
+    "SOLVER_FAILED",
+  ]) {
+    assert.equal(core.isSafeMaximumExhaustion({ error: code }), true);
+  }
+  assert.equal(core.isSafeMaximumExhaustion({ error: "SUBMIT_FAILED" }), false);
+  assert.equal(
+    core.isSafeMaximumExhaustion({ code: "SUBMIT_NOT_CONFIRMED" }),
+    false
+  );
+});
+
+test("uses the visual multi-pack catalog without a native confirm dialog", () => {
+  const catalogStart = source.indexOf(
+    "const openRepeatableQueueCatalogDialog = async () =>"
+  );
+  const catalogEnd = source.indexOf("\nconst createSBCButtons", catalogStart);
+  assert.notEqual(catalogStart, -1);
+  assert.notEqual(catalogEnd, -1);
+  const catalog = source.slice(catalogStart, catalogEnd);
+
+  assert.match(catalog, /Montar fila de Packs/);
+  assert.match(catalog, /Sua fila/);
+  assert.match(catalog, /Revisar fila/);
+  assert.match(catalog, /Máximo/);
+  assert.match(catalog, /Parar com segurança/);
+  assert.doesNotMatch(catalog, /window\.confirm/);
+  assert.match(source, /await openRepeatableQueueCatalogDialog\(\)/);
 });
 
 test("classifies known EA softban/rate-limit codes", () => {
