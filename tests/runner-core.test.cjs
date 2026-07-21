@@ -10,6 +10,18 @@ const userscriptPath = path.join(
   "tampermonkey-ai-sbc.user.js"
 );
 const source = fs.readFileSync(userscriptPath, "utf8");
+
+test("matches locale-prefixed EA Web App URLs", () => {
+  const metadataEnd = source.indexOf("// ==/UserScript==");
+  assert.notEqual(metadataEnd, -1, "userscript metadata end marker must exist");
+
+  const metadata = source.slice(0, metadataEnd);
+  assert.match(
+    metadata,
+    /^\/\/ @match\s+https:\/\/www\.ea\.com\/\*\/ea-sports-fc\/ultimate-team\/web-app\/\*$/m
+  );
+});
+
 const start = source.indexOf("const AUTO_SBC_REPEATABLE_MAX_COMPLETIONS");
 const endMarker = "\nlet repeatableBatchState =";
 const end = source.indexOf(endMarker, start);

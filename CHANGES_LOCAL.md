@@ -18,6 +18,7 @@ Base: `titiroMonkey/Auto-SBC`, commit `9827990`, licença MIT.
 
 ## Correções de integridade
 
+- o userscript agora reconhece URLs localizadas do Web App da EA, como `/pt-br/ea-sports-fc/ultimate-team/web-app/`;
 - paginação do clube agora acumula todas as páginas;
 - duplicados/storage não ignoram mais as exclusões de rating, liga, nação, clube, negociabilidade ou raridade;
 - falhas HTTP rejeitam a Promise em vez de deixar o Web App travado;
@@ -42,6 +43,13 @@ Base: `titiroMonkey/Auto-SBC`, commit `9827990`, licença MIT.
 - filtro fixo de 50 mil removido;
 - nenhum inventário, solução ou log é gravado em disco por padrão;
 - logs verbosos do OR-Tools desligados por padrão e número de workers limitado à máquina.
+
+## Instalação e uso
+
+- atalhos de dois cliques para instalação inicial, reinstalação limpa e inicialização do servidor;
+- reinstalação limitada à pasta `.venv`, preservando o código e os demais arquivos;
+- validação clara de ambientes Python quebrados ou incompletos;
+- documentação principal consolidada em `README.md`.
 
 ## Testes executados
 

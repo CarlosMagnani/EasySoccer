@@ -1,4 +1,5 @@
 __pycache__
+.venv/
 model.txt
 .vscode
 .DS_Store
