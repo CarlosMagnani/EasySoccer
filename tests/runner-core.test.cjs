@@ -266,6 +266,34 @@ test("detects unlimited and bounded repeatable sets", () => {
   assert.equal(bounded.remaining, 3);
 });
 
+test("keeps unlimited repeatables visible when EA reports zero remaining", () => {
+  const info = core.getRepeatabilityInfo({
+    repeatabilityMode: "UNLIMITED",
+    timesCompleted: 35,
+    isRepeatable() {
+      return true;
+    },
+    getRepeatsRemaining() {
+      return 0;
+    },
+  });
+
+  assert.equal(info.repeatable, true);
+  assert.equal(info.remaining, Infinity);
+
+  const numericMode = core.getRepeatabilityInfo(
+    {
+      repeatabilityMode: 9,
+      getRepeatsRemaining() {
+        return 0;
+      },
+    },
+    { UNLIMITED: 9 }
+  );
+  assert.equal(numericMode.repeatable, true);
+  assert.equal(numericMode.remaining, Infinity);
+});
+
 test("resolves numeric EA repeatability enums", () => {
   const info = core.getRepeatabilityInfo(
     { repeatabilityMode: 7, repeats: 2, timesCompleted: 0 },
@@ -329,6 +357,7 @@ test("validates an ordered multi-pack queue and rejects duplicate sets", () => {
     ["1187", "1302"]
   );
   assert.equal(plan.maximumCompletions, 7);
+  assert.equal(plan.entries[0].unlimited, false);
 
   const duplicate = core.validateQueuePlan(
     [...entries, { ...entries[0] }],
@@ -355,6 +384,36 @@ test("continues maximum mode only for safe exhaustion failures", () => {
   );
 });
 
+test("keeps a special card when its rarity group is required by the SBC", () => {
+  const sbcData = {
+    constraints: [
+      {
+        requirementKey: "PLAYER_RARITY_GROUP",
+        scope: "GREATER",
+        count: 1,
+        eligibilityValues: [83],
+      },
+      {
+        requirementKey: "TEAM_RATING",
+        scope: "GREATER",
+        count: -1,
+        eligibilityValues: [84],
+      },
+    ],
+  };
+
+  const requiredGroups = core.getRequiredRarityGroups(sbcData);
+  assert.deepEqual(Array.from(requiredGroups), [83]);
+  assert.equal(
+    core.matchesRequiredRarityGroup({ groups: [12, "83"] }, requiredGroups),
+    true
+  );
+  assert.equal(
+    core.matchesRequiredRarityGroup({ groups: [23] }, requiredGroups),
+    false
+  );
+});
+
 test("uses the visual multi-pack catalog without a native confirm dialog", () => {
   const catalogStart = source.indexOf(
     "const openRepeatableQueueCatalogDialog = async () =>"
@@ -368,6 +427,8 @@ test("uses the visual multi-pack catalog without a native confirm dialog", () =>
   assert.match(catalog, /Sua fila/);
   assert.match(catalog, /Revisar fila/);
   assert.match(catalog, /Máximo/);
+  assert.match(catalog, /getRepeatableModeLabel\(info\)/);
+  assert.match(source, /return "ILIMITADO"/);
   assert.match(catalog, /Parar com segurança/);
   assert.doesNotMatch(catalog, /window\.confirm/);
   assert.match(source, /await openRepeatableQueueCatalogDialog\(\)/);
@@ -380,6 +441,40 @@ test("classifies known EA softban/rate-limit codes", () => {
     assert.equal(failure.code, code);
   }
   assert.equal(core.classifyFailure({ code: 500 }).softban, false);
+});
+
+test("preserves the backend's structured solver error and Portuguese message", () => {
+  const failure = core.classifyFailure({
+    error: "SOLVER_FAILED",
+    status: "INFEASIBLE",
+    failure: {
+      code: "MISSING_REQUIRED_PLAYERS",
+      message:
+        "Falta 1 carta elegível para o requisito especial (encontradas: 0).",
+    },
+  });
+
+  assert.equal(failure.code, "MISSING_REQUIRED_PLAYERS");
+  assert.match(failure.message, /Falta 1 carta elegível/);
+  assert.equal(failure.softban, false);
+});
+
+test("shows the validation detail returned by the local backend", () => {
+  const message = core.getBackendErrorMessage({
+    status: 422,
+    response: {
+      detail: [
+        {
+          loc: ["body", "sbcData", "constraints", 0, "count"],
+          msg: "Input should be greater than or equal to -1",
+        },
+      ],
+    },
+  });
+
+  assert.match(message, /422/);
+  assert.match(message, /sbcData\.constraints\.0\.count/);
+  assert.match(message, /greater than or equal to -1/);
 });
 
 test("authorizes submission only for a user-confirmed managed batch", () => {

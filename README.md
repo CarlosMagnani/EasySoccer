@@ -74,7 +74,7 @@ Feche o servidor com `Ctrl+C` e abra `2_REINSTALAR.cmd`. Esse atalho apaga exclu
 2. No painel do Tampermonkey, desative ou exclua versões antigas do Auto-SBC.
 3. Entre em **Utilitários → Importar de arquivo**.
 4. Selecione `tampermonkey-ai-sbc.user.js` desta pasta.
-5. Confirme a instalação e verifique se a versão exibida é **26.1.13.8** e se o ícone verde do EasySoccer aparece ao lado do script.
+5. Confirme a instalação e verifique se a versão exibida é **26.1.13.11** e se o ícone verde do EasySoccer aparece ao lado do script.
 6. Nos detalhes da extensão Tampermonkey, habilite **Permitir scripts de usuário**.
 7. Deixe somente esta versão do Auto-SBC habilitada.
 8. Volte ao Web App da EA e pressione `Ctrl+F5`.
@@ -159,7 +159,8 @@ A resposta esperada contém `status: ok` e `service: auto-sbc-local`.
 
 - Automação pode contrariar as regras da EA e causar softban, limitação, suspensão ou perda de acesso. O projeto não contorna essas proteções.
 - O botão **Parar** impede o próximo envio, mas não desfaz uma requisição que já tenha chegado à EA.
-- Em **Máximo**, o EasySoccer tenta até o limite atual informado pela EA, até faltar uma solução segura ou até o teto local de 50 conclusões por pack.
+- Packs ilimitados aparecem com o selo **ILIMITADO** e aceitam tanto quantidade exata quanto **Máximo**.
+- Em **Máximo**, o EasySoccer tenta até o limite atual informado pela EA, até faltar uma solução segura ou até o teto local de 50 conclusões por pack ilimitado.
 - Se faltar jogador em um pack configurado como **Máximo**, ele é marcado como esgotado e a fila avança. Em quantidade exata, a fila para para não executar um plano diferente do confirmado.
 - Cartas negociáveis e especiais começam protegidas. Revise as preferências antes de liberar itens valiosos.
 - A proteção manual da carta é uma camada adicional, mas ainda é sua responsabilidade conferir o elenco antes de confirmar.
@@ -180,6 +181,14 @@ A resposta esperada contém `status: ok` e `service: auto-sbc-local`.
 
 Abra `3_INICIAR_PROJETO.cmd` e mantenha a janela aberta. Se ela informar que a `.venv` está quebrada, execute `2_REINSTALAR.cmd`.
 
+### Erro `422 Unprocessable Entity`
+
+A versão `26.1.13.11` aceita o marcador `-1` que a EA usa em requisitos globais, como a nota mínima do elenco do **84+ TOTW Upgrade**. Feche o backend antigo com `Ctrl+C`, abra novamente `3_INICIAR_PROJETO.cmd`, reinstale o userscript atualizado e recarregue o Web App com `Ctrl+F5`. Se outro payload for rejeitado, a notificação e a janela do backend agora informam o campo exato que precisa ser corrigido.
+
+### Erro `INFEASIBLE` ou falta de carta especial
+
+A fila agora mostra a causa em português. Quando o desafio exige uma raridade especial, a carta que cumpre esse requisito não é bloqueada pela opção **Excluir especiais**; todas as outras especiais continuam protegidas. Se nenhuma carta válida chegar ao solver, a mensagem diferencia entre não existir uma carta reconhecida no clube e ela ter sido removida por filtros, proteção, preço ou negociabilidade.
+
 ### A porta 8000 já está em uso
 
 Feche outra janela antiga do servidor com `Ctrl+C` e tente iniciar novamente. O userscript usa essa porta específica.
@@ -190,7 +199,7 @@ Esse é o comportamento de segurança esperado. Leia o erro mostrado, corrija a 
 
 ### Grid Mode, Wide Mode ou Card Info não aparece
 
-Confirme que instalou a versão `26.1.13.8`, desative o Paletools e outras versões concorrentes e recarregue o Web App com `Ctrl+F5`. Se o clube já estava aberto durante a atualização, saia dele e entre novamente para disparar uma nova busca.
+Confirme que instalou a versão `26.1.13.11`, desative o Paletools e outras versões concorrentes e recarregue o Web App com `Ctrl+F5`. Se o clube já estava aberto durante a atualização, saia dele e entre novamente para disparar uma nova busca.
 
 ## Testes
 

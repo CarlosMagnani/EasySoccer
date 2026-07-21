@@ -9,6 +9,8 @@ Base: `titiroMonkey/Auto-SBC`, commit `9827990`, licença MIT.
 - catálogo visual responsivo com busca, cards de packs e resumo lateral persistente;
 - seleção de até 12 SBCs/packs diferentes na mesma fila, com ordem ajustável;
 - quantidade exata ou `Máximo possível` configurada separadamente por pack;
+- packs `UNLIMITED` continuam disponíveis mesmo quando a EA informa zero no contador de repetições restantes;
+- selo `ILIMITADO` e teto seguro de 50 conclusões por execução para impedir loop infinito;
 - limite de 1 a 50 conclusões por pack, respeitando também as repetições restantes informadas pela EA;
 - etapa própria de revisão e confirmação, sem depender do diálogo nativo do Chrome;
 - plano confirmado imutável e de uso único antes do primeiro envio;
@@ -32,6 +34,9 @@ Base: `titiroMonkey/Auto-SBC`, commit `9827990`, licença MIT.
 - falhas HTTP rejeitam a Promise em vez de deixar o Web App travado;
 - chamadas ao backend local usam `GM_xmlhttpRequest` nativo do Tampermonkey para evitar bloqueios CORS/Private Network Access do Chrome;
 - solver inviável encerra o fluxo antes de tentar aplicar uma resposta ausente;
+- cartas especiais que satisfazem um requisito obrigatório de raridade não são mais removidas pela opção `Excluir especiais`; as demais continuam protegidas;
+- falhas do solver agora retornam código e explicação em português para falta de carta obrigatória, filtros que barraram as cartas, ausência de elenco válido e tempo esgotado;
+- requisitos mínimos impossíveis encerram a busca antes do OR-Tools, sem desperdiçar o tempo configurado;
 - `isUntradeable` usa o valor correto;
 - resposta do solver aceita array JSON nativo;
 - fallback local de custo prioriza cartas comuns, não negociáveis e duplicadas quando a fonte externa de preços falha;
@@ -65,6 +70,9 @@ Base: `titiroMonkey/Auto-SBC`, commit `9827990`, licença MIT.
 - bind exclusivo em `127.0.0.1`;
 - CORS somente para `https://www.ea.com` e `https://ea.com`;
 - `/health` e validação Pydantic do payload;
+- requisitos globais com o marcador nativo `count = -1` da EA são aceitos, corrigindo o `422` do `84+ TOTW Upgrade`;
+- respostas `422` agora mostram o caminho e a causa da validação tanto no backend quanto na notificação do EasySoccer;
+- respostas inviáveis informam a exigência, quantidade necessária e encontrada, preservando o motivo na fila de packs;
 - requisitos desconhecidos falham com `422` em vez de serem ignorados;
 - relay HTTP arbitrário removido;
 - limite de solver entre 1 e 180 segundos;
@@ -83,9 +91,9 @@ Base: `titiroMonkey/Auto-SBC`, commit `9827990`, licença MIT.
 ## Testes executados
 
 - parser/sintaxe do userscript;
-- 16 testes do userscript, incluindo fila multi-pack, quantidade exata/máxima, catálogo visual, URL localizada, identidade, proteção e layout;
-- 8 testes de API/hardening do backend;
-- 2 smoke tests reais do OR-Tools, incluindo o formato de requisitos do `10x 84+ Upgrade`;
+- 20 testes do userscript, incluindo packs ilimitados, erros estruturados, preservação da carta especial obrigatória, fila multi-pack, quantidade exata/máxima, catálogo visual, URL localizada, identidade, proteção e layout;
+- 10 testes de API, pré-processamento e hardening do backend;
+- 3 smoke tests reais do OR-Tools, incluindo os formatos de requisitos do `10x 84+ Upgrade` e do `84+ TOTW Upgrade` ilimitado;
 - inicialização HTTP real, `/health` e preflight CORS da origem EA;
 - parser dos scripts PowerShell.
 - instalação completa em uma cópia limpa do pacote, incluindo criação da `.venv` e importação das dependências.

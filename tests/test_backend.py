@@ -126,6 +126,10 @@ class BackendApiTests(unittest.TestCase):
             ({"sbcData": {}, "maxSolveTime": 30}, "clubPlayers"),
         )
 
+        invalid_count = self.solve_payload()
+        invalid_count["sbcData"]["constraints"][0]["count"] = -2
+        cases = (*cases, (invalid_count, "count"))
+
         with patch.object(main.setup, "runAutoSBC") as solver:
             for payload, expected_error in cases:
                 with self.subTest(expected_error=expected_error):
@@ -136,6 +140,24 @@ class BackendApiTests(unittest.TestCase):
                     self.assertIn(expected_error, json.dumps(response))
 
         solver.assert_not_called()
+
+    def test_global_ea_requirement_accepts_negative_one_count_sentinel(self):
+        payload = self.solve_payload(requirement_key="TEAM_RATING")
+        payload["sbcData"]["constraints"][0]["count"] = -1
+        payload["sbcData"]["constraints"][0]["eligibilityValues"] = [84]
+
+        with patch.object(
+            main.setup,
+            "runAutoSBC",
+            return_value={"status_code": 2, "status": "OPTIMAL", "results": []},
+        ) as solver:
+            status, _, response = asyncio.run(
+                asgi_request("POST", "/solve", json_body=payload)
+            )
+
+        self.assertEqual(status, 200)
+        self.assertEqual(response["status_code"], 2)
+        solver.assert_called_once()
 
     def test_arbitrary_http_relay_is_disabled(self):
         status, _, response = asyncio.run(
@@ -165,6 +187,77 @@ class BackendApiTests(unittest.TestCase):
 
 
 class SolverPreprocessingTests(unittest.TestCase):
+    @staticmethod
+    def player(*, player_id=1, groups=None):
+        return {
+            "id": player_id,
+            "name": f"Player {player_id}",
+            "cardType": "Gold",
+            "assetId": player_id,
+            "definitionId": player_id,
+            "rating": 84,
+            "teamId": 1,
+            "leagueId": 1,
+            "nationId": 1,
+            "rarityId": 1,
+            "ratingTier": 3,
+            "isUntradeable": True,
+            "isDuplicate": False,
+            "isStorage": False,
+            "preferredPosition": 0,
+            "possiblePositions": [0],
+            "groups": groups or [0],
+            "isFixed": False,
+            "concept": False,
+            "price": 1000,
+            "futggPrice": 1000,
+        }
+
+    def test_missing_required_rarity_group_returns_actionable_failure(self):
+        sbc = {
+            "constraints": [
+                {
+                    "scope": "GREATER",
+                    "count": 1,
+                    "requirementKey": "PLAYER_RARITY_GROUP",
+                    "eligibilityValues": [83],
+                },
+                {
+                    "scope": "GREATER",
+                    "count": -1,
+                    "requirementKey": "TEAM_RATING",
+                    "eligibilityValues": [84],
+                },
+            ],
+            "formation": [0] * 11,
+            "brickIndices": [],
+            "filterDiagnostics": {
+                "rarityGroups": [
+                    {
+                        "groupId": 83,
+                        "label": "TOTW/TOTS/FOF",
+                        "rawMatches": 0,
+                        "eligibleMatches": 0,
+                    }
+                ]
+            },
+        }
+
+        with patch.object(setup.optimize, "SBC") as solver:
+            response = setup.runAutoSBC(
+                sbc,
+                [self.player(player_id=1, groups=[23])],
+                30,
+            )
+
+        solver.assert_not_called()
+        self.assertEqual(response["status_code"], 3)
+        self.assertEqual(response["failure"]["code"], "MISSING_REQUIRED_PLAYERS")
+        self.assertEqual(response["failure"]["requirements"][0]["required"], 1)
+        self.assertEqual(response["failure"]["requirements"][0]["found"], 0)
+        self.assertIn("TOTW/TOTS/FOF", response["failure"]["message"])
+        self.assertIn("nenhuma carta", response["failure"]["message"].lower())
+
     def test_inventory_csv_export_is_opt_in_and_expensive_cards_are_retained(self):
         players = pd.DataFrame(
             [

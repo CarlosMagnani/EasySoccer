@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         EasySoccer - EAFC 26 Auto SBC
 // @namespace    http://tampermonkey.net/
-// @version      26.1.13.8
+// @version      26.1.13.11
 // @description  Local SBC solver with a visual, confirmed multi-pack queue
 // @author       EasySoccer (fork de TitiroMonkey)
 // @license      MIT
@@ -6608,15 +6608,15 @@ const AutoSbcRunnerCore = (() => {
       } catch (_) {}
     }
 
-    let remaining;
-    if (typeof set.getRepeatsRemaining === "function") {
+    let remaining = mode === "UNLIMITED" ? Infinity : undefined;
+    if (
+      mode !== "UNLIMITED" &&
+      typeof set.getRepeatsRemaining === "function"
+    ) {
       try {
         const value = Number(set.getRepeatsRemaining());
         if (Number.isFinite(value)) remaining = Math.max(0, value);
       } catch (_) {}
-    }
-    if (remaining == null && mode === "UNLIMITED") {
-      remaining = Infinity;
     }
     if (remaining == null) {
       const repeats = Number(set.repeats);
@@ -6734,6 +6734,7 @@ const AutoSbcRunnerCore = (() => {
       normalizedEntries.push({
         setId,
         nameSnapshot: String(entry?.nameSnapshot || `SBC ${setId}`),
+        unlimited: repeatability.remaining === Infinity,
         target:
           target.mode === "max"
             ? Object.freeze({ mode: "max" })
@@ -6751,24 +6752,76 @@ const AutoSbcRunnerCore = (() => {
   };
 
   const isSafeMaximumExhaustion = (error) => {
-    const code = error?.error || error?.code || error?.failure?.code;
+    const code = error?.failure?.code || error?.code || error?.error;
     return [
       "SET_NOT_FOUND",
       "NOT_REPEATABLE",
       "NO_INCOMPLETE_CHALLENGE",
       "SBC_NOT_AVAILABLE",
+      "MISSING_REQUIRED_PLAYERS",
+      "NO_VALID_SQUAD",
+      "SOLVER_TIMEOUT",
       "SOLVER_FAILED",
     ].includes(code);
   };
 
+  const getRequiredRarityGroups = (sbcData = {}) => {
+    const groups = [];
+    for (const requirement of sbcData?.constraints || []) {
+      if (
+        requirement?.requirementKey !== "PLAYER_RARITY_GROUP" ||
+        Number(requirement?.count) <= 0
+      ) {
+        continue;
+      }
+      for (const value of requirement?.eligibilityValues || []) {
+        const numeric = Number(value);
+        const normalized = Number.isFinite(numeric) ? numeric : String(value);
+        if (!groups.some((group) => String(group) === String(normalized))) {
+          groups.push(normalized);
+        }
+      }
+    }
+    return groups;
+  };
+
+  const matchesRequiredRarityGroup = (item, requiredGroups = []) => {
+    const wanted = new Set(requiredGroups.map((group) => String(group)));
+    const itemGroups = Array.isArray(item?.groups)
+      ? item.groups
+      : item?.groups == null
+        ? []
+        : [item.groups];
+    return itemGroups.some((group) => wanted.has(String(group)));
+  };
+
+  const buildRarityGroupDiagnostics = (
+    allPlayers = [],
+    eligiblePlayers = [],
+    sbcData = {},
+    labelResolver = (groupId) => `grupo especial ${groupId}`
+  ) =>
+    getRequiredRarityGroups(sbcData).map((groupId) => ({
+      groupId,
+      label: labelResolver(groupId),
+      rawMatches: allPlayers.filter((item) =>
+        matchesRequiredRarityGroup(item, [groupId])
+      ).length,
+      eligibleMatches: eligiblePlayers.filter((item) =>
+        matchesRequiredRarityGroup(item, [groupId])
+      ).length,
+    }));
+
   const classifyFailure = (error) => {
     const candidates = [
-      error?.status,
+      error?.failure?.code,
       error?.code,
       error?.error?.code,
+      typeof error?.error === "string" ? error.error : null,
       error?.response?.status,
       error?.detail?.status,
       error?.detail?.error?.code,
+      error?.status,
     ];
     const code = candidates.find((value) => value != null);
     const numericCode = Number(code);
@@ -6781,12 +6834,45 @@ const AutoSbcRunnerCore = (() => {
     return {
       code: code ?? "UNKNOWN",
       softban: false,
-      message: error?.message || "Falha não confirmada; o lote foi interrompido.",
+      message:
+        error?.failure?.message ||
+        error?.message ||
+        "Falha não confirmada; o lote foi interrompido.",
     };
   };
 
   const isSubmissionAuthorized = (runOptions = {}) =>
     runOptions.managedBatch === true && runOptions.userConfirmed === true;
+
+  const getBackendErrorMessage = (response = {}) => {
+    const status = response?.status || "desconhecido";
+    let payload = response?.response;
+    if (payload == null && response?.responseText) {
+      try {
+        payload = JSON.parse(response.responseText);
+      } catch (_) {}
+    }
+
+    const detail = payload?.detail ?? payload?.message ?? payload?.error;
+    let explanation = "pedido rejeitado";
+    if (Array.isArray(detail)) {
+      explanation = detail
+        .slice(0, 3)
+        .map((issue) => {
+          const location = Array.isArray(issue?.loc)
+            ? issue.loc.filter((part) => part !== "body").join(".")
+            : "pedido";
+          return `${location || "pedido"}: ${issue?.msg || "valor inválido"}`;
+        })
+        .join("; ");
+    } else if (typeof detail === "string") {
+      explanation = detail;
+    } else if (detail && typeof detail.message === "string") {
+      explanation = detail.message;
+    }
+
+    return `API local HTTP ${status}: ${explanation}`.slice(0, 320);
+  };
 
   return {
     getRepeatabilityInfo,
@@ -6794,8 +6880,12 @@ const AutoSbcRunnerCore = (() => {
     resolveQueueTarget,
     validateQueuePlan,
     isSafeMaximumExhaustion,
+    getRequiredRarityGroups,
+    matchesRequiredRarityGroup,
+    buildRarityGroupDiagnostics,
     classifyFailure,
     isSubmissionAuthorized,
+    getBackendErrorMessage,
   };
 })();
 
@@ -6974,6 +7064,8 @@ let solveSBC = async (
       getSettings(sbcId, sbcData.challengeId, "onlyStorage") || false;
     let excludeSbcSquads =
       getSettings(sbcId, sbcData.challengeId, "excludeSbcSquads") || false;
+    const requiredRarityGroups =
+      AutoSbcRunnerCore.getRequiredRarityGroups(sbcData);
     let backendPlayersInput = players
       .filter(
         (item) =>
@@ -6993,7 +7085,14 @@ let solveSBC = async (
             !item.isTimeLimited() &&
             !(PriceItems[item.definitionId]?.isSbc && excludeSbc) &&
             !(PriceItems[item.definitionId]?.isObjective && excludeObjective) &&
-            !(item?.isSpecial() && excludeSpecial) &&
+            !(
+              item?.isSpecial() &&
+              excludeSpecial &&
+              !AutoSbcRunnerCore.matchesRequiredRarityGroup(
+                item,
+                requiredRarityGroups
+              )
+            ) &&
             !(item?.isTradeable() && excludeTradable) &&
             !(PriceItems[item.definitionId]?.isExtinct && excludeExtinct) &&
             (item?.isStorage || !onlyStorage) &&
@@ -7039,6 +7138,28 @@ let solveSBC = async (
           normalizeClubId: item.normalizeClubId,
         };
       });
+
+    const resolveRarityGroupLabel = (groupId) => {
+      const fallback =
+        Number(groupId) === 83
+          ? "TOTW/TOTS/FOF"
+          : `grupo especial ${groupId}`;
+      const localizationKey = `Player_Group_${groupId}`;
+      try {
+        const localized = services.Localization.localize(localizationKey);
+        if (localized && localized !== localizationKey) return localized;
+      } catch (_) {}
+      return fallback;
+    };
+    sbcData.filterDiagnostics = {
+      ...(sbcData.filterDiagnostics || {}),
+      rarityGroups: AutoSbcRunnerCore.buildRarityGroupDiagnostics(
+        players,
+        backendPlayersInput,
+        sbcData,
+        resolveRarityGroupLabel
+      ),
+    };
 
     const maxSolveTime = Math.min(
       180,
@@ -7093,7 +7214,21 @@ let solveSBC = async (
       if (getSettings(0, 0, "playSounds")) {
         wompSound.play();
       }
-      showNotification(solution.status, UINotificationType.NEGATIVE);
+      const solverFailure = solution?.failure || {
+        code:
+          solution?.status === "INFEASIBLE"
+            ? "NO_VALID_SQUAD"
+            : solution?.status === "UNKNOWN"
+              ? "SOLVER_TIMEOUT"
+              : "SOLVER_FAILED",
+        message:
+          solution?.status === "INFEASIBLE"
+            ? "Não foi possível montar um elenco válido com as cartas permitidas. Revise os filtros e as cartas protegidas."
+            : solution?.status === "UNKNOWN"
+              ? "O tempo de busca terminou antes de encontrar uma solução."
+              : `O montador não concluiu o desafio (${solution?.status || "erro desconhecido"}).`,
+      };
+      showNotification(solverFailure.message, UINotificationType.NEGATIVE);
 
       if (!managedBatch && sbcLogin.length > 0) {
         let sbcToTry = sbcLogin.shift();
@@ -7104,11 +7239,18 @@ let solveSBC = async (
         ]);
         goToPacks();
         solveSBC(sbcToTry[0], sbcToTry[1], true);
-        return { ok: false, error: "SOLVER_FAILED" };
+        return {
+          ok: false,
+          error: solverFailure.code,
+          message: solverFailure.message,
+          failure: solverFailure,
+        };
       }
       return {
         ok: false,
-        error: "SOLVER_FAILED",
+        error: solverFailure.code,
+        message: solverFailure.message,
+        failure: solverFailure,
         status: solution.status,
         statusCode: solution.status_code,
       };
@@ -9073,7 +9215,7 @@ function makePostRequest(url, data, options = {}) {
           wompSound.play();
         }
         showNotification(
-          `Please check backend API is running`,
+          error?.message || "Falha ao consultar a API local do EasySoccer",
           UINotificationType.NEGATIVE
         );
       }
@@ -9106,7 +9248,7 @@ function makePostRequest(url, data, options = {}) {
       onload: (response) => {
         if (response.status < 200 || response.status >= 300) {
           const error = new Error(
-            `Backend returned HTTP ${response.status || "unknown"}`
+            AutoSbcRunnerCore.getBackendErrorMessage(response)
           );
           error.status = response.status;
           rejectRequest(error);
@@ -9127,12 +9269,14 @@ function makePostRequest(url, data, options = {}) {
         resolve(payload);
       },
       onerror: (response) => {
-        const error = new Error("Could not reach the local backend");
+        const error = new Error(
+          "Não foi possível conectar à API local do EasySoccer"
+        );
         error.status = response?.status;
         rejectRequest(error);
       },
       ontimeout: () => {
-        const error = new Error("Local backend request timed out");
+        const error = new Error("A API local demorou demais para responder");
         error.name = "TimeoutError";
         rejectRequest(error);
       },
@@ -10548,8 +10692,9 @@ const runRepeatableSbcQueueItem = async (
         completed: itemCompleted,
         status: "exhausted",
         reason:
-          error?.status ||
+          error?.failure?.message ||
           error?.message ||
+          error?.status ||
           error?.error ||
           error?.code ||
           "Sem solução segura disponível.",
@@ -11074,6 +11219,15 @@ const getRepeatableRewardSummary = (set) => {
   }`;
 };
 
+const getRepeatableModeLabel = (info) => {
+  if (info?.remaining === Infinity || info?.mode === "UNLIMITED") {
+    return "ILIMITADO";
+  }
+  if (info?.mode === "LIMITED") return "LIMITADO";
+  if (info?.mode === "REFRESH") return "REPETÍVEL";
+  return info?.mode || "REPETÍVEL";
+};
+
 const openRepeatableQueueCatalogDialog = async () => {
   document.getElementById("auto-sbc-repeatable-dialog")?.remove();
   ensureEasySoccerQueueStyles();
@@ -11276,7 +11430,7 @@ const openRepeatableQueueCatalogDialog = async () => {
         const badge = createQueueElement(
           "span",
           "esq-pack-badge",
-          info.mode || "REPETÍVEL"
+          getRepeatableModeLabel(info)
         );
         art.append(artLogo, badge);
         const body = createQueueElement("div", "esq-pack-body");
@@ -11345,7 +11499,11 @@ const openRepeatableQueueCatalogDialog = async () => {
               createQueueElement(
                 "div",
                 "esq-max-label",
-                resolved.ok ? `Até ${resolved.count} conclusões` : "Indisponível"
+                resolved.ok
+                  ? info.remaining === Infinity
+                    ? `Ilimitado · teto seguro ${resolved.count}`
+                    : `Até ${resolved.count} conclusões`
+                  : "Indisponível"
               )
             );
           } else {
@@ -11421,7 +11579,9 @@ const openRepeatableQueueCatalogDialog = async () => {
             "div",
             "esq-queue-target",
             entry.mode === "max"
-              ? `Máximo possível · até ${resolved.ok ? resolved.count : 0}`
+              ? info?.remaining === Infinity
+                ? `Ilimitado · teto seguro ${resolved.ok ? resolved.count : 0}`
+                : `Máximo possível · até ${resolved.ok ? resolved.count : 0}`
               : `${entry.count} vez${entry.count === 1 ? "" : "es"}`
           );
           copy.append(name, target);
@@ -11534,7 +11694,9 @@ const openRepeatableQueueCatalogDialog = async () => {
         "div",
         "esq-row-value",
         entry.target.mode === "max"
-          ? `Máximo · até ${entry.plannedCount}`
+          ? entry.unlimited
+            ? `Ilimitado · teto ${entry.plannedCount}`
+            : `Máximo · até ${entry.plannedCount}`
           : `${entry.plannedCount} conclusão${entry.plannedCount === 1 ? "" : "ões"}`
       );
       row.append(number, copy, value);

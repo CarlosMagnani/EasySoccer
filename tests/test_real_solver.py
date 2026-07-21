@@ -112,6 +112,27 @@ class RealSolverSmokeTest(unittest.TestCase):
         ]
         self.assertGreaterEqual(len(selected_specials), 1)
 
+    def test_solves_the_unlimited_84_totw_upgrade_requirement_shape(self):
+        players = self.make_players(rating=84)
+        sbc = {
+            "constraints": [
+                {
+                    "scope": "GREATER",
+                    "count": -1,
+                    "requirementKey": "TEAM_RATING",
+                    "eligibilityValues": [84],
+                }
+            ],
+            "formation": [0] * 11,
+            "brickIndices": [],
+            "currentSolution": [None] * 11,
+        }
+
+        response = setup.runAutoSBC(sbc, players, 5)
+
+        self.assertIn(response["status_code"], (2, 4))
+        self.assertEqual(len(response["results"]), 11)
+
 
 if __name__ == "__main__":
     unittest.main()
