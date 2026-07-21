@@ -20,6 +20,7 @@ Base: `titiroMonkey/Auto-SBC`, commit `9827990`, licença MIT.
 
 - o userscript agora reconhece URLs localizadas do Web App da EA, como `/pt-br/ea-sports-fc/ultimate-team/web-app/`;
 - paginação do clube agora acumula todas as páginas;
+- visualização do clube ajusta o `numItemsPerPage` do controlador real da EA para carregar 100 jogadores no Grid Mode;
 - duplicados/storage não ignoram mais as exclusões de rating, liga, nação, clube, negociabilidade ou raridade;
 - falhas HTTP rejeitam a Promise em vez de deixar o Web App travado;
 - chamadas ao backend local usam `GM_xmlhttpRequest` nativo do Tampermonkey para evitar bloqueios CORS/Private Network Access do Chrome;
@@ -30,6 +31,27 @@ Base: `titiroMonkey/Auto-SBC`, commit `9827990`, licença MIT.
 - consultas de preço ao Fut.gg desativadas; IDs do inventário não são enviados para essa fonte;
 - Auto Grind, auto-on-login, tiles de envio em um clique, hotkeys e interceptação de packs desativados no build local;
 - configurações ficam em namespace próprio, com cartas negociáveis e especiais protegidas por padrão.
+
+## Proteção de cartas e layout
+
+- proteção persistente pelo ID exato do item, separada da exclusão por tipo de carta;
+- ação em português `Proteger do SBC` / `Desproteger do SBC` e cadeado vermelho visível;
+- cartas protegidas são removidas do payload enviado ao solver;
+- trava fail-closed imediatamente antes do submit, inclusive se a carta foi colocada manualmente no elenco;
+- controles persistentes `Grid Mode`, `Wide Mode` e `Card Info` no cabeçalho;
+- grade responsiva de 200 px, carregando até 100 jogadores por página do clube;
+- posições alternativas, Skill Moves e Weak Foot visíveis diretamente nas cartas;
+- painel direito com ações EasySoccer para copiar nome/ID da versão, abrir o cadastro exato no FUT.GG e consultar o menor preço atual da EA;
+- compatibilidade defensiva que evita duplicar esses elementos quando o Paletools está ativo.
+
+## Identidade visual EasySoccer
+
+- logo transparente próprio adicionado aos arquivos do projeto;
+- ícone embutido no userscript e exibido pelo Tampermonkey;
+- selo EasySoccer agrupando os controles `Grid Mode`, `Wide Mode` e `Card Info`;
+- marca no botão e no painel de `Repeatables locais`;
+- ações e notificações de proteção identificadas como recursos do EasySoccer;
+- logo horizontal no topo do `README.md`.
 
 ## Backend
 
@@ -54,9 +76,9 @@ Base: `titiroMonkey/Auto-SBC`, commit `9827990`, licença MIT.
 ## Testes executados
 
 - parser/sintaxe do userscript;
-- 5 testes do núcleo do runner;
+- 12 testes do userscript, incluindo URL localizada, identidade visual, proteção por item, trava pré-submit, preferências de layout e melhorias do clube;
 - 8 testes de API/hardening do backend;
-- smoke test real do OR-Tools com 11 jogadores sintéticos e IDs únicos;
+- 2 smoke tests reais do OR-Tools, incluindo o formato de requisitos do `10x 84+ Upgrade`;
 - inicialização HTTP real, `/health` e preflight CORS da origem EA;
 - parser dos scripts PowerShell.
 - instalação completa em uma cópia limpa do pacote, incluindo criação da `.venv` e importação das dependências.

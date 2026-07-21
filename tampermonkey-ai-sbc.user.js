@@ -1,10 +1,11 @@
 // ==UserScript==
-// @name         EAFC 26 Auto SBC - Repeatables Local
+// @name         EasySoccer - EAFC 26 Auto SBC
 // @namespace    http://tampermonkey.net/
-// @version      26.1.13.3
+// @version      26.1.13.7
 // @description  Local SBC solver with bounded repeatable-set submission for a user-selected test account
-// @author       TitiroMonkey
+// @author       EasySoccer (fork de TitiroMonkey)
 // @license      MIT
+// @icon         data:image/png;base64,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
 // @downloadURL  none
 // @updateURL    none
 // @match        https://www.easports.com/*/ea-sports-fc/ultimate-team/web-app/*
@@ -32,6 +33,16 @@
 
 (function () {
   "use strict";
+const EASY_SOCCER_LOGO_DATA_URL = "data:image/png;base64,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";
+const createEasySoccerLogoImage = (className = "", alt = "") => {
+  const image = document.createElement("img");
+  image.src = EASY_SOCCER_LOGO_DATA_URL;
+  image.className = className;
+  image.alt = alt;
+  image.decoding = "async";
+  image.draggable = false;
+  return image;
+};
 // (function() {
 //   const scriptUrls = [
 //     "https://code.jquery.com/jquery-3.6.0.min.js",
@@ -4141,14 +4152,22 @@ word-wrap:breakword;
     left: 0;
     width: 100%
 }
-    .player.locked::before {
-    font-family: 'UltimateTeam-Icons';
+    .player.easy-soccer-protected::before {
+    font-family: 'UltimateTeam-Icons', Arial, sans-serif;
     position: absolute;
     content: '\\E07F';
-    right: 8px;
-    bottom: 2px;
-    color: #00ff00;
-    z-index: 2;
+    right: 6px;
+    top: 6px;
+    bottom: auto;
+    padding: 4px 6px;
+    border: 2px solid #07f468;
+    border-radius: 999px;
+    background: #b51f2e;
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.55);
+    color: #fff;
+    font-size: 0.9rem;
+    line-height: 1;
+    z-index: 20;
 }
     .sbc-settings-container {
     overflow-y: scroll;
@@ -5059,46 +5078,742 @@ let fetchDuplicateIds = () => {
 
 let apiUrl = "http://127.0.0.1:8000";
 
-let LOCKED_ITEMS_KEY = "excludePlayers";
-let cachedLockedItems;
+const EASY_SOCCER_PROTECTED_ITEMS_STORAGE_PREFIX =
+  "easySoccer.protectedItemIds.v1";
+const EasySoccerProtectedItemsCore = (() => {
+  const normalizeItemId = (itemOrId) => {
+    const rawId =
+      itemOrId && typeof itemOrId === "object" ? itemOrId.id : itemOrId;
+    const itemId = Number(rawId);
+    return Number.isSafeInteger(itemId) && itemId > 0 ? itemId : null;
+  };
+
+  const normalizeIds = (values) =>
+    Array.from(
+      new Set(
+        (Array.isArray(values) ? values : [])
+          .map(normalizeItemId)
+          .filter((itemId) => itemId !== null)
+      )
+    );
+
+  const add = (values, itemOrId) => {
+    const itemIds = normalizeIds(values);
+    const itemId = normalizeItemId(itemOrId);
+    if (itemId !== null && !itemIds.includes(itemId)) {
+      itemIds.push(itemId);
+    }
+    return itemIds;
+  };
+
+  const remove = (values, itemOrId) => {
+    const itemId = normalizeItemId(itemOrId);
+    return normalizeIds(values).filter((candidate) => candidate !== itemId);
+  };
+
+  const includes = (values, itemOrId) => {
+    const itemId = normalizeItemId(itemOrId);
+    return itemId !== null && normalizeIds(values).includes(itemId);
+  };
+
+  const getItemFromSquadEntry = (entry) =>
+    entry?._item || entry?.item || entry?.data?._item || entry?.data || entry;
+
+  const findProtectedItems = (entries, values) => {
+    const protectedIds = new Set(normalizeIds(values));
+    const seenIds = new Set();
+    return (Array.isArray(entries) ? entries : [])
+      .map(getItemFromSquadEntry)
+      .filter((item) => {
+        const itemId = normalizeItemId(item);
+        if (
+          itemId === null ||
+          !protectedIds.has(itemId) ||
+          seenIds.has(itemId)
+        ) {
+          return false;
+        }
+        seenIds.add(itemId);
+        return true;
+      });
+  };
+
+  return Object.freeze({
+    normalizeItemId,
+    normalizeIds,
+    add,
+    remove,
+    includes,
+    getItemFromSquadEntry,
+    findProtectedItems,
+  });
+})();
+
+let cachedLockedItems = null;
+let cachedLockedItemsStorageKey = null;
+
+const getProtectedItemsStorageKey = () => {
+  let accountScope = "default";
+  try {
+    const persona = services.User.getUser().getSelectedPersona();
+    accountScope =
+      persona?.id ||
+      persona?.personaId ||
+      persona?.nucleusPersonaId ||
+      accountScope;
+  } catch (_) {}
+  return `${EASY_SOCCER_PROTECTED_ITEMS_STORAGE_PREFIX}:${accountScope}`;
+};
+
 let isItemLocked = function (item) {
-  let lockedItems = getLockedItems();
-  return lockedItems.includes(item.definitionId);
+  return EasySoccerProtectedItemsCore.includes(getLockedItems(), item);
 };
 let lockItem = function (item) {
-  let lockedItems = getLockedItems();
-  lockedItems.push(item.definitionId);
+  cachedLockedItems = EasySoccerProtectedItemsCore.add(getLockedItems(), item);
   saveLockedItems();
 };
 let unlockItem = function (item) {
-  let lockedItems = getLockedItems();
-
-  if (lockedItems.includes(item.definitionId)) {
-    const index = lockedItems.indexOf(item.definitionId);
-    if (index > -1) {
-      lockedItems.splice(index, 1);
-    }
-  }
+  cachedLockedItems = EasySoccerProtectedItemsCore.remove(
+    getLockedItems(),
+    item
+  );
   saveLockedItems();
 };
 let getLockedItems = function () {
-  return getSettings(0, 0, "excludePlayers");
+  const storageKey = getProtectedItemsStorageKey();
+  if (
+    cachedLockedItems !== null &&
+    cachedLockedItemsStorageKey === storageKey
+  ) {
+    return cachedLockedItems;
+  }
+
+  cachedLockedItemsStorageKey = storageKey;
+  try {
+    cachedLockedItems = EasySoccerProtectedItemsCore.normalizeIds(
+      JSON.parse(localStorage.getItem(storageKey) || "[]")
+    );
+  } catch (_) {
+    cachedLockedItems = [];
+  }
+  return cachedLockedItems;
 };
 let lockedItemsCleanup = function (clubPlayerIds) {
-  let lockedItems = getLockedItems();
-  for (let _i = 0, _a = Array.from(lockedItems); _i < _a.length; _i++) {
-    let lockedItem = _a[_i];
-    if (!clubPlayerIds[lockedItem]) {
-      const index = lockedItems.indexOf(lockedItem);
-      if (index > -1) {
-        lockedItems.splice(index, 1);
-      }
-    }
-  }
+  const availableIds = new Set(
+    (Array.isArray(clubPlayerIds)
+      ? clubPlayerIds
+      : Object.keys(clubPlayerIds || {})
+    )
+      .map(EasySoccerProtectedItemsCore.normalizeItemId)
+      .filter((itemId) => itemId !== null)
+  );
+  cachedLockedItems = getLockedItems().filter((itemId) =>
+    availableIds.has(itemId)
+  );
   saveLockedItems();
 };
-let saveLockedItems = function (set = 0, challenge = 0) {
-  saveSettings(set, challenge, LOCKED_ITEMS_KEY, getLockedItems());
+let saveLockedItems = function () {
+  const storageKey = getProtectedItemsStorageKey();
+  cachedLockedItemsStorageKey = storageKey;
+  cachedLockedItems = EasySoccerProtectedItemsCore.normalizeIds(
+    cachedLockedItems
+  );
+  localStorage.setItem(storageKey, JSON.stringify(cachedLockedItems));
+};
+
+const EASY_SOCCER_CLUB_PAGE_SIZE = 100;
+const EASY_SOCCER_POSITION_LABELS = Object.freeze({
+  0: "GK",
+  2: "RWB",
+  3: "RB",
+  5: "CB",
+  7: "LB",
+  8: "LWB",
+  10: "CDM",
+  12: "RM",
+  14: "CM",
+  16: "LM",
+  18: "CAM",
+  20: "RF",
+  21: "CF",
+  22: "LF",
+  23: "RW",
+  25: "ST",
+  27: "LW",
+});
+const EasySoccerClubUiCore = Object.freeze({
+  normalizePageSize(count, enabled = true) {
+    if (enabled && (count === undefined || count === null || count === "")) {
+      return EASY_SOCCER_CLUB_PAGE_SIZE;
+    }
+    const parsed = Number(count);
+    if (!Number.isFinite(parsed)) return count;
+    return enabled && parsed >= 0 && parsed <= 30
+      ? EASY_SOCCER_CLUB_PAGE_SIZE
+      : parsed;
+  },
+  installControllerPageSize(controllerClass, isEnabled = () => true) {
+    const prototype = controllerClass?.prototype;
+    const originalRequest = prototype?._requestItems;
+    if (typeof originalRequest !== "function") return false;
+    if (originalRequest.__easySoccerPageSizeWrapper) return true;
+
+    const wrappedRequest = function (...args) {
+      const enabled = Boolean(isEnabled());
+      const pageSize = enabled ? EASY_SOCCER_CLUB_PAGE_SIZE : 20;
+      const clubViewModel = this.clubViewModel || this._clubViewModel;
+      if (clubViewModel) clubViewModel.numItemsPerPage = pageSize;
+      return originalRequest.apply(this, args);
+    };
+    Object.defineProperty(wrappedRequest, "__easySoccerPageSizeWrapper", {
+      value: true,
+    });
+    prototype._requestItems = wrappedRequest;
+    return true;
+  },
+  getPositionLabel(position) {
+    if (typeof position === "string" && position.trim()) {
+      return position.trim().toUpperCase();
+    }
+    return EASY_SOCCER_POSITION_LABELS[Number(position)] || "";
+  },
+  getPlayerName(item) {
+    const fullName = [
+      item?._staticData?.firstName || item?.firstName,
+      item?._staticData?.lastName || item?.lastName,
+    ]
+      .filter(Boolean)
+      .join(" ")
+      .trim();
+    return (
+      item?._staticData?.name ||
+      item?._staticData?.commonName ||
+      item?.name ||
+      fullName ||
+      item?._staticData?.lastName ||
+      `Jogador ${item?.definitionId || item?.id || ""}`.trim()
+    );
+  },
+  getFutGgUrl(item) {
+    const definitionId = Number(item?.definitionId);
+    if (!Number.isFinite(definitionId) || definitionId <= 0) {
+      return "https://www.fut.gg/players/";
+    }
+    const assetId =
+      Number(item?.assetId || item?._staticData?.assetId) ||
+      definitionId % 0x1000000;
+    const slug = this.getPlayerName(item)
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "") || "player";
+    return `https://www.fut.gg/players/${assetId}-${slug}/26-${definitionId}/`;
+  },
+});
+
+const EASY_SOCCER_LAYOUT_STORAGE_KEY = "easySoccer.layout.v1";
+const EASY_SOCCER_LAYOUT_STYLE_ID = "easy-soccer-layout-styles";
+const EASY_SOCCER_LAYOUT_CONTROLS_ID = "easy-soccer-layout-controls";
+const EASY_SOCCER_LAYOUT_DEFAULTS = Object.freeze({
+  gridMode: true,
+  wideMode: true,
+  cardInfo: true,
+});
+
+const EASY_SOCCER_LAYOUT_STYLES = `
+  #${EASY_SOCCER_LAYOUT_CONTROLS_ID} {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+    margin-right: 12px;
+    font-family: UltimateTeam, Arial, sans-serif;
+  }
+
+  #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-brand {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-right: 10px;
+    border-right: 1px solid rgba(255, 255, 255, 0.24);
+    color: #07f468;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+
+  #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-brand-icon {
+    display: block;
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
+  }
+
+  #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-layout-toggle {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    min-width: auto;
+    min-height: auto;
+    margin: 0;
+    padding: 4px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 8px;
+    background: rgba(16, 18, 24, 0.72);
+    color: #fcfcf7;
+    cursor: pointer;
+    font: inherit;
+    font-size: 13px;
+    line-height: 1.2;
+    text-transform: none;
+  }
+
+  #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-layout-toggle:hover,
+  #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-layout-toggle:focus-visible {
+    border-color: #07f468;
+    outline: none;
+  }
+
+  #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-layout-switch {
+    position: relative;
+    width: 34px;
+    height: 18px;
+    border-radius: 999px;
+    background: #626875;
+    transition: background-color 140ms ease;
+  }
+
+  #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-layout-switch::after {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #fff;
+    content: "";
+    transition: transform 140ms ease;
+  }
+
+  #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-layout-toggle.is-active {
+    border-color: rgba(7, 244, 104, 0.75);
+  }
+
+  #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-layout-toggle.is-active
+    .easy-soccer-layout-switch {
+    background: #07f468;
+  }
+
+  #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-layout-toggle.is-active
+    .easy-soccer-layout-switch::after {
+    transform: translateX(16px);
+  }
+
+  body.easy-soccer-grid-mode .paginated-item-list > ul,
+  body.easy-soccer-grid-mode ul.searchResults,
+  body.easy-soccer-grid-mode ul.itemList {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    align-content: start;
+    gap: 1px;
+    height: auto !important;
+  }
+
+  body.easy-soccer-grid-mode .ui-layout-right .paginated-item-list > ul,
+  body.easy-soccer-grid-mode .ui-layout-right ul.searchResults,
+  body.easy-soccer-grid-mode .ui-layout-right ul.itemList {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+
+  body.easy-soccer-grid-mode .paginated-item-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  body.easy-soccer-grid-mode .pagingContainer {
+    margin-top: auto;
+  }
+
+  body.easy-soccer-grid-mode .listFUTItem {
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    flex-direction: column;
+  }
+
+  body.easy-soccer-grid-mode .ut-club-search-results-view .listFUTItem {
+    min-height: 116px;
+    border-right-width: 1px !important;
+  }
+
+  body.easy-soccer-grid-mode .listFUTItem.has-action .rowContent {
+    flex-basis: 100% !important;
+  }
+
+  body.easy-soccer-grid-mode .listFUTItem .entityContainer {
+    display: block !important;
+    float: none !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+  }
+
+  body.easy-soccer-grid-mode .listFUTItem .entityContainer .name {
+    width: 100% !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap;
+  }
+
+  body.easy-soccer-grid-mode .listFUTItem .player-stats-data-component > ul {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .easy-soccer-card-info {
+    position: absolute;
+    top: 20%;
+    right: 0;
+    z-index: 15;
+    display: none;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1px;
+    color: #fff;
+    font: 700 9px/12px UltimateTeamCondensed, Arial, sans-serif;
+    pointer-events: none;
+  }
+
+  body.easy-soccer-details-mode .easy-soccer-card-info {
+    display: flex;
+  }
+
+  .easy-soccer-card-info .easy-soccer-info-tab {
+    min-width: 22px;
+    padding: 0 3px;
+    border: 1px solid rgba(255, 255, 255, 0.92);
+    border-radius: 4px;
+    background: rgba(12, 35, 28, 0.86);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .DetailPanel .ut-button-group > button.easy-soccer-player-action {
+    box-shadow: inset 3px 0 0 #07f468;
+  }
+
+  .DetailPanel .ut-button-group > button.easy-soccer-player-action:hover,
+  .DetailPanel .ut-button-group > button.easy-soccer-player-action:focus-visible {
+    background: rgba(7, 244, 104, 0.08);
+  }
+
+  body.easy-soccer-grid-mode .ui-layout-right .listFUTItem .player-stats-data-component,
+  body.easy-soccer-grid-mode .ut-transfer-list-view .listFUTItem .player-stats-data-component {
+    display: none !important;
+  }
+
+  body.easy-soccer-grid-mode .ui-layout-right .listFUTItem .auction {
+    display: none !important;
+  }
+
+  body.easy-soccer-grid-mode.landscape .ut-store-hub-view--content
+    .ut-store-pack-details-view {
+    display: inline-block;
+    width: calc(25% - 1rem) !important;
+    margin-left: 0 !important;
+    margin-right: 10px !important;
+  }
+
+  body.easy-soccer-wide-mode .layout-hub.grid,
+  body.easy-soccer-wide-mode .ut-store-hub-view--content {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  body.easy-soccer-wide-mode .ut-content {
+    max-width: 100% !important;
+    max-height: 100% !important;
+  }
+
+  body.easy-soccer-wide-mode .ut-split-view {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  body.easy-soccer-wide-mode .ut-sbc-set-tile-view {
+    max-width: calc(25% - 1rem) !important;
+  }
+
+  @media (max-width: 1440px) {
+    body.easy-soccer-wide-mode .ut-sbc-set-tile-view,
+    body.easy-soccer-grid-mode.landscape .ut-store-hub-view--content
+      .ut-store-pack-details-view {
+      max-width: calc(33.333% - 1rem) !important;
+      width: calc(33.333% - 1rem) !important;
+    }
+  }
+
+  @media (max-width: 1180px) {
+    #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-brand-name,
+    #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-layout-label {
+      display: none;
+    }
+  }
+
+  @media (max-width: 900px) {
+    body.easy-soccer-wide-mode .ut-sbc-set-tile-view,
+    body.easy-soccer-grid-mode.landscape .ut-store-hub-view--content
+      .ut-store-pack-details-view {
+      max-width: calc(50% - 1rem) !important;
+      width: calc(50% - 1rem) !important;
+    }
+  }
+
+  @media (max-width: 680px) {
+    #${EASY_SOCCER_LAYOUT_CONTROLS_ID} {
+      gap: 4px;
+      margin-right: 4px;
+    }
+
+    #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-layout-toggle {
+      padding: 4px;
+    }
+
+    #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-brand {
+      padding-right: 4px;
+    }
+
+    body.easy-soccer-wide-mode .ut-sbc-set-tile-view,
+    body.easy-soccer-grid-mode.landscape .ut-store-hub-view--content
+      .ut-store-pack-details-view {
+      max-width: calc(100% - 1rem) !important;
+      width: calc(100% - 1rem) !important;
+    }
+  }
+`;
+
+const getEasySoccerLayoutPreferences = () => {
+  try {
+    const stored = JSON.parse(
+      localStorage.getItem(EASY_SOCCER_LAYOUT_STORAGE_KEY) || "{}"
+    );
+    return {
+      gridMode:
+        typeof stored.gridMode === "boolean"
+          ? stored.gridMode
+          : EASY_SOCCER_LAYOUT_DEFAULTS.gridMode,
+      wideMode:
+        typeof stored.wideMode === "boolean"
+          ? stored.wideMode
+          : EASY_SOCCER_LAYOUT_DEFAULTS.wideMode,
+      cardInfo:
+        typeof stored.cardInfo === "boolean"
+          ? stored.cardInfo
+          : EASY_SOCCER_LAYOUT_DEFAULTS.cardInfo,
+    };
+  } catch (_) {
+    return { ...EASY_SOCCER_LAYOUT_DEFAULTS };
+  }
+};
+
+const saveEasySoccerLayoutPreferences = (preferences) => {
+  localStorage.setItem(
+    EASY_SOCCER_LAYOUT_STORAGE_KEY,
+    JSON.stringify({
+      gridMode: Boolean(preferences.gridMode),
+      wideMode: Boolean(preferences.wideMode),
+      cardInfo: Boolean(preferences.cardInfo),
+    })
+  );
+};
+
+const syncEasySoccerLayoutControls = (preferences) => {
+  for (const [key, active] of Object.entries(preferences)) {
+    const button = document.querySelector(
+      `#${EASY_SOCCER_LAYOUT_CONTROLS_ID} [data-layout-key="${key}"]`
+    );
+    if (!button) continue;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", String(active));
+  }
+};
+
+const applyEasySoccerLayoutPreferences = (preferences) => {
+  document.body.classList.toggle(
+    "easy-soccer-grid-mode",
+    Boolean(preferences.gridMode)
+  );
+  document.body.classList.toggle(
+    "easy-soccer-wide-mode",
+    Boolean(preferences.wideMode)
+  );
+  document.body.classList.toggle(
+    "easy-soccer-details-mode",
+    Boolean(preferences.cardInfo)
+  );
+  syncEasySoccerLayoutControls(preferences);
+};
+
+const ensureEasySoccerLayoutStyles = () => {
+  if (document.getElementById(EASY_SOCCER_LAYOUT_STYLE_ID)) return;
+  const styleElement = document.createElement("style");
+  styleElement.id = EASY_SOCCER_LAYOUT_STYLE_ID;
+  styleElement.textContent = EASY_SOCCER_LAYOUT_STYLES;
+  document.head.appendChild(styleElement);
+};
+
+const createEasySoccerLayoutToggle = (label, key) => {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "easy-soccer-layout-toggle";
+  button.dataset.layoutKey = key;
+  button.title = label;
+
+  const labelElement = document.createElement("span");
+  labelElement.className = "easy-soccer-layout-label";
+  labelElement.textContent = label;
+  const switchElement = document.createElement("span");
+  switchElement.className = "easy-soccer-layout-switch";
+  switchElement.setAttribute("aria-hidden", "true");
+  button.append(labelElement, switchElement);
+
+  button.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const preferences = getEasySoccerLayoutPreferences();
+    preferences[key] = !preferences[key];
+    saveEasySoccerLayoutPreferences(preferences);
+    applyEasySoccerLayoutPreferences(preferences);
+  });
+  return button;
+};
+
+const createEasySoccerLayoutBrand = () => {
+  const brand = document.createElement("span");
+  brand.className = "easy-soccer-brand";
+  brand.title = "Controles adicionados pelo EasySoccer";
+  brand.appendChild(
+    createEasySoccerLogoImage("easy-soccer-brand-icon", "EasySoccer")
+  );
+  const name = document.createElement("span");
+  name.className = "easy-soccer-brand-name";
+  name.textContent = "EasySoccer";
+  brand.appendChild(name);
+  return brand;
+};
+
+const ensureEasySoccerLayoutControls = () => {
+  const navigationBar = document.querySelector(".ut-navigation-bar-view");
+  if (!navigationBar) return;
+
+  let controls = document.getElementById(EASY_SOCCER_LAYOUT_CONTROLS_ID);
+  if (!controls) {
+    controls = document.createElement("div");
+    controls.id = EASY_SOCCER_LAYOUT_CONTROLS_ID;
+    controls.setAttribute("aria-label", "Opções de layout do EasySoccer");
+    controls.append(
+      createEasySoccerLayoutBrand(),
+      createEasySoccerLayoutToggle("Grid Mode", "gridMode"),
+      createEasySoccerLayoutToggle("Wide Mode", "wideMode"),
+      createEasySoccerLayoutToggle("Card Info", "cardInfo")
+    );
+
+    const currencyPanel = navigationBar.querySelector(".view-navbar-currency");
+    navigationBar.insertBefore(controls, currencyPanel || null);
+  }
+  syncEasySoccerLayoutControls(getEasySoccerLayoutPreferences());
+};
+
+let easySoccerLayoutObserver = null;
+let easySoccerLayoutAnimationFrame = null;
+const initEasySoccerLayout = () => {
+  ensureEasySoccerLayoutStyles();
+  applyEasySoccerLayoutPreferences(getEasySoccerLayoutPreferences());
+  ensureEasySoccerLayoutControls();
+
+  if (easySoccerLayoutObserver) return;
+  easySoccerLayoutObserver = new MutationObserver(() => {
+    if (document.getElementById(EASY_SOCCER_LAYOUT_CONTROLS_ID)) return;
+    if (easySoccerLayoutAnimationFrame !== null) return;
+    easySoccerLayoutAnimationFrame = requestAnimationFrame(() => {
+      easySoccerLayoutAnimationFrame = null;
+      ensureEasySoccerLayoutControls();
+    });
+  });
+  easySoccerLayoutObserver.observe(document.body, {
+    childList: true,
+    subtree: true,
+  });
+};
+
+const getChallengeSquadEntries = (challenge) => {
+  const squad = challenge?.squad || challenge?._squad;
+  if (!squad) return [];
+
+  if (typeof squad.getFieldPlayers === "function") {
+    try {
+      const fieldPlayers = squad.getFieldPlayers();
+      if (Array.isArray(fieldPlayers)) return fieldPlayers;
+    } catch (_) {}
+  }
+
+  return Array.isArray(squad._players) ? squad._players : [];
+};
+
+const getProtectedChallengeItems = (challenge) =>
+  EasySoccerProtectedItemsCore.findProtectedItems(
+    getChallengeSquadEntries(challenge),
+    getLockedItems()
+  );
+
+const getProtectedItemDisplayName = (item) =>
+  item?._staticData?.name || item?.name || `ID ${item?.id || "?"}`;
+
+const ensureChallengeHasNoProtectedItems = (challenge) => {
+  const protectedItems = getProtectedChallengeItems(challenge);
+  if (!protectedItems.length) return;
+
+  const names = protectedItems.map(getProtectedItemDisplayName);
+  const preview = names.slice(0, 3).join(", ");
+  const extra = names.length > 3 ? ` e mais ${names.length - 3}` : "";
+  const error = new Error(
+    `Envio bloqueado: ${preview}${extra} — proteção contra SBC ativa.`
+  );
+  error.code = "EASY_SOCCER_PROTECTED_ITEM";
+  error.protectedItemIds = protectedItems.map((item) => item.id);
+
+  if (typeof showNotification === "function") {
+    showNotification(error.message, UINotificationType.NEGATIVE);
+  }
+  throw error;
+};
+
+const protectedSbcSubmissionOverride = () => {
+  if (
+    typeof UTSBCService === "undefined" ||
+    typeof UTSBCService.prototype?.submitChallenge !== "function"
+  ) {
+    return;
+  }
+
+  const originalSubmitChallenge = UTSBCService.prototype.submitChallenge;
+  if (originalSubmitChallenge.__easySoccerProtectedItemsGuard) return;
+
+  const guardedSubmitChallenge = function (...args) {
+    ensureChallengeHasNoProtectedItems(args[0]);
+    return originalSubmitChallenge.apply(this, args);
+  };
+  Object.defineProperty(
+    guardedSubmitChallenge,
+    "__easySoccerProtectedItemsGuard",
+    { value: true }
+  );
+  UTSBCService.prototype.submitChallenge = guardedSubmitChallenge;
 };
 
 let FIXED_ITEMS_KEY = "fixeditems";
@@ -6151,6 +6866,7 @@ let solveSBC = async (
             item.rating <= ratingRange[1] &&
             item.rating >= ratingRange[0] &&
             !excludePlayers.includes(item.definitionId) &&
+            !isItemLocked(item) &&
             !excludeLeagues.includes(item.leagueId) &&
             !excludeNations.includes(item.nationId) &&
             !excludeRarity.includes(
@@ -6743,6 +7459,7 @@ const unassignedItemsOverride = () => {
   //   };
 };
 let sbcSubmit = async function (challenge, sbcSet, i) {
+  ensureChallengeHasNoProtectedItems(challenge);
   services.Chemistry.resetCustomProfiles();
   services.Chemistry.requestChemistryProfiles().observe(this, function (e, t) {
     services.SBC.getCachedSBCSquads().map(function (e) {
@@ -7248,10 +7965,268 @@ const tryQuickBuy = async (context = {}, item, options = {}) => {
   }
 };
 
-const lockedLabel = "SBC Unlock";
-const unlockedLabel = "SBC Lock";
+let easySoccerClubSearchPageSizeInstalled = false;
+let easySoccerClubControllerPageSizeInstalled = false;
+let easySoccerClubPageSizeInstallAttempts = 0;
+const installEasySoccerClubSearchPageSize = () => {
+  if (!easySoccerClubSearchPageSizeInstalled && services?.Club?.search) {
+    const originalSearch = services.Club.search;
+    services.Club.search = function (searchCriteria, ...args) {
+      if (searchCriteria) {
+        const preferences = getEasySoccerLayoutPreferences();
+        searchCriteria.count = EasySoccerClubUiCore.normalizePageSize(
+          searchCriteria.count,
+          preferences.gridMode
+        );
+      }
+      return originalSearch.call(this, searchCriteria, ...args);
+    };
+    easySoccerClubSearchPageSizeInstalled = true;
+  }
+
+  const clubControllerClass =
+    typeof UTClubSearchResultsViewController === "function"
+      ? UTClubSearchResultsViewController
+      : null;
+  if (!easySoccerClubControllerPageSizeInstalled && clubControllerClass) {
+    easySoccerClubControllerPageSizeInstalled =
+      EasySoccerClubUiCore.installControllerPageSize(
+        clubControllerClass,
+        () => getEasySoccerLayoutPreferences().gridMode
+      );
+  }
+
+  if (
+    !easySoccerClubControllerPageSizeInstalled &&
+    easySoccerClubPageSizeInstallAttempts < 10
+  ) {
+    easySoccerClubPageSizeInstallAttempts += 1;
+    setTimeout(installEasySoccerClubSearchPageSize, 1000);
+  }
+};
+
+const getEasySoccerItemMetric = (item, methodName, propertyNames = []) => {
+  try {
+    if (typeof item?.[methodName] === "function") {
+      const value = Number(item[methodName]());
+      if (Number.isFinite(value) && value > 0) return value;
+    }
+  } catch (_) {}
+  for (const propertyName of propertyNames) {
+    const value = Number(
+      item?.[propertyName] ?? item?._staticData?.[propertyName]
+    );
+    if (Number.isFinite(value) && value > 0) return value;
+  }
+  return null;
+};
+
+const enhanceEasySoccerPlayerCard = (view, item) => {
+  const root = view?.__root || view?.getRootElement?.();
+  if (!root || !item?.isPlayer?.()) return;
+  root.dataset.easySoccerItemId = String(item.id || "");
+  root.dataset.easySoccerDefinitionId = String(item.definitionId || "");
+  root.querySelector(".easy-soccer-card-info")?.remove();
+
+  if (
+    document.body.classList.contains("paletools-gridmode") ||
+    root.querySelector(".right-column-info")
+  ) {
+    return;
+  }
+
+  const mainView = root.querySelector(".ut-item-view--main");
+  if (!mainView) return;
+  const info = document.createElement("div");
+  info.className = "easy-soccer-card-info";
+  info.setAttribute("aria-hidden", "true");
+  const addTab = (text, title) => {
+    if (!text) return;
+    const tab = document.createElement("span");
+    tab.className = "easy-soccer-info-tab";
+    tab.textContent = text;
+    tab.title = title;
+    info.appendChild(tab);
+  };
+
+  const currentPosition = EasySoccerClubUiCore.getPositionLabel(item.position);
+  const rawPositions = Array.isArray(item.possiblePositions)
+    ? item.possiblePositions
+    : [];
+  const alternativePositions = [
+    ...new Set(
+      rawPositions
+        .map(EasySoccerClubUiCore.getPositionLabel)
+        .filter((position) => position && position !== currentPosition)
+    ),
+  ].slice(0, 3);
+  alternativePositions.forEach((position) =>
+    addTab(position, "Posição alternativa")
+  );
+
+  const skillMoves = getEasySoccerItemMetric(item, "getSkillMoves", [
+    "skillMoves",
+    "skillMovesRating",
+  ]);
+  const weakFoot = getEasySoccerItemMetric(item, "getWeakFoot", [
+    "weakFoot",
+    "weakFootRating",
+  ]);
+  if (skillMoves || weakFoot) {
+    addTab(
+      [skillMoves ? `SM ${skillMoves}` : "", weakFoot ? `WF ${weakFoot}` : ""]
+        .filter(Boolean)
+        .join(" · "),
+      "Skill Moves e perna ruim"
+    );
+  }
+
+  if (info.childElementCount) mainView.appendChild(info);
+};
+
+const copyEasySoccerText = async (value) => {
+  const text = String(value ?? "");
+  if (!text) throw new Error("Nada para copiar");
+  if (navigator.clipboard?.writeText) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return;
+    } catch (_error) {
+      // Chrome may deny the modern clipboard API in the Web App context.
+      // Continue with the legacy fallback below.
+    }
+  }
+  const input = document.createElement("textarea");
+  input.value = text;
+  input.style.position = "fixed";
+  input.style.opacity = "0";
+  document.body.appendChild(input);
+  input.select();
+  const copied = document.execCommand("copy");
+  input.remove();
+  if (!copied) throw new Error("Não foi possível copiar");
+};
+
+const createEasySoccerPlayerAction = (
+  group,
+  action,
+  label,
+  subtext,
+  handler
+) => {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "easy-soccer-player-action";
+  button.dataset.easySoccerPlayerAction = action;
+  const labelElement = document.createElement("span");
+  labelElement.className = "btn-text";
+  labelElement.textContent = label;
+  const subtextElement = document.createElement("span");
+  subtextElement.className = "btn-subtext";
+  subtextElement.textContent = subtext || "";
+  button.append(labelElement, subtextElement);
+  button.addEventListener("click", handler);
+  group.appendChild(button);
+  return button;
+};
+
+const enhanceEasySoccerPlayerActionPanel = (panel, item) => {
+  if (!item?.isPlayer?.()) return;
+  const root = panel?.__root || panel?.getRootElement?.();
+  const group = root?.querySelector?.(".ut-button-group");
+  if (!group) return;
+  group
+    .querySelectorAll("[data-easy-soccer-player-action]")
+    .forEach((button) => button.remove());
+
+  if (
+    group.querySelector(
+      ".paletools-element, .copy-player-name, .find-lowest-price"
+    )
+  ) {
+    return;
+  }
+
+  const definitionId = item.definitionId || item.id;
+  const playerName = EasySoccerClubUiCore.getPlayerName(item);
+  createEasySoccerPlayerAction(
+    group,
+    "copy-id",
+    "EasySoccer · Copiar ID da versão",
+    definitionId ? String(definitionId) : "",
+    async () => {
+      try {
+        await copyEasySoccerText(definitionId);
+        showNotification(
+          "EasySoccer: ID copiado",
+          UINotificationType.POSITIVE
+        );
+      } catch (error) {
+        showNotification(error.message, UINotificationType.NEGATIVE);
+      }
+    }
+  );
+  createEasySoccerPlayerAction(
+    group,
+    "copy-name",
+    "EasySoccer · Copiar nome",
+    "",
+    async () => {
+      try {
+        await copyEasySoccerText(playerName);
+        showNotification(
+          "EasySoccer: nome copiado",
+          UINotificationType.POSITIVE
+        );
+      } catch (error) {
+        showNotification(error.message, UINotificationType.NEGATIVE);
+      }
+    }
+  );
+  createEasySoccerPlayerAction(
+    group,
+    "futgg",
+    "EasySoccer · Abrir no FUT.GG",
+    "dados e preços",
+    () => {
+      const popup = window.open(
+        EasySoccerClubUiCore.getFutGgUrl(item),
+        "_blank",
+        "noopener,noreferrer"
+      );
+      if (popup) popup.opener = null;
+    }
+  );
+};
+
+const setEasySoccerButtonSubtext = (control, value, currency = false) => {
+  const root = control?.__root || control?.getRootElement?.();
+  const subtext = root?.querySelector?.(".btn-subtext");
+  if (!subtext) return;
+  subtext.textContent = value || "";
+  subtext.classList.toggle("currency-coins", Boolean(currency && value));
+};
+
+const lockedLabel = "EasySoccer · Desproteger do SBC";
+const unlockedLabel = "EasySoccer · Proteger do SBC";
 const fixedLabel = "SBC Use actual prices";
 const unfixedLabel = "SBC Set Price to Zero";
+
+const resetPanelActionButton = (panel, propertyName) => {
+  const control = panel?.[propertyName];
+  if (!control) return;
+  let rootElement = null;
+  try {
+    rootElement = control.getRootElement();
+  } catch (_) {}
+  try {
+    control.dealloc();
+  } catch (_) {}
+  try {
+    rootElement?.remove();
+  } catch (_) {}
+  panel[propertyName] = null;
+};
 
 const playerItemOverride = () => {
   UTItemEntity.prototype.init = UTItemEntity.prototype.update;
@@ -7277,6 +8252,8 @@ const playerItemOverride = () => {
       );
     };
     const result = UTDefaultSetItem.call(this, e, t);
+    resetPanelActionButton(this, "lockUnlockButton");
+    resetPanelActionButton(this, "fixUnfixButton");
 
     // Offer a quick buy helper before exposing the manual refresh button.
     if (!this.quickBuyButton && e.isPlayer() && e.concept) {
@@ -7294,7 +8271,7 @@ const playerItemOverride = () => {
       const refreshButton = new UTGroupButtonControl();
       refreshButton.init();
       refreshButton.setInteractionState(true);
-      refreshButton.setText("Refresh Price");
+      refreshButton.setText("EasySoccer · Menor preço no mercado");
       insertAfter(
         refreshButton,
         this.quickBuyButton ? this.quickBuyButton.__root : this._btnBio.__root
@@ -7302,6 +8279,7 @@ const playerItemOverride = () => {
       refreshButton.addTarget(
         this,
         async () => {
+          setEasySoccerButtonSubtext(refreshButton, "Buscando...");
           // Remove existing price data for this player before refreshing
           let PriceItems = getPriceItems();
           if (e.definitionId in PriceItems) {
@@ -7319,8 +8297,13 @@ const playerItemOverride = () => {
             : Number.isFinite(priceValue)
             ? priceValue.toLocaleString()
             : "N/A";
+          setEasySoccerButtonSubtext(
+            refreshButton,
+            priceLabel,
+            Number.isFinite(priceValue)
+          );
           showNotification(
-            `Price refreshed: ${priceLabel}`,
+            `EasySoccer: menor preço ${priceLabel}`,
             UINotificationType.POSITIVE
           );
           getControllerInstance().applyDataChange();
@@ -7334,10 +8317,11 @@ const playerItemOverride = () => {
     }
 
     if (e.loans > -1 || !e.isPlayer() || !e.id || e.isTimeLimited()) {
+      enhanceEasySoccerPlayerActionPanel(this, e);
       return result;
     }
     // console.log(e)
-    if (!e?.duplicateId > 0 && !isItemFixed(e) && !this.lockUnlockButton) {
+    if (!isItemFixed(e) && !this.lockUnlockButton) {
       const label = isItemLocked(e) ? lockedLabel : unlockedLabel;
       const button = new UTGroupButtonControl();
       button.init();
@@ -7352,12 +8336,18 @@ const playerItemOverride = () => {
           if (isItemLocked(e)) {
             unlockItem(e);
             button.setText(unlockedLabel);
-            showNotification(`Item unlocked`, UINotificationType.POSITIVE);
+            showNotification(
+              `EasySoccer: carta desprotegida do SBC`,
+              UINotificationType.POSITIVE
+            );
           } else {
             lockItem(e);
 
             button.setText(lockedLabel);
-            showNotification(`Item locked`, UINotificationType.POSITIVE);
+            showNotification(
+              `EasySoccer: carta protegida e bloqueada para envio em SBC`,
+              UINotificationType.POSITIVE
+            );
           }
           getControllerInstance().applyDataChange();
           getCurrentViewController()
@@ -7397,6 +8387,7 @@ const playerItemOverride = () => {
       this.fixUnfixButton = fixbutton;
     }
 
+    enhanceEasySoccerPlayerActionPanel(this, e);
     return result;
   };
 
@@ -7411,6 +8402,8 @@ const playerItemOverride = () => {
       );
     };
     const result = UTDefaultAction.call(this, e, t, i, o, n, r, s);
+    resetPanelActionButton(this, "lockUnlockButton");
+    resetPanelActionButton(this, "fixUnfixButton");
     if (!this.quickBuyButton && e.isPlayer() && e.concept) {
       const quickButton = new UTGroupButtonControl();
       quickButton.init();
@@ -7425,7 +8418,7 @@ const playerItemOverride = () => {
       const refreshButton = new UTGroupButtonControl();
       refreshButton.init();
       refreshButton.setInteractionState(true);
-      refreshButton.setText("Refresh Price");
+      refreshButton.setText("EasySoccer · Menor preço no mercado");
       insertAfter(
         refreshButton,
         this.quickBuyButton
@@ -7435,6 +8428,7 @@ const playerItemOverride = () => {
       refreshButton.addTarget(
         this,
         async () => {
+          setEasySoccerButtonSubtext(refreshButton, "Buscando...");
           const listing = await fetchLivePlayerPrice(e);
           const priceItems = getPriceItems();
           const priceRecord = priceItems[e.definitionId];
@@ -7446,8 +8440,13 @@ const playerItemOverride = () => {
             : Number.isFinite(priceValue)
             ? priceValue.toLocaleString()
             : "N/A";
+          setEasySoccerButtonSubtext(
+            refreshButton,
+            priceLabel,
+            Number.isFinite(priceValue)
+          );
           showNotification(
-            `Price refreshed: ${priceLabel}`,
+            `EasySoccer: menor preço ${priceLabel}`,
             UINotificationType.POSITIVE
           );
           try {
@@ -7471,7 +8470,7 @@ const playerItemOverride = () => {
       const refreshButton = new UTGroupButtonControl();
       refreshButton.init();
       refreshButton.setInteractionState(true);
-      refreshButton.setText("Refresh Price");
+      refreshButton.setText("EasySoccer · Menor preço no mercado");
       insertAfter(
         refreshButton,
         this.quickBuyButton
@@ -7481,8 +8480,21 @@ const playerItemOverride = () => {
       refreshButton.addTarget(
         this,
         async () => {
+          setEasySoccerButtonSubtext(refreshButton, "Buscando...");
           await fetchPlayerPrices([e]);
-          showNotification(`Price refreshed`, UINotificationType.POSITIVE);
+          const price = Number(getPrice(e));
+          const priceLabel = Number.isFinite(price) && price > 0
+            ? price.toLocaleString()
+            : "N/A";
+          setEasySoccerButtonSubtext(
+            refreshButton,
+            priceLabel,
+            Number.isFinite(price) && price > 0
+          );
+          showNotification(
+            `EasySoccer: menor preço ${priceLabel}`,
+            UINotificationType.POSITIVE
+          );
           try {
             getCurrentViewController()
               .getCurrentController()
@@ -7502,10 +8514,11 @@ const playerItemOverride = () => {
     }
 
     if (e.loans > -1 || !e.isPlayer() || !e.id || e.isTimeLimited()) {
+      enhanceEasySoccerPlayerActionPanel(this, e);
       return result;
     }
 
-    if (!e?.duplicateId > 0 && !isItemFixed(e)) {
+    if (!isItemFixed(e)) {
       const label = isItemLocked(e) ? lockedLabel : unlockedLabel;
       if (!this.lockUnlockButton) {
         const button = new UTGroupButtonControl();
@@ -7519,11 +8532,17 @@ const playerItemOverride = () => {
             if (isItemLocked(e)) {
               unlockItem(e);
               button.setText(unlockedLabel);
-              showNotification(`Item unlocked`, UINotificationType.POSITIVE);
+              showNotification(
+                `Carta desprotegida do SBC`,
+                UINotificationType.POSITIVE
+              );
             } else {
               lockItem(e);
               button.setText(lockedLabel);
-              showNotification(`Item locked`, UINotificationType.POSITIVE);
+              showNotification(
+                `Carta protegida: ela não poderá ser enviada em SBC`,
+                UINotificationType.POSITIVE
+              );
             }
             try {
               getCurrentViewController()
@@ -7582,6 +8601,7 @@ const playerItemOverride = () => {
       }
     }
 
+    enhanceEasySoccerPlayerActionPanel(this, e);
     return result;
   };
 
@@ -7603,15 +8623,16 @@ const playerItemOverride = () => {
     }
 
     if (isItemLocked(item)) {
-      addClass(this, "locked");
+      addClass(this, "easy-soccer-protected");
     } else {
-      removeClass(this, "locked");
+      removeClass(this, "easy-soccer-protected");
     }
     if (isItemFixed(item)) {
       addClass(this, "fixed");
     } else {
       removeClass(this, "fixed");
     }
+    enhanceEasySoccerPlayerCard(this, item);
     return result;
   };
 };
@@ -9355,9 +10376,30 @@ const openRepeatableBatchDialog = async () => {
     boxShadow: "0 18px 60px rgba(0,0,0,.55)",
   });
 
+  const titleRow = document.createElement("div");
+  Object.assign(titleRow.style, {
+    display: "flex",
+    alignItems: "center",
+    gap: "10px",
+    margin: "0 0 8px",
+  });
+  const titleLogo = createEasySoccerLogoImage("", "EasySoccer");
+  Object.assign(titleLogo.style, {
+    width: "44px",
+    height: "44px",
+    objectFit: "contain",
+  });
   const title = document.createElement("h2");
   title.textContent = "Repeatables locais";
-  title.style.margin = "0 0 8px";
+  title.style.margin = "0";
+  const titleText = document.createElement("div");
+  const brandName = document.createElement("strong");
+  brandName.textContent = "EasySoccer";
+  brandName.style.color = "#07f468";
+  brandName.style.display = "block";
+  brandName.style.fontSize = "0.82rem";
+  titleText.append(brandName, title);
+  titleRow.append(titleLogo, titleText);
   const warning = document.createElement("p");
   warning.textContent =
     "Cada conclusão envia o SBC e consome os jogadores. O lote para no primeiro erro ou resposta incerta.";
@@ -9431,7 +10473,7 @@ const openRepeatableBatchDialog = async () => {
   stopButton.disabled = true;
   actions.append(startButton, stopButton, closeButton);
   panel.append(
-    title,
+    titleRow,
     warning,
     setLabel,
     setSelect,
@@ -9809,6 +10851,7 @@ let createSBCTab = async () => {
   const repeatablesBtn = createNavButton(
     "btnLocalRepeatables",
     /* html */ `<div style="text-align:center;line-height:1.2">
+      <img src="${EASY_SOCCER_LOGO_DATA_URL}" alt="EasySoccer" style="display:block;width:34px;height:34px;object-fit:contain;margin:0 auto 4px" draggable="false">
       <span>Repeatables locais</span>
       <span style="display:block;font-size:0.75em;color:#07f468">quantidade exata</span>
     </div>`,
@@ -11679,8 +12722,11 @@ const init = () => {
     sideBarNavOverride();
     favTagOverride();
     sbcSubmitChallengeOverride();
+    protectedSbcSubmissionOverride();
     initDefaultSettings();
     futHomeOverride();
+    installEasySoccerClubSearchPageSize();
+    initEasySoccerLayout();
   } else {
     setTimeout(init, 4000);
     console.log(

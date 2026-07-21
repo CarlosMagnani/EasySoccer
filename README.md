@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/branding/easysoccer-wordmark.png" alt="EasySoccer" width="680">
+</p>
+
 # EasySoccer — Auto-SBC local para EA FC 26
 
 O EasySoccer adiciona ao EA FC Ultimate Team Web App uma fila supervisionada para resolver e enviar SBCs repetíveis. A interface roda no Tampermonkey e o cálculo dos jogadores é feito por um servidor local no seu próprio computador.
@@ -10,6 +14,12 @@ O EasySoccer adiciona ao EA FC Ultimate Team Web App uma fila supervisionada par
 - permite escolher um SBC repetível e uma quantidade limitada de conclusões;
 - lê os requisitos do desafio e os jogadores disponíveis no clube;
 - usa OR-Tools para calcular uma combinação válida localmente;
+- permite proteger uma carta específica para ela nunca ser usada ou enviada em SBC;
+- oferece **Grid Mode**, **Wide Mode** e **Card Info** persistentes para aproveitar melhor a tela;
+- carrega até 100 jogadores por página no clube e deixa a grade mais compacta;
+- mostra posições alternativas, Skill Moves e Weak Foot diretamente nas cartas;
+- adiciona ações para copiar nome/ID, consultar o FUT.GG e buscar o menor preço no mercado;
+- identifica com a marca EasySoccer os controles e telas adicionados pelo projeto;
 - monta e envia uma conclusão por vez, somente após confirmação;
 - para automaticamente no primeiro erro, resposta incerta ou possível softban;
 - oferece um botão para interromper a fila antes do próximo envio.
@@ -25,7 +35,7 @@ Esta versão reconhece tanto a URL normal quanto endereços localizados do Web A
 5. O userscript monta o desafio e solicita o envio à EA.
 6. Depois de uma conclusão confirmada, o inventário é lido novamente antes da próxima.
 
-O backend aceita conexões apenas do próprio computador. Ele não grava inventário, soluções ou logs em disco por padrão. Consultas de preço ao Fut.gg e o relay HTTP arbitrário estão desativados nesta adaptação.
+O backend aceita conexões apenas do próprio computador. Ele não grava inventário, soluções ou logs em disco por padrão. Consultas de preço ao Fut.gg e o relay HTTP arbitrário estão desativados nesta adaptação. O userscript guarda localmente apenas preferências de layout e os IDs das cartas protegidas, separados por conta do Web App.
 
 ## Requisitos
 
@@ -58,16 +68,42 @@ Feche o servidor com `Ctrl+C` e abra `2_REINSTALAR.cmd`. Esse atalho apaga exclu
 
 ## Instalação no Tampermonkey
 
-1. Abra `chrome://extensions` e desative a extensão **FutGenie** enquanto usar este projeto.
+1. Abra `chrome://extensions` e desative **FutGenie** e **Paletools** enquanto usar este projeto.
 2. No painel do Tampermonkey, desative ou exclua versões antigas do Auto-SBC.
 3. Entre em **Utilitários → Importar de arquivo**.
 4. Selecione `tampermonkey-ai-sbc.user.js` desta pasta.
-5. Confirme a instalação e verifique se a versão exibida é **26.1.13.3**.
+5. Confirme a instalação e verifique se a versão exibida é **26.1.13.7** e se o ícone verde do EasySoccer aparece ao lado do script.
 6. Nos detalhes da extensão Tampermonkey, habilite **Permitir scripts de usuário**.
 7. Deixe somente esta versão do Auto-SBC habilitada.
 8. Volte ao Web App da EA e pressione `Ctrl+F5`.
 
-Duas extensões ou versões do Auto-SBC ativas ao mesmo tempo podem duplicar botões e ações de envio. Não use FutGenie e EasySoccer simultaneamente.
+Duas extensões ou versões que modificam o Web App ao mesmo tempo podem duplicar botões, alterar o mesmo layout e disputar ações de envio. Não use FutGenie, Paletools ou outro Auto-SBC simultaneamente com o EasySoccer.
+
+## Grid Mode, Wide Mode, Card Info e proteção de cartas
+
+Os controles **Grid Mode**, **Wide Mode** e **Card Info** aparecem no cabeçalho, antes do saldo de moedas, agrupados pelo logo do EasySoccer. Os três começam ligados e a escolha fica salva no navegador:
+
+- **Grid Mode:** organiza listas de jogadores, resultados e pacotes em uma grade mais compacta e carrega até 100 jogadores por página do clube;
+- **Wide Mode:** remove limites desnecessários de largura e mostra mais cards de SBC por linha.
+- **Card Info:** mostra posições alternativas, Skill Moves e Weak Foot sobre as cartas.
+
+Ao selecionar um jogador no clube, o painel direito recebe ações identificadas pelo EasySoccer:
+
+- **Copiar ID da versão** e **Copiar nome**;
+- **Abrir no FUT.GG**, já no cadastro exato daquela versão;
+- **Menor preço no mercado**, que consulta as listagens atuais da EA;
+- **Proteger do SBC**, explicado logo abaixo.
+
+Para impedir que uma carta específica seja usada em qualquer SBC:
+
+1. Abra o clube, uma busca de jogadores ou a tela onde a carta aparece.
+2. Selecione a carta e abra as ações dela.
+3. Clique em **EasySoccer · Proteger do SBC**.
+4. Confirme que o cadeado vermelho com borda verde aparece sobre a carta.
+
+A proteção usa o ID do item exato. Outra cópia da mesma versão do jogador continua disponível. Para liberar a carta, selecione-a novamente e clique em **EasySoccer · Desproteger do SBC**.
+
+O EasySoccer aplica duas travas: o solver remove cartas protegidas antes do cálculo e o envio é bloqueado novamente se uma carta protegida estiver no elenco por qualquer motivo.
 
 ## Como iniciar e usar
 
@@ -123,6 +159,7 @@ A resposta esperada contém `status: ok` e `service: auto-sbc-local`.
 - O botão **Parar** impede o próximo envio, mas não desfaz uma requisição que já tenha chegado à EA.
 - A quantidade escolhida é um limite máximo, não uma garantia. A fila pode parar antes por falta de jogadores, erro ou indisponibilidade do SBC.
 - Cartas negociáveis e especiais começam protegidas. Revise as preferências antes de liberar itens valiosos.
+- A proteção manual da carta é uma camada adicional, mas ainda é sua responsabilidade conferir o elenco antes de confirmar.
 - Não use outra aba, extensão ou userscript que também manipule SBCs ao mesmo tempo.
 - Mantenha a execução supervisionada e pare ao primeiro resultado inesperado.
 
@@ -147,6 +184,10 @@ Feche outra janela antiga do servidor com `Ctrl+C` e tente iniciar novamente. O 
 ### A fila parou antes da quantidade
 
 Esse é o comportamento de segurança esperado. Leia o erro mostrado, corrija a causa e valide novamente com quantidade `1` antes de aumentar.
+
+### Grid Mode, Wide Mode ou Card Info não aparece
+
+Confirme que instalou a versão `26.1.13.7`, desative o Paletools e outras versões concorrentes e recarregue o Web App com `Ctrl+F5`. Se o clube já estava aberto durante a atualização, saia dele e entre novamente para disparar uma nova busca.
 
 ## Testes
 
@@ -182,4 +223,4 @@ CHANGES_LOCAL.md                 alterações desta adaptação
 
 Esta é uma adaptação independente do projeto MIT [titiroMonkey/Auto-SBC](https://github.com/titiroMonkey/Auto-SBC), baseada no commit [`9827990`](https://github.com/titiroMonkey/Auto-SBC/commit/9827990). Consulte `LICENSE` e `THIRD_PARTY_NOTICES.md` para os detalhes.
 
-Não há vínculo oficial com Electronic Arts, EA Sports ou FutGenie.
+Não há vínculo oficial com Electronic Arts, EA Sports, FutGenie ou Paletools.
