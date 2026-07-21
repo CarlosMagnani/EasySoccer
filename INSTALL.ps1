@@ -87,9 +87,17 @@ if (-not (Test-Path -LiteralPath $requirementsFile -PathType Leaf)) {
 Set-Location -LiteralPath $packageRoot
 
 if (Test-Path -LiteralPath $venvPython -PathType Leaf) {
-    & $venvPython -c "import sys; raise SystemExit(0 if (3, 10) <= sys.version_info[:2] <= (3, 12) else 1)"
-    if ($LASTEXITCODE -ne 0) {
-        throw 'A pasta .venv existente usa uma versão incompatível do Python. Renomeie ou remova apenas essa pasta e execute INSTALL.ps1 novamente.'
+    $venvIsValid = $false
+    try {
+        & $venvPython -c "import sys; raise SystemExit(0 if (3, 10) <= sys.version_info[:2] <= (3, 12) else 1)"
+        $venvIsValid = $LASTEXITCODE -eq 0
+    }
+    catch {
+        $venvIsValid = $false
+    }
+
+    if (-not $venvIsValid) {
+        throw 'A pasta .venv existente está quebrada ou usa um Python incompatível. Execute 2_REINSTALAR.cmd.'
     }
     Write-Host 'Ambiente virtual .venv já existe e será reutilizado.' -ForegroundColor Yellow
 }
@@ -125,5 +133,5 @@ if ($LASTEXITCODE -ne 0) {
 
 Write-Host ''
 Write-Host 'Instalação concluída.' -ForegroundColor Green
-Write-Host 'Próximo passo: .\START_BACKEND.ps1'
-Write-Host 'Depois, importe tampermonkey-ai-sbc.user.js no Tampermonkey conforme README_LOCAL.md.'
+Write-Host 'Próximo passo: abra 3_INICIAR_PROJETO.cmd.'
+Write-Host 'Depois, importe tampermonkey-ai-sbc.user.js no Tampermonkey conforme README.md.'

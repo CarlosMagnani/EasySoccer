@@ -1,14 +1,16 @@
 // ==UserScript==
-// @name         EAFC 26 Auto SBC - Repeatables Local
+// @name         EasySoccer - EAFC 26 Auto SBC
 // @namespace    http://tampermonkey.net/
-// @version      26.1.13.2
-// @description  Local SBC solver with bounded repeatable-set submission for a user-selected test account
-// @author       TitiroMonkey
+// @version      26.1.13.11
+// @description  Local SBC solver with a visual, confirmed multi-pack queue
+// @author       EasySoccer (fork de TitiroMonkey)
 // @license      MIT
+// @icon         data:image/png;base64,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
 // @downloadURL  none
 // @updateURL    none
 // @match        https://www.easports.com/*/ea-sports-fc/ultimate-team/web-app/*
 // @match        https://www.ea.com/ea-sports-fc/ultimate-team/web-app/*
+// @match        https://www.ea.com/*/ea-sports-fc/ultimate-team/web-app/*
 // @require      https://code.jquery.com/jquery-3.6.0.min.js
 // @require      https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js
 // @require      https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js
@@ -31,6 +33,16 @@
 
 (function () {
   "use strict";
+const EASY_SOCCER_LOGO_DATA_URL = "data:image/png;base64,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";
+const createEasySoccerLogoImage = (className = "", alt = "") => {
+  const image = document.createElement("img");
+  image.src = EASY_SOCCER_LOGO_DATA_URL;
+  image.className = className;
+  image.alt = alt;
+  image.decoding = "async";
+  image.draggable = false;
+  return image;
+};
 // (function() {
 //   const scriptUrls = [
 //     "https://code.jquery.com/jquery-3.6.0.min.js",
@@ -4140,14 +4152,22 @@ word-wrap:breakword;
     left: 0;
     width: 100%
 }
-    .player.locked::before {
-    font-family: 'UltimateTeam-Icons';
+    .player.easy-soccer-protected::before {
+    font-family: 'UltimateTeam-Icons', Arial, sans-serif;
     position: absolute;
     content: '\\E07F';
-    right: 8px;
-    bottom: 2px;
-    color: #00ff00;
-    z-index: 2;
+    right: 6px;
+    top: 6px;
+    bottom: auto;
+    padding: 4px 6px;
+    border: 2px solid #07f468;
+    border-radius: 999px;
+    background: #b51f2e;
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.55);
+    color: #fff;
+    font-size: 0.9rem;
+    line-height: 1;
+    z-index: 20;
 }
     .sbc-settings-container {
     overflow-y: scroll;
@@ -5058,46 +5078,742 @@ let fetchDuplicateIds = () => {
 
 let apiUrl = "http://127.0.0.1:8000";
 
-let LOCKED_ITEMS_KEY = "excludePlayers";
-let cachedLockedItems;
+const EASY_SOCCER_PROTECTED_ITEMS_STORAGE_PREFIX =
+  "easySoccer.protectedItemIds.v1";
+const EasySoccerProtectedItemsCore = (() => {
+  const normalizeItemId = (itemOrId) => {
+    const rawId =
+      itemOrId && typeof itemOrId === "object" ? itemOrId.id : itemOrId;
+    const itemId = Number(rawId);
+    return Number.isSafeInteger(itemId) && itemId > 0 ? itemId : null;
+  };
+
+  const normalizeIds = (values) =>
+    Array.from(
+      new Set(
+        (Array.isArray(values) ? values : [])
+          .map(normalizeItemId)
+          .filter((itemId) => itemId !== null)
+      )
+    );
+
+  const add = (values, itemOrId) => {
+    const itemIds = normalizeIds(values);
+    const itemId = normalizeItemId(itemOrId);
+    if (itemId !== null && !itemIds.includes(itemId)) {
+      itemIds.push(itemId);
+    }
+    return itemIds;
+  };
+
+  const remove = (values, itemOrId) => {
+    const itemId = normalizeItemId(itemOrId);
+    return normalizeIds(values).filter((candidate) => candidate !== itemId);
+  };
+
+  const includes = (values, itemOrId) => {
+    const itemId = normalizeItemId(itemOrId);
+    return itemId !== null && normalizeIds(values).includes(itemId);
+  };
+
+  const getItemFromSquadEntry = (entry) =>
+    entry?._item || entry?.item || entry?.data?._item || entry?.data || entry;
+
+  const findProtectedItems = (entries, values) => {
+    const protectedIds = new Set(normalizeIds(values));
+    const seenIds = new Set();
+    return (Array.isArray(entries) ? entries : [])
+      .map(getItemFromSquadEntry)
+      .filter((item) => {
+        const itemId = normalizeItemId(item);
+        if (
+          itemId === null ||
+          !protectedIds.has(itemId) ||
+          seenIds.has(itemId)
+        ) {
+          return false;
+        }
+        seenIds.add(itemId);
+        return true;
+      });
+  };
+
+  return Object.freeze({
+    normalizeItemId,
+    normalizeIds,
+    add,
+    remove,
+    includes,
+    getItemFromSquadEntry,
+    findProtectedItems,
+  });
+})();
+
+let cachedLockedItems = null;
+let cachedLockedItemsStorageKey = null;
+
+const getProtectedItemsStorageKey = () => {
+  let accountScope = "default";
+  try {
+    const persona = services.User.getUser().getSelectedPersona();
+    accountScope =
+      persona?.id ||
+      persona?.personaId ||
+      persona?.nucleusPersonaId ||
+      accountScope;
+  } catch (_) {}
+  return `${EASY_SOCCER_PROTECTED_ITEMS_STORAGE_PREFIX}:${accountScope}`;
+};
+
 let isItemLocked = function (item) {
-  let lockedItems = getLockedItems();
-  return lockedItems.includes(item.definitionId);
+  return EasySoccerProtectedItemsCore.includes(getLockedItems(), item);
 };
 let lockItem = function (item) {
-  let lockedItems = getLockedItems();
-  lockedItems.push(item.definitionId);
+  cachedLockedItems = EasySoccerProtectedItemsCore.add(getLockedItems(), item);
   saveLockedItems();
 };
 let unlockItem = function (item) {
-  let lockedItems = getLockedItems();
-
-  if (lockedItems.includes(item.definitionId)) {
-    const index = lockedItems.indexOf(item.definitionId);
-    if (index > -1) {
-      lockedItems.splice(index, 1);
-    }
-  }
+  cachedLockedItems = EasySoccerProtectedItemsCore.remove(
+    getLockedItems(),
+    item
+  );
   saveLockedItems();
 };
 let getLockedItems = function () {
-  return getSettings(0, 0, "excludePlayers");
+  const storageKey = getProtectedItemsStorageKey();
+  if (
+    cachedLockedItems !== null &&
+    cachedLockedItemsStorageKey === storageKey
+  ) {
+    return cachedLockedItems;
+  }
+
+  cachedLockedItemsStorageKey = storageKey;
+  try {
+    cachedLockedItems = EasySoccerProtectedItemsCore.normalizeIds(
+      JSON.parse(localStorage.getItem(storageKey) || "[]")
+    );
+  } catch (_) {
+    cachedLockedItems = [];
+  }
+  return cachedLockedItems;
 };
 let lockedItemsCleanup = function (clubPlayerIds) {
-  let lockedItems = getLockedItems();
-  for (let _i = 0, _a = Array.from(lockedItems); _i < _a.length; _i++) {
-    let lockedItem = _a[_i];
-    if (!clubPlayerIds[lockedItem]) {
-      const index = lockedItems.indexOf(lockedItem);
-      if (index > -1) {
-        lockedItems.splice(index, 1);
-      }
-    }
-  }
+  const availableIds = new Set(
+    (Array.isArray(clubPlayerIds)
+      ? clubPlayerIds
+      : Object.keys(clubPlayerIds || {})
+    )
+      .map(EasySoccerProtectedItemsCore.normalizeItemId)
+      .filter((itemId) => itemId !== null)
+  );
+  cachedLockedItems = getLockedItems().filter((itemId) =>
+    availableIds.has(itemId)
+  );
   saveLockedItems();
 };
-let saveLockedItems = function (set = 0, challenge = 0) {
-  saveSettings(set, challenge, LOCKED_ITEMS_KEY, getLockedItems());
+let saveLockedItems = function () {
+  const storageKey = getProtectedItemsStorageKey();
+  cachedLockedItemsStorageKey = storageKey;
+  cachedLockedItems = EasySoccerProtectedItemsCore.normalizeIds(
+    cachedLockedItems
+  );
+  localStorage.setItem(storageKey, JSON.stringify(cachedLockedItems));
+};
+
+const EASY_SOCCER_CLUB_PAGE_SIZE = 100;
+const EASY_SOCCER_POSITION_LABELS = Object.freeze({
+  0: "GK",
+  2: "RWB",
+  3: "RB",
+  5: "CB",
+  7: "LB",
+  8: "LWB",
+  10: "CDM",
+  12: "RM",
+  14: "CM",
+  16: "LM",
+  18: "CAM",
+  20: "RF",
+  21: "CF",
+  22: "LF",
+  23: "RW",
+  25: "ST",
+  27: "LW",
+});
+const EasySoccerClubUiCore = Object.freeze({
+  normalizePageSize(count, enabled = true) {
+    if (enabled && (count === undefined || count === null || count === "")) {
+      return EASY_SOCCER_CLUB_PAGE_SIZE;
+    }
+    const parsed = Number(count);
+    if (!Number.isFinite(parsed)) return count;
+    return enabled && parsed >= 0 && parsed <= 30
+      ? EASY_SOCCER_CLUB_PAGE_SIZE
+      : parsed;
+  },
+  installControllerPageSize(controllerClass, isEnabled = () => true) {
+    const prototype = controllerClass?.prototype;
+    const originalRequest = prototype?._requestItems;
+    if (typeof originalRequest !== "function") return false;
+    if (originalRequest.__easySoccerPageSizeWrapper) return true;
+
+    const wrappedRequest = function (...args) {
+      const enabled = Boolean(isEnabled());
+      const pageSize = enabled ? EASY_SOCCER_CLUB_PAGE_SIZE : 20;
+      const clubViewModel = this.clubViewModel || this._clubViewModel;
+      if (clubViewModel) clubViewModel.numItemsPerPage = pageSize;
+      return originalRequest.apply(this, args);
+    };
+    Object.defineProperty(wrappedRequest, "__easySoccerPageSizeWrapper", {
+      value: true,
+    });
+    prototype._requestItems = wrappedRequest;
+    return true;
+  },
+  getPositionLabel(position) {
+    if (typeof position === "string" && position.trim()) {
+      return position.trim().toUpperCase();
+    }
+    return EASY_SOCCER_POSITION_LABELS[Number(position)] || "";
+  },
+  getPlayerName(item) {
+    const fullName = [
+      item?._staticData?.firstName || item?.firstName,
+      item?._staticData?.lastName || item?.lastName,
+    ]
+      .filter(Boolean)
+      .join(" ")
+      .trim();
+    return (
+      item?._staticData?.name ||
+      item?._staticData?.commonName ||
+      item?.name ||
+      fullName ||
+      item?._staticData?.lastName ||
+      `Jogador ${item?.definitionId || item?.id || ""}`.trim()
+    );
+  },
+  getFutGgUrl(item) {
+    const definitionId = Number(item?.definitionId);
+    if (!Number.isFinite(definitionId) || definitionId <= 0) {
+      return "https://www.fut.gg/players/";
+    }
+    const assetId =
+      Number(item?.assetId || item?._staticData?.assetId) ||
+      definitionId % 0x1000000;
+    const slug = this.getPlayerName(item)
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "") || "player";
+    return `https://www.fut.gg/players/${assetId}-${slug}/26-${definitionId}/`;
+  },
+});
+
+const EASY_SOCCER_LAYOUT_STORAGE_KEY = "easySoccer.layout.v1";
+const EASY_SOCCER_LAYOUT_STYLE_ID = "easy-soccer-layout-styles";
+const EASY_SOCCER_LAYOUT_CONTROLS_ID = "easy-soccer-layout-controls";
+const EASY_SOCCER_LAYOUT_DEFAULTS = Object.freeze({
+  gridMode: true,
+  wideMode: true,
+  cardInfo: true,
+});
+
+const EASY_SOCCER_LAYOUT_STYLES = `
+  #${EASY_SOCCER_LAYOUT_CONTROLS_ID} {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+    margin-right: 12px;
+    font-family: UltimateTeam, Arial, sans-serif;
+  }
+
+  #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-brand {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-right: 10px;
+    border-right: 1px solid rgba(255, 255, 255, 0.24);
+    color: #07f468;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+
+  #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-brand-icon {
+    display: block;
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
+  }
+
+  #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-layout-toggle {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    min-width: auto;
+    min-height: auto;
+    margin: 0;
+    padding: 4px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 8px;
+    background: rgba(16, 18, 24, 0.72);
+    color: #fcfcf7;
+    cursor: pointer;
+    font: inherit;
+    font-size: 13px;
+    line-height: 1.2;
+    text-transform: none;
+  }
+
+  #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-layout-toggle:hover,
+  #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-layout-toggle:focus-visible {
+    border-color: #07f468;
+    outline: none;
+  }
+
+  #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-layout-switch {
+    position: relative;
+    width: 34px;
+    height: 18px;
+    border-radius: 999px;
+    background: #626875;
+    transition: background-color 140ms ease;
+  }
+
+  #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-layout-switch::after {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #fff;
+    content: "";
+    transition: transform 140ms ease;
+  }
+
+  #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-layout-toggle.is-active {
+    border-color: rgba(7, 244, 104, 0.75);
+  }
+
+  #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-layout-toggle.is-active
+    .easy-soccer-layout-switch {
+    background: #07f468;
+  }
+
+  #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-layout-toggle.is-active
+    .easy-soccer-layout-switch::after {
+    transform: translateX(16px);
+  }
+
+  body.easy-soccer-grid-mode .paginated-item-list > ul,
+  body.easy-soccer-grid-mode ul.searchResults,
+  body.easy-soccer-grid-mode ul.itemList {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    align-content: start;
+    gap: 1px;
+    height: auto !important;
+  }
+
+  body.easy-soccer-grid-mode .ui-layout-right .paginated-item-list > ul,
+  body.easy-soccer-grid-mode .ui-layout-right ul.searchResults,
+  body.easy-soccer-grid-mode .ui-layout-right ul.itemList {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+
+  body.easy-soccer-grid-mode .paginated-item-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  body.easy-soccer-grid-mode .pagingContainer {
+    margin-top: auto;
+  }
+
+  body.easy-soccer-grid-mode .listFUTItem {
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    flex-direction: column;
+  }
+
+  body.easy-soccer-grid-mode .ut-club-search-results-view .listFUTItem {
+    min-height: 116px;
+    border-right-width: 1px !important;
+  }
+
+  body.easy-soccer-grid-mode .listFUTItem.has-action .rowContent {
+    flex-basis: 100% !important;
+  }
+
+  body.easy-soccer-grid-mode .listFUTItem .entityContainer {
+    display: block !important;
+    float: none !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+  }
+
+  body.easy-soccer-grid-mode .listFUTItem .entityContainer .name {
+    width: 100% !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap;
+  }
+
+  body.easy-soccer-grid-mode .listFUTItem .player-stats-data-component > ul {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .easy-soccer-card-info {
+    position: absolute;
+    top: 20%;
+    right: 0;
+    z-index: 15;
+    display: none;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1px;
+    color: #fff;
+    font: 700 9px/12px UltimateTeamCondensed, Arial, sans-serif;
+    pointer-events: none;
+  }
+
+  body.easy-soccer-details-mode .easy-soccer-card-info {
+    display: flex;
+  }
+
+  .easy-soccer-card-info .easy-soccer-info-tab {
+    min-width: 22px;
+    padding: 0 3px;
+    border: 1px solid rgba(255, 255, 255, 0.92);
+    border-radius: 4px;
+    background: rgba(12, 35, 28, 0.86);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .DetailPanel .ut-button-group > button.easy-soccer-player-action {
+    box-shadow: inset 3px 0 0 #07f468;
+  }
+
+  .DetailPanel .ut-button-group > button.easy-soccer-player-action:hover,
+  .DetailPanel .ut-button-group > button.easy-soccer-player-action:focus-visible {
+    background: rgba(7, 244, 104, 0.08);
+  }
+
+  body.easy-soccer-grid-mode .ui-layout-right .listFUTItem .player-stats-data-component,
+  body.easy-soccer-grid-mode .ut-transfer-list-view .listFUTItem .player-stats-data-component {
+    display: none !important;
+  }
+
+  body.easy-soccer-grid-mode .ui-layout-right .listFUTItem .auction {
+    display: none !important;
+  }
+
+  body.easy-soccer-grid-mode.landscape .ut-store-hub-view--content
+    .ut-store-pack-details-view {
+    display: inline-block;
+    width: calc(25% - 1rem) !important;
+    margin-left: 0 !important;
+    margin-right: 10px !important;
+  }
+
+  body.easy-soccer-wide-mode .layout-hub.grid,
+  body.easy-soccer-wide-mode .ut-store-hub-view--content {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  body.easy-soccer-wide-mode .ut-content {
+    max-width: 100% !important;
+    max-height: 100% !important;
+  }
+
+  body.easy-soccer-wide-mode .ut-split-view {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  body.easy-soccer-wide-mode .ut-sbc-set-tile-view {
+    max-width: calc(25% - 1rem) !important;
+  }
+
+  @media (max-width: 1440px) {
+    body.easy-soccer-wide-mode .ut-sbc-set-tile-view,
+    body.easy-soccer-grid-mode.landscape .ut-store-hub-view--content
+      .ut-store-pack-details-view {
+      max-width: calc(33.333% - 1rem) !important;
+      width: calc(33.333% - 1rem) !important;
+    }
+  }
+
+  @media (max-width: 1180px) {
+    #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-brand-name,
+    #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-layout-label {
+      display: none;
+    }
+  }
+
+  @media (max-width: 900px) {
+    body.easy-soccer-wide-mode .ut-sbc-set-tile-view,
+    body.easy-soccer-grid-mode.landscape .ut-store-hub-view--content
+      .ut-store-pack-details-view {
+      max-width: calc(50% - 1rem) !important;
+      width: calc(50% - 1rem) !important;
+    }
+  }
+
+  @media (max-width: 680px) {
+    #${EASY_SOCCER_LAYOUT_CONTROLS_ID} {
+      gap: 4px;
+      margin-right: 4px;
+    }
+
+    #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-layout-toggle {
+      padding: 4px;
+    }
+
+    #${EASY_SOCCER_LAYOUT_CONTROLS_ID} .easy-soccer-brand {
+      padding-right: 4px;
+    }
+
+    body.easy-soccer-wide-mode .ut-sbc-set-tile-view,
+    body.easy-soccer-grid-mode.landscape .ut-store-hub-view--content
+      .ut-store-pack-details-view {
+      max-width: calc(100% - 1rem) !important;
+      width: calc(100% - 1rem) !important;
+    }
+  }
+`;
+
+const getEasySoccerLayoutPreferences = () => {
+  try {
+    const stored = JSON.parse(
+      localStorage.getItem(EASY_SOCCER_LAYOUT_STORAGE_KEY) || "{}"
+    );
+    return {
+      gridMode:
+        typeof stored.gridMode === "boolean"
+          ? stored.gridMode
+          : EASY_SOCCER_LAYOUT_DEFAULTS.gridMode,
+      wideMode:
+        typeof stored.wideMode === "boolean"
+          ? stored.wideMode
+          : EASY_SOCCER_LAYOUT_DEFAULTS.wideMode,
+      cardInfo:
+        typeof stored.cardInfo === "boolean"
+          ? stored.cardInfo
+          : EASY_SOCCER_LAYOUT_DEFAULTS.cardInfo,
+    };
+  } catch (_) {
+    return { ...EASY_SOCCER_LAYOUT_DEFAULTS };
+  }
+};
+
+const saveEasySoccerLayoutPreferences = (preferences) => {
+  localStorage.setItem(
+    EASY_SOCCER_LAYOUT_STORAGE_KEY,
+    JSON.stringify({
+      gridMode: Boolean(preferences.gridMode),
+      wideMode: Boolean(preferences.wideMode),
+      cardInfo: Boolean(preferences.cardInfo),
+    })
+  );
+};
+
+const syncEasySoccerLayoutControls = (preferences) => {
+  for (const [key, active] of Object.entries(preferences)) {
+    const button = document.querySelector(
+      `#${EASY_SOCCER_LAYOUT_CONTROLS_ID} [data-layout-key="${key}"]`
+    );
+    if (!button) continue;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", String(active));
+  }
+};
+
+const applyEasySoccerLayoutPreferences = (preferences) => {
+  document.body.classList.toggle(
+    "easy-soccer-grid-mode",
+    Boolean(preferences.gridMode)
+  );
+  document.body.classList.toggle(
+    "easy-soccer-wide-mode",
+    Boolean(preferences.wideMode)
+  );
+  document.body.classList.toggle(
+    "easy-soccer-details-mode",
+    Boolean(preferences.cardInfo)
+  );
+  syncEasySoccerLayoutControls(preferences);
+};
+
+const ensureEasySoccerLayoutStyles = () => {
+  if (document.getElementById(EASY_SOCCER_LAYOUT_STYLE_ID)) return;
+  const styleElement = document.createElement("style");
+  styleElement.id = EASY_SOCCER_LAYOUT_STYLE_ID;
+  styleElement.textContent = EASY_SOCCER_LAYOUT_STYLES;
+  document.head.appendChild(styleElement);
+};
+
+const createEasySoccerLayoutToggle = (label, key) => {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "easy-soccer-layout-toggle";
+  button.dataset.layoutKey = key;
+  button.title = label;
+
+  const labelElement = document.createElement("span");
+  labelElement.className = "easy-soccer-layout-label";
+  labelElement.textContent = label;
+  const switchElement = document.createElement("span");
+  switchElement.className = "easy-soccer-layout-switch";
+  switchElement.setAttribute("aria-hidden", "true");
+  button.append(labelElement, switchElement);
+
+  button.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const preferences = getEasySoccerLayoutPreferences();
+    preferences[key] = !preferences[key];
+    saveEasySoccerLayoutPreferences(preferences);
+    applyEasySoccerLayoutPreferences(preferences);
+  });
+  return button;
+};
+
+const createEasySoccerLayoutBrand = () => {
+  const brand = document.createElement("span");
+  brand.className = "easy-soccer-brand";
+  brand.title = "Controles adicionados pelo EasySoccer";
+  brand.appendChild(
+    createEasySoccerLogoImage("easy-soccer-brand-icon", "EasySoccer")
+  );
+  const name = document.createElement("span");
+  name.className = "easy-soccer-brand-name";
+  name.textContent = "EasySoccer";
+  brand.appendChild(name);
+  return brand;
+};
+
+const ensureEasySoccerLayoutControls = () => {
+  const navigationBar = document.querySelector(".ut-navigation-bar-view");
+  if (!navigationBar) return;
+
+  let controls = document.getElementById(EASY_SOCCER_LAYOUT_CONTROLS_ID);
+  if (!controls) {
+    controls = document.createElement("div");
+    controls.id = EASY_SOCCER_LAYOUT_CONTROLS_ID;
+    controls.setAttribute("aria-label", "Opções de layout do EasySoccer");
+    controls.append(
+      createEasySoccerLayoutBrand(),
+      createEasySoccerLayoutToggle("Grid Mode", "gridMode"),
+      createEasySoccerLayoutToggle("Wide Mode", "wideMode"),
+      createEasySoccerLayoutToggle("Card Info", "cardInfo")
+    );
+
+    const currencyPanel = navigationBar.querySelector(".view-navbar-currency");
+    navigationBar.insertBefore(controls, currencyPanel || null);
+  }
+  syncEasySoccerLayoutControls(getEasySoccerLayoutPreferences());
+};
+
+let easySoccerLayoutObserver = null;
+let easySoccerLayoutAnimationFrame = null;
+const initEasySoccerLayout = () => {
+  ensureEasySoccerLayoutStyles();
+  applyEasySoccerLayoutPreferences(getEasySoccerLayoutPreferences());
+  ensureEasySoccerLayoutControls();
+
+  if (easySoccerLayoutObserver) return;
+  easySoccerLayoutObserver = new MutationObserver(() => {
+    if (document.getElementById(EASY_SOCCER_LAYOUT_CONTROLS_ID)) return;
+    if (easySoccerLayoutAnimationFrame !== null) return;
+    easySoccerLayoutAnimationFrame = requestAnimationFrame(() => {
+      easySoccerLayoutAnimationFrame = null;
+      ensureEasySoccerLayoutControls();
+    });
+  });
+  easySoccerLayoutObserver.observe(document.body, {
+    childList: true,
+    subtree: true,
+  });
+};
+
+const getChallengeSquadEntries = (challenge) => {
+  const squad = challenge?.squad || challenge?._squad;
+  if (!squad) return [];
+
+  if (typeof squad.getFieldPlayers === "function") {
+    try {
+      const fieldPlayers = squad.getFieldPlayers();
+      if (Array.isArray(fieldPlayers)) return fieldPlayers;
+    } catch (_) {}
+  }
+
+  return Array.isArray(squad._players) ? squad._players : [];
+};
+
+const getProtectedChallengeItems = (challenge) =>
+  EasySoccerProtectedItemsCore.findProtectedItems(
+    getChallengeSquadEntries(challenge),
+    getLockedItems()
+  );
+
+const getProtectedItemDisplayName = (item) =>
+  item?._staticData?.name || item?.name || `ID ${item?.id || "?"}`;
+
+const ensureChallengeHasNoProtectedItems = (challenge) => {
+  const protectedItems = getProtectedChallengeItems(challenge);
+  if (!protectedItems.length) return;
+
+  const names = protectedItems.map(getProtectedItemDisplayName);
+  const preview = names.slice(0, 3).join(", ");
+  const extra = names.length > 3 ? ` e mais ${names.length - 3}` : "";
+  const error = new Error(
+    `Envio bloqueado: ${preview}${extra} — proteção contra SBC ativa.`
+  );
+  error.code = "EASY_SOCCER_PROTECTED_ITEM";
+  error.protectedItemIds = protectedItems.map((item) => item.id);
+
+  if (typeof showNotification === "function") {
+    showNotification(error.message, UINotificationType.NEGATIVE);
+  }
+  throw error;
+};
+
+const protectedSbcSubmissionOverride = () => {
+  if (
+    typeof UTSBCService === "undefined" ||
+    typeof UTSBCService.prototype?.submitChallenge !== "function"
+  ) {
+    return;
+  }
+
+  const originalSubmitChallenge = UTSBCService.prototype.submitChallenge;
+  if (originalSubmitChallenge.__easySoccerProtectedItemsGuard) return;
+
+  const guardedSubmitChallenge = function (...args) {
+    ensureChallengeHasNoProtectedItems(args[0]);
+    return originalSubmitChallenge.apply(this, args);
+  };
+  Object.defineProperty(
+    guardedSubmitChallenge,
+    "__easySoccerProtectedItemsGuard",
+    { value: true }
+  );
+  UTSBCService.prototype.submitChallenge = guardedSubmitChallenge;
 };
 
 let FIXED_ITEMS_KEY = "fixeditems";
@@ -5859,6 +6575,7 @@ let logPollInterval;
 let createSbc = true;
 let concepts = false;
 const AUTO_SBC_REPEATABLE_MAX_COMPLETIONS = 50;
+const AUTO_SBC_REPEATABLE_MAX_QUEUE_ITEMS = 12;
 const LOCAL_REPEATABLES_ONLY = true;
 const ENABLE_EXTERNAL_PRICE_LOOKUPS = false;
 
@@ -5891,15 +6608,15 @@ const AutoSbcRunnerCore = (() => {
       } catch (_) {}
     }
 
-    let remaining;
-    if (typeof set.getRepeatsRemaining === "function") {
+    let remaining = mode === "UNLIMITED" ? Infinity : undefined;
+    if (
+      mode !== "UNLIMITED" &&
+      typeof set.getRepeatsRemaining === "function"
+    ) {
       try {
         const value = Number(set.getRepeatsRemaining());
         if (Number.isFinite(value)) remaining = Math.max(0, value);
       } catch (_) {}
-    }
-    if (remaining == null && mode === "UNLIMITED") {
-      remaining = Infinity;
     }
     if (remaining == null) {
       const repeats = Number(set.repeats);
@@ -5935,14 +6652,176 @@ const AutoSbcRunnerCore = (() => {
     return { ok: true, count, limit };
   };
 
+  const resolveQueueTarget = (
+    target,
+    repeatability,
+    max = AUTO_SBC_REPEATABLE_MAX_COMPLETIONS
+  ) => {
+    const mode = target?.mode === "max" ? "max" : "exact";
+    if (mode === "exact") {
+      const validation = validateCompletionCount(
+        target?.count,
+        repeatability,
+        max
+      );
+      return validation.ok ? { ...validation, mode } : validation;
+    }
+
+    const available = Number.isFinite(repeatability?.remaining)
+      ? repeatability.remaining
+      : max;
+    const count = Math.min(max, Math.max(0, available));
+    if (!Number.isInteger(count) || count < 1) {
+      return {
+        ok: false,
+        error: "Este SBC não possui conclusões disponíveis agora.",
+      };
+    }
+    return { ok: true, mode, count, limit: count };
+  };
+
+  const validateQueuePlan = (
+    entries,
+    repeatabilityBySet = {},
+    maxItems = AUTO_SBC_REPEATABLE_MAX_QUEUE_ITEMS
+  ) => {
+    if (!Array.isArray(entries) || entries.length === 0) {
+      return { ok: false, error: "Adicione pelo menos um SBC à fila." };
+    }
+    if (entries.length > maxItems) {
+      return {
+        ok: false,
+        error: `A fila aceita no máximo ${maxItems} SBCs diferentes.`,
+      };
+    }
+
+    const seenSetIds = new Set();
+    const normalizedEntries = [];
+    let maximumCompletions = 0;
+
+    for (const entry of entries) {
+      const setId = String(entry?.setId ?? "").trim();
+      if (!setId) {
+        return { ok: false, error: "A fila contém um SBC inválido." };
+      }
+      if (seenSetIds.has(setId)) {
+        return {
+          ok: false,
+          error: "O mesmo SBC não pode aparecer duas vezes na fila.",
+        };
+      }
+      seenSetIds.add(setId);
+
+      const repeatability =
+        repeatabilityBySet instanceof Map
+          ? repeatabilityBySet.get(setId)
+          : repeatabilityBySet?.[setId];
+      if (!repeatability?.repeatable || repeatability.remaining <= 0) {
+        return {
+          ok: false,
+          error: `${entry?.nameSnapshot || "Um SBC"} não está mais disponível.`,
+        };
+      }
+
+      const target = resolveQueueTarget(entry?.target, repeatability);
+      if (!target.ok) {
+        return {
+          ok: false,
+          error: `${entry?.nameSnapshot || "SBC"}: ${target.error}`,
+        };
+      }
+
+      normalizedEntries.push({
+        setId,
+        nameSnapshot: String(entry?.nameSnapshot || `SBC ${setId}`),
+        unlimited: repeatability.remaining === Infinity,
+        target:
+          target.mode === "max"
+            ? Object.freeze({ mode: "max" })
+            : Object.freeze({ mode: "exact", count: target.count }),
+        plannedCount: target.count,
+      });
+      maximumCompletions += target.count;
+    }
+
+    return {
+      ok: true,
+      entries: normalizedEntries,
+      maximumCompletions,
+    };
+  };
+
+  const isSafeMaximumExhaustion = (error) => {
+    const code = error?.failure?.code || error?.code || error?.error;
+    return [
+      "SET_NOT_FOUND",
+      "NOT_REPEATABLE",
+      "NO_INCOMPLETE_CHALLENGE",
+      "SBC_NOT_AVAILABLE",
+      "MISSING_REQUIRED_PLAYERS",
+      "NO_VALID_SQUAD",
+      "SOLVER_TIMEOUT",
+      "SOLVER_FAILED",
+    ].includes(code);
+  };
+
+  const getRequiredRarityGroups = (sbcData = {}) => {
+    const groups = [];
+    for (const requirement of sbcData?.constraints || []) {
+      if (
+        requirement?.requirementKey !== "PLAYER_RARITY_GROUP" ||
+        Number(requirement?.count) <= 0
+      ) {
+        continue;
+      }
+      for (const value of requirement?.eligibilityValues || []) {
+        const numeric = Number(value);
+        const normalized = Number.isFinite(numeric) ? numeric : String(value);
+        if (!groups.some((group) => String(group) === String(normalized))) {
+          groups.push(normalized);
+        }
+      }
+    }
+    return groups;
+  };
+
+  const matchesRequiredRarityGroup = (item, requiredGroups = []) => {
+    const wanted = new Set(requiredGroups.map((group) => String(group)));
+    const itemGroups = Array.isArray(item?.groups)
+      ? item.groups
+      : item?.groups == null
+        ? []
+        : [item.groups];
+    return itemGroups.some((group) => wanted.has(String(group)));
+  };
+
+  const buildRarityGroupDiagnostics = (
+    allPlayers = [],
+    eligiblePlayers = [],
+    sbcData = {},
+    labelResolver = (groupId) => `grupo especial ${groupId}`
+  ) =>
+    getRequiredRarityGroups(sbcData).map((groupId) => ({
+      groupId,
+      label: labelResolver(groupId),
+      rawMatches: allPlayers.filter((item) =>
+        matchesRequiredRarityGroup(item, [groupId])
+      ).length,
+      eligibleMatches: eligiblePlayers.filter((item) =>
+        matchesRequiredRarityGroup(item, [groupId])
+      ).length,
+    }));
+
   const classifyFailure = (error) => {
     const candidates = [
-      error?.status,
+      error?.failure?.code,
       error?.code,
       error?.error?.code,
+      typeof error?.error === "string" ? error.error : null,
       error?.response?.status,
       error?.detail?.status,
       error?.detail?.error?.code,
+      error?.status,
     ];
     const code = candidates.find((value) => value != null);
     const numericCode = Number(code);
@@ -5955,18 +6834,58 @@ const AutoSbcRunnerCore = (() => {
     return {
       code: code ?? "UNKNOWN",
       softban: false,
-      message: error?.message || "Falha não confirmada; o lote foi interrompido.",
+      message:
+        error?.failure?.message ||
+        error?.message ||
+        "Falha não confirmada; o lote foi interrompido.",
     };
   };
 
   const isSubmissionAuthorized = (runOptions = {}) =>
     runOptions.managedBatch === true && runOptions.userConfirmed === true;
 
+  const getBackendErrorMessage = (response = {}) => {
+    const status = response?.status || "desconhecido";
+    let payload = response?.response;
+    if (payload == null && response?.responseText) {
+      try {
+        payload = JSON.parse(response.responseText);
+      } catch (_) {}
+    }
+
+    const detail = payload?.detail ?? payload?.message ?? payload?.error;
+    let explanation = "pedido rejeitado";
+    if (Array.isArray(detail)) {
+      explanation = detail
+        .slice(0, 3)
+        .map((issue) => {
+          const location = Array.isArray(issue?.loc)
+            ? issue.loc.filter((part) => part !== "body").join(".")
+            : "pedido";
+          return `${location || "pedido"}: ${issue?.msg || "valor inválido"}`;
+        })
+        .join("; ");
+    } else if (typeof detail === "string") {
+      explanation = detail;
+    } else if (detail && typeof detail.message === "string") {
+      explanation = detail.message;
+    }
+
+    return `API local HTTP ${status}: ${explanation}`.slice(0, 320);
+  };
+
   return {
     getRepeatabilityInfo,
     validateCompletionCount,
+    resolveQueueTarget,
+    validateQueuePlan,
+    isSafeMaximumExhaustion,
+    getRequiredRarityGroups,
+    matchesRequiredRarityGroup,
+    buildRarityGroupDiagnostics,
     classifyFailure,
     isSubmissionAuthorized,
+    getBackendErrorMessage,
   };
 })();
 
@@ -5976,6 +6895,9 @@ let repeatableBatchState = {
   abortController: null,
   completed: 0,
   requested: 0,
+  currentItemIndex: 0,
+  currentItemCompleted: 0,
+  results: [],
 };
 
 let solveSBC = async (
@@ -5990,7 +6912,7 @@ let solveSBC = async (
   const managedBatch = runOptions.managedBatch === true;
   if (autoSubmit && !AutoSbcRunnerCore.isSubmissionAuthorized(runOptions)) {
     showNotification(
-      "Automação legada desativada. Use Repeatables locais e confirme o lote.",
+      "Automação legada desativada. Use Fila de Packs e confirme o plano.",
       UINotificationType.NEGATIVE
     );
     return { ok: false, submitted: false, error: "CONFIRMATION_REQUIRED" };
@@ -6142,6 +7064,8 @@ let solveSBC = async (
       getSettings(sbcId, sbcData.challengeId, "onlyStorage") || false;
     let excludeSbcSquads =
       getSettings(sbcId, sbcData.challengeId, "excludeSbcSquads") || false;
+    const requiredRarityGroups =
+      AutoSbcRunnerCore.getRequiredRarityGroups(sbcData);
     let backendPlayersInput = players
       .filter(
         (item) =>
@@ -6150,6 +7074,7 @@ let solveSBC = async (
             item.rating <= ratingRange[1] &&
             item.rating >= ratingRange[0] &&
             !excludePlayers.includes(item.definitionId) &&
+            !isItemLocked(item) &&
             !excludeLeagues.includes(item.leagueId) &&
             !excludeNations.includes(item.nationId) &&
             !excludeRarity.includes(
@@ -6160,7 +7085,14 @@ let solveSBC = async (
             !item.isTimeLimited() &&
             !(PriceItems[item.definitionId]?.isSbc && excludeSbc) &&
             !(PriceItems[item.definitionId]?.isObjective && excludeObjective) &&
-            !(item?.isSpecial() && excludeSpecial) &&
+            !(
+              item?.isSpecial() &&
+              excludeSpecial &&
+              !AutoSbcRunnerCore.matchesRequiredRarityGroup(
+                item,
+                requiredRarityGroups
+              )
+            ) &&
             !(item?.isTradeable() && excludeTradable) &&
             !(PriceItems[item.definitionId]?.isExtinct && excludeExtinct) &&
             (item?.isStorage || !onlyStorage) &&
@@ -6206,6 +7138,28 @@ let solveSBC = async (
           normalizeClubId: item.normalizeClubId,
         };
       });
+
+    const resolveRarityGroupLabel = (groupId) => {
+      const fallback =
+        Number(groupId) === 83
+          ? "TOTW/TOTS/FOF"
+          : `grupo especial ${groupId}`;
+      const localizationKey = `Player_Group_${groupId}`;
+      try {
+        const localized = services.Localization.localize(localizationKey);
+        if (localized && localized !== localizationKey) return localized;
+      } catch (_) {}
+      return fallback;
+    };
+    sbcData.filterDiagnostics = {
+      ...(sbcData.filterDiagnostics || {}),
+      rarityGroups: AutoSbcRunnerCore.buildRarityGroupDiagnostics(
+        players,
+        backendPlayersInput,
+        sbcData,
+        resolveRarityGroupLabel
+      ),
+    };
 
     const maxSolveTime = Math.min(
       180,
@@ -6260,7 +7214,21 @@ let solveSBC = async (
       if (getSettings(0, 0, "playSounds")) {
         wompSound.play();
       }
-      showNotification(solution.status, UINotificationType.NEGATIVE);
+      const solverFailure = solution?.failure || {
+        code:
+          solution?.status === "INFEASIBLE"
+            ? "NO_VALID_SQUAD"
+            : solution?.status === "UNKNOWN"
+              ? "SOLVER_TIMEOUT"
+              : "SOLVER_FAILED",
+        message:
+          solution?.status === "INFEASIBLE"
+            ? "Não foi possível montar um elenco válido com as cartas permitidas. Revise os filtros e as cartas protegidas."
+            : solution?.status === "UNKNOWN"
+              ? "O tempo de busca terminou antes de encontrar uma solução."
+              : `O montador não concluiu o desafio (${solution?.status || "erro desconhecido"}).`,
+      };
+      showNotification(solverFailure.message, UINotificationType.NEGATIVE);
 
       if (!managedBatch && sbcLogin.length > 0) {
         let sbcToTry = sbcLogin.shift();
@@ -6271,11 +7239,18 @@ let solveSBC = async (
         ]);
         goToPacks();
         solveSBC(sbcToTry[0], sbcToTry[1], true);
-        return { ok: false, error: "SOLVER_FAILED" };
+        return {
+          ok: false,
+          error: solverFailure.code,
+          message: solverFailure.message,
+          failure: solverFailure,
+        };
       }
       return {
         ok: false,
-        error: "SOLVER_FAILED",
+        error: solverFailure.code,
+        message: solverFailure.message,
+        failure: solverFailure,
         status: solution.status,
         statusCode: solution.status_code,
       };
@@ -6742,6 +7717,7 @@ const unassignedItemsOverride = () => {
   //   };
 };
 let sbcSubmit = async function (challenge, sbcSet, i) {
+  ensureChallengeHasNoProtectedItems(challenge);
   services.Chemistry.resetCustomProfiles();
   services.Chemistry.requestChemistryProfiles().observe(this, function (e, t) {
     services.SBC.getCachedSBCSquads().map(function (e) {
@@ -7247,10 +8223,268 @@ const tryQuickBuy = async (context = {}, item, options = {}) => {
   }
 };
 
-const lockedLabel = "SBC Unlock";
-const unlockedLabel = "SBC Lock";
+let easySoccerClubSearchPageSizeInstalled = false;
+let easySoccerClubControllerPageSizeInstalled = false;
+let easySoccerClubPageSizeInstallAttempts = 0;
+const installEasySoccerClubSearchPageSize = () => {
+  if (!easySoccerClubSearchPageSizeInstalled && services?.Club?.search) {
+    const originalSearch = services.Club.search;
+    services.Club.search = function (searchCriteria, ...args) {
+      if (searchCriteria) {
+        const preferences = getEasySoccerLayoutPreferences();
+        searchCriteria.count = EasySoccerClubUiCore.normalizePageSize(
+          searchCriteria.count,
+          preferences.gridMode
+        );
+      }
+      return originalSearch.call(this, searchCriteria, ...args);
+    };
+    easySoccerClubSearchPageSizeInstalled = true;
+  }
+
+  const clubControllerClass =
+    typeof UTClubSearchResultsViewController === "function"
+      ? UTClubSearchResultsViewController
+      : null;
+  if (!easySoccerClubControllerPageSizeInstalled && clubControllerClass) {
+    easySoccerClubControllerPageSizeInstalled =
+      EasySoccerClubUiCore.installControllerPageSize(
+        clubControllerClass,
+        () => getEasySoccerLayoutPreferences().gridMode
+      );
+  }
+
+  if (
+    !easySoccerClubControllerPageSizeInstalled &&
+    easySoccerClubPageSizeInstallAttempts < 10
+  ) {
+    easySoccerClubPageSizeInstallAttempts += 1;
+    setTimeout(installEasySoccerClubSearchPageSize, 1000);
+  }
+};
+
+const getEasySoccerItemMetric = (item, methodName, propertyNames = []) => {
+  try {
+    if (typeof item?.[methodName] === "function") {
+      const value = Number(item[methodName]());
+      if (Number.isFinite(value) && value > 0) return value;
+    }
+  } catch (_) {}
+  for (const propertyName of propertyNames) {
+    const value = Number(
+      item?.[propertyName] ?? item?._staticData?.[propertyName]
+    );
+    if (Number.isFinite(value) && value > 0) return value;
+  }
+  return null;
+};
+
+const enhanceEasySoccerPlayerCard = (view, item) => {
+  const root = view?.__root || view?.getRootElement?.();
+  if (!root || !item?.isPlayer?.()) return;
+  root.dataset.easySoccerItemId = String(item.id || "");
+  root.dataset.easySoccerDefinitionId = String(item.definitionId || "");
+  root.querySelector(".easy-soccer-card-info")?.remove();
+
+  if (
+    document.body.classList.contains("paletools-gridmode") ||
+    root.querySelector(".right-column-info")
+  ) {
+    return;
+  }
+
+  const mainView = root.querySelector(".ut-item-view--main");
+  if (!mainView) return;
+  const info = document.createElement("div");
+  info.className = "easy-soccer-card-info";
+  info.setAttribute("aria-hidden", "true");
+  const addTab = (text, title) => {
+    if (!text) return;
+    const tab = document.createElement("span");
+    tab.className = "easy-soccer-info-tab";
+    tab.textContent = text;
+    tab.title = title;
+    info.appendChild(tab);
+  };
+
+  const currentPosition = EasySoccerClubUiCore.getPositionLabel(item.position);
+  const rawPositions = Array.isArray(item.possiblePositions)
+    ? item.possiblePositions
+    : [];
+  const alternativePositions = [
+    ...new Set(
+      rawPositions
+        .map(EasySoccerClubUiCore.getPositionLabel)
+        .filter((position) => position && position !== currentPosition)
+    ),
+  ].slice(0, 3);
+  alternativePositions.forEach((position) =>
+    addTab(position, "Posição alternativa")
+  );
+
+  const skillMoves = getEasySoccerItemMetric(item, "getSkillMoves", [
+    "skillMoves",
+    "skillMovesRating",
+  ]);
+  const weakFoot = getEasySoccerItemMetric(item, "getWeakFoot", [
+    "weakFoot",
+    "weakFootRating",
+  ]);
+  if (skillMoves || weakFoot) {
+    addTab(
+      [skillMoves ? `SM ${skillMoves}` : "", weakFoot ? `WF ${weakFoot}` : ""]
+        .filter(Boolean)
+        .join(" · "),
+      "Skill Moves e perna ruim"
+    );
+  }
+
+  if (info.childElementCount) mainView.appendChild(info);
+};
+
+const copyEasySoccerText = async (value) => {
+  const text = String(value ?? "");
+  if (!text) throw new Error("Nada para copiar");
+  if (navigator.clipboard?.writeText) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return;
+    } catch (_error) {
+      // Chrome may deny the modern clipboard API in the Web App context.
+      // Continue with the legacy fallback below.
+    }
+  }
+  const input = document.createElement("textarea");
+  input.value = text;
+  input.style.position = "fixed";
+  input.style.opacity = "0";
+  document.body.appendChild(input);
+  input.select();
+  const copied = document.execCommand("copy");
+  input.remove();
+  if (!copied) throw new Error("Não foi possível copiar");
+};
+
+const createEasySoccerPlayerAction = (
+  group,
+  action,
+  label,
+  subtext,
+  handler
+) => {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "easy-soccer-player-action";
+  button.dataset.easySoccerPlayerAction = action;
+  const labelElement = document.createElement("span");
+  labelElement.className = "btn-text";
+  labelElement.textContent = label;
+  const subtextElement = document.createElement("span");
+  subtextElement.className = "btn-subtext";
+  subtextElement.textContent = subtext || "";
+  button.append(labelElement, subtextElement);
+  button.addEventListener("click", handler);
+  group.appendChild(button);
+  return button;
+};
+
+const enhanceEasySoccerPlayerActionPanel = (panel, item) => {
+  if (!item?.isPlayer?.()) return;
+  const root = panel?.__root || panel?.getRootElement?.();
+  const group = root?.querySelector?.(".ut-button-group");
+  if (!group) return;
+  group
+    .querySelectorAll("[data-easy-soccer-player-action]")
+    .forEach((button) => button.remove());
+
+  if (
+    group.querySelector(
+      ".paletools-element, .copy-player-name, .find-lowest-price"
+    )
+  ) {
+    return;
+  }
+
+  const definitionId = item.definitionId || item.id;
+  const playerName = EasySoccerClubUiCore.getPlayerName(item);
+  createEasySoccerPlayerAction(
+    group,
+    "copy-id",
+    "EasySoccer · Copiar ID da versão",
+    definitionId ? String(definitionId) : "",
+    async () => {
+      try {
+        await copyEasySoccerText(definitionId);
+        showNotification(
+          "EasySoccer: ID copiado",
+          UINotificationType.POSITIVE
+        );
+      } catch (error) {
+        showNotification(error.message, UINotificationType.NEGATIVE);
+      }
+    }
+  );
+  createEasySoccerPlayerAction(
+    group,
+    "copy-name",
+    "EasySoccer · Copiar nome",
+    "",
+    async () => {
+      try {
+        await copyEasySoccerText(playerName);
+        showNotification(
+          "EasySoccer: nome copiado",
+          UINotificationType.POSITIVE
+        );
+      } catch (error) {
+        showNotification(error.message, UINotificationType.NEGATIVE);
+      }
+    }
+  );
+  createEasySoccerPlayerAction(
+    group,
+    "futgg",
+    "EasySoccer · Abrir no FUT.GG",
+    "dados e preços",
+    () => {
+      const popup = window.open(
+        EasySoccerClubUiCore.getFutGgUrl(item),
+        "_blank",
+        "noopener,noreferrer"
+      );
+      if (popup) popup.opener = null;
+    }
+  );
+};
+
+const setEasySoccerButtonSubtext = (control, value, currency = false) => {
+  const root = control?.__root || control?.getRootElement?.();
+  const subtext = root?.querySelector?.(".btn-subtext");
+  if (!subtext) return;
+  subtext.textContent = value || "";
+  subtext.classList.toggle("currency-coins", Boolean(currency && value));
+};
+
+const lockedLabel = "EasySoccer · Desproteger do SBC";
+const unlockedLabel = "EasySoccer · Proteger do SBC";
 const fixedLabel = "SBC Use actual prices";
 const unfixedLabel = "SBC Set Price to Zero";
+
+const resetPanelActionButton = (panel, propertyName) => {
+  const control = panel?.[propertyName];
+  if (!control) return;
+  let rootElement = null;
+  try {
+    rootElement = control.getRootElement();
+  } catch (_) {}
+  try {
+    control.dealloc();
+  } catch (_) {}
+  try {
+    rootElement?.remove();
+  } catch (_) {}
+  panel[propertyName] = null;
+};
 
 const playerItemOverride = () => {
   UTItemEntity.prototype.init = UTItemEntity.prototype.update;
@@ -7276,6 +8510,8 @@ const playerItemOverride = () => {
       );
     };
     const result = UTDefaultSetItem.call(this, e, t);
+    resetPanelActionButton(this, "lockUnlockButton");
+    resetPanelActionButton(this, "fixUnfixButton");
 
     // Offer a quick buy helper before exposing the manual refresh button.
     if (!this.quickBuyButton && e.isPlayer() && e.concept) {
@@ -7293,7 +8529,7 @@ const playerItemOverride = () => {
       const refreshButton = new UTGroupButtonControl();
       refreshButton.init();
       refreshButton.setInteractionState(true);
-      refreshButton.setText("Refresh Price");
+      refreshButton.setText("EasySoccer · Menor preço no mercado");
       insertAfter(
         refreshButton,
         this.quickBuyButton ? this.quickBuyButton.__root : this._btnBio.__root
@@ -7301,6 +8537,7 @@ const playerItemOverride = () => {
       refreshButton.addTarget(
         this,
         async () => {
+          setEasySoccerButtonSubtext(refreshButton, "Buscando...");
           // Remove existing price data for this player before refreshing
           let PriceItems = getPriceItems();
           if (e.definitionId in PriceItems) {
@@ -7318,8 +8555,13 @@ const playerItemOverride = () => {
             : Number.isFinite(priceValue)
             ? priceValue.toLocaleString()
             : "N/A";
+          setEasySoccerButtonSubtext(
+            refreshButton,
+            priceLabel,
+            Number.isFinite(priceValue)
+          );
           showNotification(
-            `Price refreshed: ${priceLabel}`,
+            `EasySoccer: menor preço ${priceLabel}`,
             UINotificationType.POSITIVE
           );
           getControllerInstance().applyDataChange();
@@ -7333,10 +8575,11 @@ const playerItemOverride = () => {
     }
 
     if (e.loans > -1 || !e.isPlayer() || !e.id || e.isTimeLimited()) {
+      enhanceEasySoccerPlayerActionPanel(this, e);
       return result;
     }
     // console.log(e)
-    if (!e?.duplicateId > 0 && !isItemFixed(e) && !this.lockUnlockButton) {
+    if (!isItemFixed(e) && !this.lockUnlockButton) {
       const label = isItemLocked(e) ? lockedLabel : unlockedLabel;
       const button = new UTGroupButtonControl();
       button.init();
@@ -7351,12 +8594,18 @@ const playerItemOverride = () => {
           if (isItemLocked(e)) {
             unlockItem(e);
             button.setText(unlockedLabel);
-            showNotification(`Item unlocked`, UINotificationType.POSITIVE);
+            showNotification(
+              `EasySoccer: carta desprotegida do SBC`,
+              UINotificationType.POSITIVE
+            );
           } else {
             lockItem(e);
 
             button.setText(lockedLabel);
-            showNotification(`Item locked`, UINotificationType.POSITIVE);
+            showNotification(
+              `EasySoccer: carta protegida e bloqueada para envio em SBC`,
+              UINotificationType.POSITIVE
+            );
           }
           getControllerInstance().applyDataChange();
           getCurrentViewController()
@@ -7396,6 +8645,7 @@ const playerItemOverride = () => {
       this.fixUnfixButton = fixbutton;
     }
 
+    enhanceEasySoccerPlayerActionPanel(this, e);
     return result;
   };
 
@@ -7410,6 +8660,8 @@ const playerItemOverride = () => {
       );
     };
     const result = UTDefaultAction.call(this, e, t, i, o, n, r, s);
+    resetPanelActionButton(this, "lockUnlockButton");
+    resetPanelActionButton(this, "fixUnfixButton");
     if (!this.quickBuyButton && e.isPlayer() && e.concept) {
       const quickButton = new UTGroupButtonControl();
       quickButton.init();
@@ -7424,7 +8676,7 @@ const playerItemOverride = () => {
       const refreshButton = new UTGroupButtonControl();
       refreshButton.init();
       refreshButton.setInteractionState(true);
-      refreshButton.setText("Refresh Price");
+      refreshButton.setText("EasySoccer · Menor preço no mercado");
       insertAfter(
         refreshButton,
         this.quickBuyButton
@@ -7434,6 +8686,7 @@ const playerItemOverride = () => {
       refreshButton.addTarget(
         this,
         async () => {
+          setEasySoccerButtonSubtext(refreshButton, "Buscando...");
           const listing = await fetchLivePlayerPrice(e);
           const priceItems = getPriceItems();
           const priceRecord = priceItems[e.definitionId];
@@ -7445,8 +8698,13 @@ const playerItemOverride = () => {
             : Number.isFinite(priceValue)
             ? priceValue.toLocaleString()
             : "N/A";
+          setEasySoccerButtonSubtext(
+            refreshButton,
+            priceLabel,
+            Number.isFinite(priceValue)
+          );
           showNotification(
-            `Price refreshed: ${priceLabel}`,
+            `EasySoccer: menor preço ${priceLabel}`,
             UINotificationType.POSITIVE
           );
           try {
@@ -7470,7 +8728,7 @@ const playerItemOverride = () => {
       const refreshButton = new UTGroupButtonControl();
       refreshButton.init();
       refreshButton.setInteractionState(true);
-      refreshButton.setText("Refresh Price");
+      refreshButton.setText("EasySoccer · Menor preço no mercado");
       insertAfter(
         refreshButton,
         this.quickBuyButton
@@ -7480,8 +8738,21 @@ const playerItemOverride = () => {
       refreshButton.addTarget(
         this,
         async () => {
+          setEasySoccerButtonSubtext(refreshButton, "Buscando...");
           await fetchPlayerPrices([e]);
-          showNotification(`Price refreshed`, UINotificationType.POSITIVE);
+          const price = Number(getPrice(e));
+          const priceLabel = Number.isFinite(price) && price > 0
+            ? price.toLocaleString()
+            : "N/A";
+          setEasySoccerButtonSubtext(
+            refreshButton,
+            priceLabel,
+            Number.isFinite(price) && price > 0
+          );
+          showNotification(
+            `EasySoccer: menor preço ${priceLabel}`,
+            UINotificationType.POSITIVE
+          );
           try {
             getCurrentViewController()
               .getCurrentController()
@@ -7501,10 +8772,11 @@ const playerItemOverride = () => {
     }
 
     if (e.loans > -1 || !e.isPlayer() || !e.id || e.isTimeLimited()) {
+      enhanceEasySoccerPlayerActionPanel(this, e);
       return result;
     }
 
-    if (!e?.duplicateId > 0 && !isItemFixed(e)) {
+    if (!isItemFixed(e)) {
       const label = isItemLocked(e) ? lockedLabel : unlockedLabel;
       if (!this.lockUnlockButton) {
         const button = new UTGroupButtonControl();
@@ -7518,11 +8790,17 @@ const playerItemOverride = () => {
             if (isItemLocked(e)) {
               unlockItem(e);
               button.setText(unlockedLabel);
-              showNotification(`Item unlocked`, UINotificationType.POSITIVE);
+              showNotification(
+                `Carta desprotegida do SBC`,
+                UINotificationType.POSITIVE
+              );
             } else {
               lockItem(e);
               button.setText(lockedLabel);
-              showNotification(`Item locked`, UINotificationType.POSITIVE);
+              showNotification(
+                `Carta protegida: ela não poderá ser enviada em SBC`,
+                UINotificationType.POSITIVE
+              );
             }
             try {
               getCurrentViewController()
@@ -7581,6 +8859,7 @@ const playerItemOverride = () => {
       }
     }
 
+    enhanceEasySoccerPlayerActionPanel(this, e);
     return result;
   };
 
@@ -7602,15 +8881,16 @@ const playerItemOverride = () => {
     }
 
     if (isItemLocked(item)) {
-      addClass(this, "locked");
+      addClass(this, "easy-soccer-protected");
     } else {
-      removeClass(this, "locked");
+      removeClass(this, "easy-soccer-protected");
     }
     if (isItemFixed(item)) {
       addClass(this, "fixed");
     } else {
       removeClass(this, "fixed");
     }
+    enhanceEasySoccerPlayerCard(this, item);
     return result;
   };
 };
@@ -7935,7 +9215,7 @@ function makePostRequest(url, data, options = {}) {
           wompSound.play();
         }
         showNotification(
-          `Please check backend API is running`,
+          error?.message || "Falha ao consultar a API local do EasySoccer",
           UINotificationType.NEGATIVE
         );
       }
@@ -7968,7 +9248,7 @@ function makePostRequest(url, data, options = {}) {
       onload: (response) => {
         if (response.status < 200 || response.status >= 300) {
           const error = new Error(
-            `Backend returned HTTP ${response.status || "unknown"}`
+            AutoSbcRunnerCore.getBackendErrorMessage(response)
           );
           error.status = response.status;
           rejectRequest(error);
@@ -7989,12 +9269,14 @@ function makePostRequest(url, data, options = {}) {
         resolve(payload);
       },
       onerror: (response) => {
-        const error = new Error("Could not reach the local backend");
+        const error = new Error(
+          "Não foi possível conectar à API local do EasySoccer"
+        );
         error.status = response?.status;
         rejectRequest(error);
       },
       ontimeout: () => {
-        const error = new Error("Local backend request timed out");
+        const error = new Error("A API local demorou demais para responder");
         error.name = "TimeoutError";
         rejectRequest(error);
       },
@@ -9189,44 +10471,110 @@ const getRepeatableSbcSets = async () => {
 const requestRepeatableBatchStop = () => {
   repeatableBatchState.stopRequested = true;
   createSbc = false;
-  try {
-    repeatableBatchState.abortController?.abort();
-  } catch (_) {}
 };
 
-const runRepeatableSbcBatch = async (
-  setId,
-  requested,
-  onProgress,
-  userConfirmed = false
+const confirmedRepeatableQueuePlans = new WeakSet();
+
+const createConfirmedRepeatableQueuePlan = (validatedPlan) => {
+  const entries = Object.freeze(
+    validatedPlan.entries.map((entry) =>
+      Object.freeze({
+        ...entry,
+        target: Object.freeze({ ...entry.target }),
+      })
+    )
+  );
+  const plan = Object.freeze({
+    entries,
+    maximumCompletions: validatedPlan.maximumCompletions,
+    createdAt: Date.now(),
+  });
+  confirmedRepeatableQueuePlans.add(plan);
+  return plan;
+};
+
+const runRepeatableSbcQueueItem = async (
+  entry,
+  itemIndex,
+  totalItems,
+  onProgress
 ) => {
-  if (userConfirmed !== true) {
-    return { ok: false, error: "CONFIRMATION_REQUIRED" };
-  }
-  if (repeatableBatchState.running) {
-    return { ok: false, error: "BATCH_ALREADY_RUNNING" };
+  const initialSets = await getRepeatableSbcSets();
+  const initial = initialSets.find(
+    ({ set }) => String(set.id) === String(entry.setId)
+  );
+  if (!initial) {
+    if (entry.target.mode === "max") {
+      return {
+        setId: entry.setId,
+        name: entry.nameSnapshot,
+        requested: "max",
+        planned: entry.plannedCount,
+        completed: 0,
+        status: "exhausted",
+        reason: "O pack não está mais disponível na EA.",
+      };
+    }
+    throw {
+      code: "SET_NOT_FOUND",
+      message: `${entry.nameSnapshot} não está mais disponível.`,
+    };
   }
 
-  repeatableBatchState = {
-    running: true,
-    stopRequested: false,
-    abortController: null,
-    completed: 0,
-    requested,
+  const target = AutoSbcRunnerCore.resolveQueueTarget(
+    entry.target,
+    initial.info
+  );
+  if (!target.ok) {
+    if (entry.target.mode === "max") {
+      return {
+        setId: entry.setId,
+        name: entry.nameSnapshot,
+        requested: "max",
+        planned: entry.plannedCount,
+        completed: 0,
+        status: "exhausted",
+        reason: target.error,
+      };
+    }
+    throw { code: "INVALID_QUEUE_TARGET", message: target.error };
+  }
+
+  const requested = target.count;
+  let itemCompleted = 0;
+  const emit = (type, message, extra = {}) => {
+    onProgress?.({
+      type,
+      message,
+      itemIndex,
+      totalItems,
+      setId: entry.setId,
+      itemName: entry.nameSnapshot,
+      itemCompleted,
+      itemRequested: requested,
+      totalCompleted: repeatableBatchState.completed,
+      totalRequested: repeatableBatchState.requested,
+      ...extra,
+    });
   };
-  createSbc = true;
+
+  emit(
+    "item-started",
+    `Preparando ${entry.nameSnapshot}...`,
+    { targetMode: target.mode }
+  );
 
   try {
     for (let completion = 1; completion <= requested; completion += 1) {
       if (repeatableBatchState.stopRequested) {
-        throw { code: "STOPPED", message: "Lote interrompido pelo usuário." };
+        throw { code: "STOPPED", message: "Fila interrompida pelo usuário." };
       }
 
       let cycleFinished = false;
       let submittedChallenges = 0;
       while (!cycleFinished && submittedChallenges < 20) {
         if (repeatableBatchState.stopRequested) {
-          throw { code: "STOPPED", message: "Lote interrompido pelo usuário." };
+          throw { code: "STOPPED", message: "Fila interrompida pelo usuário." };
         }
 
         try {
@@ -9236,10 +10584,13 @@ const runRepeatableSbcBatch = async (
 
         const currentData = await sbcSets();
         const currentSet = currentData?.sets?.find(
-          (candidate) => String(candidate.id) === String(setId)
+          (candidate) => String(candidate.id) === String(entry.setId)
         );
         if (!currentSet) {
-          throw { code: "SET_NOT_FOUND", message: "O SBC selecionado não está mais disponível." };
+          throw {
+            code: "SET_NOT_FOUND",
+            message: `${entry.nameSnapshot} não está mais disponível.`,
+          };
         }
 
         const repeatability = AutoSbcRunnerCore.getRepeatabilityInfo(
@@ -9247,7 +10598,10 @@ const runRepeatableSbcBatch = async (
           window.SBCRepeatabilityMode || {}
         );
         if (!repeatability.repeatable) {
-          throw { code: "NOT_REPEATABLE", message: "A EA não marcou mais este conjunto como repetível." };
+          throw {
+            code: "NOT_REPEATABLE",
+            message: "A EA não marcou mais este conjunto como repetível.",
+          };
         }
 
         const challengeData = await getChallenges(currentSet);
@@ -9261,13 +10615,15 @@ const runRepeatableSbcBatch = async (
           };
         }
 
-        onProgress?.(
-          `Conclusão ${completion}/${requested}: resolvendo ${
+        emit(
+          "solving",
+          `${entry.nameSnapshot}: ${completion}/${requested} — resolvendo ${
             incomplete[incomplete.length - 1].name || "desafio"
-          }...`
+          }...`,
+          { completion }
         );
 
-        const result = await solveSBC(setId, 0, true, 0, false, false, {
+        const result = await solveSBC(entry.setId, 0, true, 0, false, false, {
           managedBatch: true,
           userConfirmed: true,
           forceSubmit: true,
@@ -9275,10 +10631,12 @@ const runRepeatableSbcBatch = async (
           disablePackOpening: true,
         });
         if (!result?.ok || !result?.submitted) {
-          throw result || {
-            code: "SUBMIT_NOT_CONFIRMED",
-            message: "O envio não foi confirmado pela EA.",
-          };
+          throw (
+            result || {
+              code: "SUBMIT_NOT_CONFIRMED",
+              message: "O envio não foi confirmado pela EA.",
+            }
+          );
         }
 
         submittedChallenges += 1;
@@ -9291,20 +10649,152 @@ const runRepeatableSbcBatch = async (
       if (!cycleFinished) {
         throw {
           code: "CHALLENGE_LOOP_GUARD",
-          message: "O conjunto excedeu 20 desafios; o lote foi interrompido.",
+          message: "O conjunto excedeu 20 desafios; a fila foi interrompida.",
         };
       }
 
-      repeatableBatchState.completed = completion;
-      onProgress?.(`Concluído ${completion}/${requested}. Atualizando inventário...`);
+      itemCompleted = completion;
+      repeatableBatchState.currentItemCompleted = itemCompleted;
+      repeatableBatchState.completed += 1;
+      emit(
+        "completion-finished",
+        `${entry.nameSnapshot}: ${completion}/${requested} concluído.`,
+        { completion }
+      );
       if (completion < requested) {
         await repeatableBatchDelay(2000);
       }
     }
 
-    return { ok: true, completed: repeatableBatchState.completed };
+    return {
+      setId: entry.setId,
+      name: entry.nameSnapshot,
+      requested: target.mode === "max" ? "max" : requested,
+      planned: requested,
+      completed: itemCompleted,
+      status: target.mode === "max" ? "limit-reached" : "completed",
+    };
+  } catch (error) {
+    if (
+      target.mode === "max" &&
+      AutoSbcRunnerCore.isSafeMaximumExhaustion(error)
+    ) {
+      emit(
+        "item-exhausted",
+        `${entry.nameSnapshot}: máximo possível atingido após ${itemCompleted} conclusão(ões).`,
+        { error }
+      );
+      return {
+        setId: entry.setId,
+        name: entry.nameSnapshot,
+        requested: "max",
+        planned: requested,
+        completed: itemCompleted,
+        status: "exhausted",
+        reason:
+          error?.failure?.message ||
+          error?.message ||
+          error?.status ||
+          error?.error ||
+          error?.code ||
+          "Sem solução segura disponível.",
+      };
+    }
+    error.itemCompleted = itemCompleted;
+    throw error;
+  }
+};
+
+const runRepeatableSbcQueue = async (confirmedPlan, onProgress) => {
+  if (!confirmedRepeatableQueuePlans.has(confirmedPlan)) {
+    return { ok: false, error: "CONFIRMATION_REQUIRED" };
+  }
+  if (repeatableBatchState.running) {
+    return { ok: false, error: "BATCH_ALREADY_RUNNING" };
+  }
+  confirmedRepeatableQueuePlans.delete(confirmedPlan);
+
+  repeatableBatchState = {
+    running: true,
+    stopRequested: false,
+    abortController: null,
+    completed: 0,
+    requested: confirmedPlan.maximumCompletions,
+    currentItemIndex: 0,
+    currentItemCompleted: 0,
+    results: [],
+  };
+  createSbc = true;
+  let currentEntry = null;
+
+  try {
+    for (
+      let itemIndex = 0;
+      itemIndex < confirmedPlan.entries.length;
+      itemIndex += 1
+    ) {
+      if (repeatableBatchState.stopRequested) {
+        throw { code: "STOPPED", message: "Fila interrompida pelo usuário." };
+      }
+      currentEntry = confirmedPlan.entries[itemIndex];
+      repeatableBatchState.currentItemIndex = itemIndex;
+      repeatableBatchState.currentItemCompleted = 0;
+      const itemResult = await runRepeatableSbcQueueItem(
+        currentEntry,
+        itemIndex,
+        confirmedPlan.entries.length,
+        onProgress
+      );
+      repeatableBatchState.results.push(itemResult);
+      onProgress?.({
+        type: "item-finished",
+        message:
+          itemResult.status === "exhausted"
+            ? `${itemResult.name}: máximo possível finalizado.`
+            : `${itemResult.name}: item da fila concluído.`,
+        itemIndex,
+        totalItems: confirmedPlan.entries.length,
+        setId: itemResult.setId,
+        itemName: itemResult.name,
+        itemCompleted: itemResult.completed,
+        itemRequested: itemResult.planned,
+        totalCompleted: repeatableBatchState.completed,
+        totalRequested: repeatableBatchState.requested,
+        result: itemResult,
+      });
+    }
+
+    return {
+      ok: true,
+      stopped: false,
+      completed: repeatableBatchState.completed,
+      requested: repeatableBatchState.requested,
+      items: [...repeatableBatchState.results],
+    };
   } catch (error) {
     const failure = AutoSbcRunnerCore.classifyFailure(error);
+    if (
+      currentEntry &&
+      !repeatableBatchState.results.some(
+        (result) => String(result.setId) === String(currentEntry.setId)
+      )
+    ) {
+      repeatableBatchState.results.push({
+        setId: currentEntry.setId,
+        name: currentEntry.nameSnapshot,
+        requested:
+          currentEntry.target.mode === "max"
+            ? "max"
+            : currentEntry.target.count,
+        planned: currentEntry.plannedCount,
+        completed: error?.itemCompleted || repeatableBatchState.currentItemCompleted,
+        status:
+          repeatableBatchState.stopRequested || error?.code === "STOPPED"
+            ? "stopped"
+            : "failed",
+        reason: failure.message,
+      });
+    }
     return {
       ok: false,
       stopped:
@@ -9312,6 +10802,8 @@ const runRepeatableSbcBatch = async (
         error?.code === "STOPPED" ||
         failure.code === "ABORTED",
       completed: repeatableBatchState.completed,
+      requested: repeatableBatchState.requested,
+      items: [...repeatableBatchState.results],
       error: error?.error || error?.code || failure.code,
       failure,
       detail: error,
@@ -9326,232 +10818,1150 @@ const runRepeatableSbcBatch = async (
   }
 };
 
-const openRepeatableBatchDialog = async () => {
-  document.getElementById("auto-sbc-repeatable-dialog")?.remove();
 
-  const overlay = document.createElement("div");
-  overlay.id = "auto-sbc-repeatable-dialog";
-  Object.assign(overlay.style, {
-    position: "fixed",
-    inset: "0",
-    zIndex: "100000",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    background: "rgba(0, 0, 0, 0.72)",
-  });
+const EASY_SOCCER_QUEUE_STYLE_ID = "easy-soccer-repeatable-queue-styles";
 
-  const panel = document.createElement("section");
-  Object.assign(panel.style, {
-    width: "min(520px, 92vw)",
-    maxHeight: "88vh",
-    overflow: "auto",
-    padding: "22px",
-    borderRadius: "12px",
-    background: "#17191c",
-    color: "#fff",
-    fontFamily: "Arial, sans-serif",
-    boxShadow: "0 18px 60px rgba(0,0,0,.55)",
-  });
+const ensureEasySoccerQueueStyles = () => {
+  if (document.getElementById(EASY_SOCCER_QUEUE_STYLE_ID)) return;
+  const style = document.createElement("style");
+  style.id = EASY_SOCCER_QUEUE_STYLE_ID;
+  style.textContent = `
+    #auto-sbc-repeatable-dialog {
+      position: fixed;
+      inset: 0;
+      z-index: 100000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(4, 6, 10, 0.82);
+      backdrop-filter: blur(10px);
+      color: #f6f8f7;
+      font-family: UltimateTeam, Arial, sans-serif;
+    }
+    #auto-sbc-repeatable-dialog * { box-sizing: border-box; }
+    .esq-panel {
+      display: flex;
+      flex-direction: column;
+      width: min(1160px, 96vw);
+      height: min(820px, 92vh);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at 0 0, rgba(7, 244, 104, 0.11), transparent 34%),
+        #15171c;
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.7);
+    }
+    .esq-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-height: 82px;
+      padding: 16px 22px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(13, 15, 19, 0.84);
+    }
+    .esq-header-logo { width: 48px; height: 48px; object-fit: contain; }
+    .esq-header-copy { min-width: 0; }
+    .esq-kicker {
+      display: block;
+      color: #07f468;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+    .esq-title { margin: 2px 0 0; font-size: 25px; line-height: 1.1; }
+    .esq-server {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-left: auto;
+      padding: 7px 11px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 999px;
+      color: #bac2cc;
+      background: rgba(255,255,255,.04);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .esq-server::before {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #f4c76b;
+      content: "";
+      box-shadow: 0 0 10px currentColor;
+    }
+    .esq-server.is-online { color: #8df8b9; }
+    .esq-server.is-online::before { background: #07f468; }
+    .esq-server.is-offline { color: #ff9a9a; }
+    .esq-server.is-offline::before { background: #ff5f67; }
+    .esq-icon-button {
+      display: inline-grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px;
+      background: rgba(255,255,255,.04);
+      color: #fff;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    .esq-icon-button:disabled { cursor: not-allowed; opacity: .35; }
+    .esq-content { flex: 1; min-height: 0; overflow: auto; }
+    .esq-catalog-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 330px;
+      min-height: 100%;
+    }
+    .esq-catalog-main { min-width: 0; padding: 20px; }
+    .esq-toolbar { display: flex; gap: 10px; margin-bottom: 16px; }
+    .esq-search {
+      flex: 1;
+      min-width: 140px;
+      padding: 11px 13px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px;
+      outline: 0;
+      background: #202329;
+      color: #fff;
+      font: inherit;
+    }
+    .esq-search:focus { border-color: #07f468; box-shadow: 0 0 0 3px rgba(7,244,104,.12); }
+    .esq-filter, .esq-button, .esq-mode-button, .esq-stepper-button {
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 9px;
+      background: #252930;
+      color: #f7f8f8;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 700;
+    }
+    .esq-filter { padding: 9px 12px; font-size: 12px; }
+    .esq-filter.is-active { border-color: rgba(7,244,104,.7); color: #07f468; }
+    .esq-pack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 13px;
+      align-content: start;
+    }
+    .esq-pack-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 250px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 15px;
+      background: linear-gradient(155deg, #252932, #1c1f25 70%);
+      box-shadow: 0 10px 24px rgba(0,0,0,.22);
+      transition: transform 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+    }
+    .esq-pack-card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,.22); }
+    .esq-pack-card.is-selected {
+      border-color: rgba(7,244,104,.82);
+      box-shadow: 0 0 0 2px rgba(7,244,104,.1), 0 14px 30px rgba(0,0,0,.35);
+    }
+    .esq-pack-art {
+      position: relative;
+      display: grid;
+      place-items: center;
+      height: 92px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 110%, rgba(7,244,104,.35), transparent 55%),
+        linear-gradient(130deg, #171a20, #2a3040);
+    }
+    .esq-pack-art::after {
+      position: absolute;
+      inset: auto -30px -60px;
+      height: 100px;
+      border-radius: 50%;
+      background: rgba(7,244,104,.08);
+      content: "";
+    }
+    .esq-pack-art img { width: 58px; height: 58px; object-fit: contain; z-index: 1; }
+    .esq-pack-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 2;
+      padding: 4px 7px;
+      border-radius: 999px;
+      background: rgba(4,7,10,.72);
+      color: #b9c2cd;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .04em;
+    }
+    .esq-pack-body { display: flex; flex: 1; flex-direction: column; gap: 8px; padding: 13px; }
+    .esq-pack-name { margin: 0; min-height: 38px; font-size: 15px; line-height: 1.25; }
+    .esq-pack-meta { color: #aeb7c2; font-size: 12px; }
+    .esq-pack-actions { margin-top: auto; }
+    .esq-add-button, .esq-primary {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #07f468;
+      border-radius: 9px;
+      background: #07f468;
+      color: #07120b;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 900;
+    }
+    .esq-mode-switch { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-bottom: 8px; }
+    .esq-mode-button { padding: 7px 5px; color: #aeb7c2; font-size: 11px; }
+    .esq-mode-button.is-active { border-color: #07f468; background: rgba(7,244,104,.12); color: #8df8b9; }
+    .esq-stepper { display: grid; grid-template-columns: 34px 1fr 34px; gap: 5px; }
+    .esq-stepper-button { min-height: 34px; font-size: 18px; }
+    .esq-count-input {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 8px;
+      background: #15171c;
+      color: #fff;
+      text-align: center;
+      font: inherit;
+      font-weight: 800;
+    }
+    .esq-max-label {
+      padding: 9px;
+      border: 1px solid rgba(7,244,104,.25);
+      border-radius: 8px;
+      background: rgba(7,244,104,.08);
+      color: #8df8b9;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .esq-sidebar {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      padding: 20px;
+      border-left: 1px solid rgba(255,255,255,.1);
+      background: rgba(10,12,16,.58);
+    }
+    .esq-sidebar-title { display: flex; justify-content: space-between; margin-bottom: 12px; }
+    .esq-sidebar-title h3 { margin: 0; font-size: 16px; }
+    .esq-queue-count { color: #07f468; font-size: 12px; font-weight: 800; }
+    .esq-queue-list { display: flex; flex-direction: column; gap: 8px; min-height: 80px; }
+    .esq-empty {
+      display: grid;
+      place-items: center;
+      min-height: 120px;
+      padding: 18px;
+      border: 1px dashed rgba(255,255,255,.14);
+      border-radius: 12px;
+      color: #8f99a5;
+      text-align: center;
+      font-size: 12px;
+    }
+    .esq-queue-item {
+      display: grid;
+      grid-template-columns: 25px minmax(0,1fr) auto;
+      gap: 8px;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 10px;
+      background: #202329;
+    }
+    .esq-queue-number {
+      display: grid;
+      place-items: center;
+      width: 25px;
+      height: 25px;
+      border-radius: 8px;
+      background: rgba(7,244,104,.12);
+      color: #8df8b9;
+      font-size: 11px;
+      font-weight: 900;
+    }
+    .esq-queue-name { overflow: hidden; font-size: 12px; font-weight: 800; text-overflow: ellipsis; white-space: nowrap; }
+    .esq-queue-target { margin-top: 3px; color: #9fa9b5; font-size: 11px; }
+    .esq-queue-tools { display: flex; gap: 3px; }
+    .esq-mini-button {
+      width: 24px;
+      height: 24px;
+      padding: 0;
+      border: 0;
+      border-radius: 6px;
+      background: rgba(255,255,255,.06);
+      color: #bdc5ce;
+      cursor: pointer;
+    }
+    .esq-mini-button:disabled { opacity: .25; cursor: default; }
+    .esq-summary {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,.09);
+    }
+    .esq-summary-total { margin-bottom: 12px; color: #c9d0d7; font-size: 12px; line-height: 1.5; }
+    .esq-summary-actions { display: grid; grid-template-columns: auto 1fr; gap: 8px; }
+    .esq-button { padding: 10px 13px; }
+    .esq-button:hover:not(:disabled) { border-color: rgba(255,255,255,.28); }
+    .esq-button:disabled, .esq-primary:disabled { cursor: not-allowed; opacity: .42; }
+    .esq-notice {
+      margin: 0 0 14px;
+      padding: 10px 12px;
+      border: 1px solid rgba(244,199,107,.25);
+      border-radius: 9px;
+      background: rgba(244,199,107,.08);
+      color: #f4d695;
+      font-size: 12px;
+    }
+    .esq-notice.is-error { border-color: rgba(255,95,103,.35); background: rgba(255,95,103,.09); color: #ffaaaa; }
+    .esq-stage { width: min(780px, 100%); margin: 0 auto; padding: 28px; }
+    .esq-stage-heading { margin: 0 0 7px; font-size: 24px; }
+    .esq-stage-subtitle { margin: 0 0 22px; color: #aeb7c2; line-height: 1.5; }
+    .esq-review-list, .esq-progress-list, .esq-result-list { display: flex; flex-direction: column; gap: 9px; }
+    .esq-review-row, .esq-progress-row, .esq-result-row {
+      display: grid;
+      grid-template-columns: 34px minmax(0,1fr) auto;
+      gap: 12px;
+      align-items: center;
+      padding: 13px;
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 11px;
+      background: #202329;
+    }
+    .esq-row-title { font-size: 13px; font-weight: 850; }
+    .esq-row-detail { margin-top: 3px; color: #9fa9b5; font-size: 11px; }
+    .esq-row-value { color: #8df8b9; font-size: 12px; font-weight: 850; text-align: right; }
+    .esq-safety {
+      display: grid;
+      gap: 7px;
+      margin: 18px 0;
+      padding: 14px;
+      border: 1px solid rgba(7,244,104,.2);
+      border-radius: 11px;
+      background: rgba(7,244,104,.06);
+      color: #c9f7da;
+      font-size: 12px;
+    }
+    .esq-confirm {
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+      margin: 18px 0;
+      color: #e7eaec;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .esq-confirm input { margin-top: 2px; accent-color: #07f468; }
+    .esq-stage-actions { display: flex; justify-content: flex-end; gap: 9px; margin-top: 18px; }
+    .esq-stage-actions .esq-primary { width: auto; min-width: 190px; }
+    .esq-progress-hero {
+      margin-bottom: 18px;
+      padding: 18px;
+      border: 1px solid rgba(7,244,104,.2);
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(7,244,104,.1), rgba(255,255,255,.025));
+    }
+    .esq-progress-message { min-height: 22px; margin: 0 0 12px; color: #dce3e7; }
+    .esq-progress-track { height: 9px; overflow: hidden; border-radius: 999px; background: rgba(255,255,255,.09); }
+    .esq-progress-bar { width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #00c653, #07f468); transition: width 180ms ease; }
+    .esq-progress-row.is-current { border-color: rgba(7,244,104,.55); }
+    .esq-progress-row.is-complete { opacity: .72; }
+    .esq-status-pill { padding: 5px 8px; border-radius: 999px; background: rgba(255,255,255,.07); color: #bac2cc; font-size: 10px; font-weight: 850; }
+    .esq-status-pill.is-success { background: rgba(7,244,104,.12); color: #8df8b9; }
+    .esq-status-pill.is-error { background: rgba(255,95,103,.12); color: #ffaaaa; }
+    @media (max-width: 820px) {
+      #auto-sbc-repeatable-dialog { padding: 8px; }
+      .esq-panel { width: 100%; height: 96vh; border-radius: 14px; }
+      .esq-catalog-layout { grid-template-columns: 1fr; }
+      .esq-sidebar { min-height: 300px; border-top: 1px solid rgba(255,255,255,.1); border-left: 0; }
+      .esq-toolbar { flex-wrap: wrap; }
+      .esq-search { flex-basis: 100%; }
+      .esq-pack-grid { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+      .esq-server { display: none; }
+      .esq-stage { padding: 18px; }
+    }
+  `;
+  document.head.appendChild(style);
+};
 
-  const title = document.createElement("h2");
-  title.textContent = "Repeatables locais";
-  title.style.margin = "0 0 8px";
-  const warning = document.createElement("p");
-  warning.textContent =
-    "Cada conclusão envia o SBC e consome os jogadores. O lote para no primeiro erro ou resposta incerta.";
-  warning.style.color = "#f4c76b";
+const createQueueElement = (tag, className = "", text = "") => {
+  const element = document.createElement(tag);
+  if (className) element.className = className;
+  if (text) element.textContent = text;
+  return element;
+};
 
-  const setLabel = document.createElement("label");
-  setLabel.textContent = "SBC/pacote repetível";
-  setLabel.style.display = "block";
-  const setSelect = document.createElement("select");
-  Object.assign(setSelect.style, {
-    width: "100%",
-    margin: "6px 0 14px",
-    padding: "10px",
-    color: "#111",
-  });
+const checkLocalEasySoccerBackend = async () => {
+  try {
+    const response = await Promise.race([
+      makeGetRequest(`${apiUrl}/health`),
+      repeatableBatchDelay(3500).then(() => {
+        throw new Error("BACKEND_HEALTH_TIMEOUT");
+      }),
+    ]);
+    const payload = typeof response === "string" ? JSON.parse(response) : response;
+    return payload?.status === "ok";
+  } catch (_) {
+    return false;
+  }
+};
 
-  const countLabel = document.createElement("label");
-  countLabel.textContent = "Quantidade de conclusões";
-  countLabel.style.display = "block";
-  const countInput = document.createElement("input");
-  countInput.type = "number";
-  countInput.min = "1";
-  countInput.max = String(AUTO_SBC_REPEATABLE_MAX_COMPLETIONS);
-  countInput.value = "1";
-  Object.assign(countInput.style, {
-    width: "100%",
-    boxSizing: "border-box",
-    margin: "6px 0 14px",
-    padding: "10px",
-    color: "#111",
-  });
-
-  const detail = document.createElement("p");
-  detail.style.color = "#b8c1cc";
-  const confirmLabel = document.createElement("label");
-  confirmLabel.style.display = "flex";
-  confirmLabel.style.gap = "8px";
-  confirmLabel.style.alignItems = "flex-start";
-  const confirmInput = document.createElement("input");
-  confirmInput.type = "checkbox";
-  const confirmText = document.createElement("span");
-  confirmText.textContent =
-    "Entendo que cada envio consome os jogadores selecionados.";
-  confirmLabel.append(confirmInput, confirmText);
-
-  const status = document.createElement("p");
-  status.textContent = "Carregando conjuntos repetíveis...";
-  status.style.minHeight = "22px";
-
-  const actions = document.createElement("div");
-  actions.style.display = "flex";
-  actions.style.gap = "8px";
-  actions.style.flexWrap = "wrap";
-  const makeButton = (label, background) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.textContent = label;
-    Object.assign(button.style, {
-      padding: "10px 14px",
-      border: "0",
-      borderRadius: "7px",
-      background,
-      color: "#fff",
-      cursor: "pointer",
-    });
-    return button;
-  };
-  const startButton = makeButton("Confirmar e executar", "#236e42");
-  const stopButton = makeButton("Parar", "#a33a3a");
-  const closeButton = makeButton("Fechar", "#555d68");
-  stopButton.disabled = true;
-  actions.append(startButton, stopButton, closeButton);
-  panel.append(
-    title,
-    warning,
-    setLabel,
-    setSelect,
-    countLabel,
-    countInput,
-    detail,
-    confirmLabel,
-    status,
-    actions
+const getRepeatableRewardSummary = (set) => {
+  const awards = Array.isArray(set?.awards) ? set.awards : [];
+  const packAwards = awards.filter(
+    (award) => award?.isPack || award?.type === "pack"
   );
+  const count = packAwards.length || awards.length;
+  if (count === 0) return "Recompensa do conjunto";
+  return `${count} recompensa${count === 1 ? "" : "s"} declarada${
+    count === 1 ? "" : "s"
+  }`;
+};
+
+const getRepeatableModeLabel = (info) => {
+  if (info?.remaining === Infinity || info?.mode === "UNLIMITED") {
+    return "ILIMITADO";
+  }
+  if (info?.mode === "LIMITED") return "LIMITADO";
+  if (info?.mode === "REFRESH") return "REPETÍVEL";
+  return info?.mode || "REPETÍVEL";
+};
+
+const openRepeatableQueueCatalogDialog = async () => {
+  document.getElementById("auto-sbc-repeatable-dialog")?.remove();
+  ensureEasySoccerQueueStyles();
+
+  const overlay = createQueueElement("div");
+  overlay.id = "auto-sbc-repeatable-dialog";
+  const panel = createQueueElement("section", "esq-panel");
+  const header = createQueueElement("header", "esq-header");
+  const logo = createEasySoccerLogoImage("esq-header-logo", "EasySoccer");
+  const headerCopy = createQueueElement("div", "esq-header-copy");
+  headerCopy.append(
+    createQueueElement("span", "esq-kicker", "EasySoccer"),
+    createQueueElement("h2", "esq-title", "Montar fila de Packs")
+  );
+  const serverStatus = createQueueElement(
+    "span",
+    "esq-server",
+    "Verificando servidor"
+  );
+  const closeButton = createQueueElement("button", "esq-icon-button", "×");
+  closeButton.type = "button";
+  closeButton.title = "Fechar";
+  const content = createQueueElement("main", "esq-content");
+  header.append(logo, headerCopy, serverStatus, closeButton);
+  panel.append(header, content);
   overlay.appendChild(panel);
   document.body.appendChild(overlay);
 
   let repeatableSets = [];
-  const refreshOptions = async () => {
-    repeatableSets = await getRepeatableSbcSets();
-    setSelect.replaceChildren();
-    repeatableSets.forEach(({ set, info }) => {
-      const option = document.createElement("option");
-      option.value = String(set.id);
-      option.textContent = `${set.name} — ${info.mode || "REPEATABLE"}`;
-      setSelect.appendChild(option);
-    });
-    status.textContent = repeatableSets.length
-      ? "Escolha o conjunto e a quantidade."
-      : "Nenhum conjunto repetível disponível neste momento.";
-    startButton.disabled = repeatableSets.length === 0;
-    updateDetail();
+  let queueEntries = [];
+  let backendOnline = false;
+  let activeFilter = "all";
+  let searchTerm = "";
+
+  const setServerStatus = (online) => {
+    backendOnline = online;
+    serverStatus.classList.toggle("is-online", online);
+    serverStatus.classList.toggle("is-offline", !online);
+    serverStatus.textContent = online
+      ? "Servidor conectado"
+      : "Servidor desligado";
   };
 
-  const updateDetail = () => {
-    const selected = repeatableSets.find(
-      ({ set }) => String(set.id) === String(setSelect.value)
+  const getSelectedEntry = (setId) =>
+    queueEntries.find((entry) => String(entry.setId) === String(setId));
+
+  const getRepeatabilityMap = () =>
+    new Map(
+      repeatableSets.map(({ set, info }) => [String(set.id), info])
     );
-    if (!selected) {
-      detail.textContent = "";
-      return;
-    }
-    const available = Number.isFinite(selected.info.remaining)
-      ? selected.info.remaining
+
+  const getQueueDraft = () =>
+    queueEntries.map((entry) => ({
+      setId: String(entry.setId),
+      nameSnapshot: entry.nameSnapshot,
+      target:
+        entry.mode === "max"
+          ? { mode: "max" }
+          : { mode: "exact", count: entry.count },
+    }));
+
+  const validateCurrentQueue = () =>
+    AutoSbcRunnerCore.validateQueuePlan(
+      getQueueDraft(),
+      getRepeatabilityMap()
+    );
+
+  const removeFromQueue = (setId) => {
+    queueEntries = queueEntries.filter(
+      (entry) => String(entry.setId) !== String(setId)
+    );
+  };
+
+  const addToQueue = ({ set, info }) => {
+    if (getSelectedEntry(set.id)) return;
+    if (queueEntries.length >= AUTO_SBC_REPEATABLE_MAX_QUEUE_ITEMS) return;
+    const available = Number.isFinite(info.remaining)
+      ? Math.min(AUTO_SBC_REPEATABLE_MAX_COMPLETIONS, info.remaining)
       : AUTO_SBC_REPEATABLE_MAX_COMPLETIONS;
-    countInput.max = String(
-      Math.min(AUTO_SBC_REPEATABLE_MAX_COMPLETIONS, available)
-    );
-    if (Number(countInput.value) > Number(countInput.max)) {
-      countInput.value = countInput.max;
-    }
-    const awardCount = Array.isArray(selected.set.awards)
-      ? selected.set.awards.length
-      : 0;
-    detail.textContent = `Modo: ${selected.info.mode || "repeatable"}. Disponíveis agora: ${
-      Number.isFinite(selected.info.remaining)
-        ? selected.info.remaining
-        : "sem limite informado"
-    }. Recompensas declaradas: ${awardCount}.`;
+    queueEntries.push({
+      setId: String(set.id),
+      nameSnapshot: String(set.name || `SBC ${set.id}`),
+      mode: "exact",
+      count: Math.max(1, Math.min(1, available)),
+    });
   };
 
-  setSelect.addEventListener("change", updateDetail);
-  stopButton.addEventListener("click", () => {
-    requestRepeatableBatchStop();
-    status.textContent = "Parada solicitada; aguardando a operação atual encerrar...";
-    stopButton.disabled = true;
-  });
-  closeButton.addEventListener("click", () => {
+  const moveQueueEntry = (index, direction) => {
+    const destination = index + direction;
+    if (destination < 0 || destination >= queueEntries.length) return;
+    const next = [...queueEntries];
+    [next[index], next[destination]] = [next[destination], next[index]];
+    queueEntries = next;
+  };
+
+  const closeDialog = () => {
     if (!repeatableBatchState.running) overlay.remove();
+  };
+  closeButton.addEventListener("click", closeDialog);
+  overlay.addEventListener("click", (event) => {
+    if (event.target === overlay) closeDialog();
   });
-  startButton.addEventListener("click", async () => {
-    const selected = repeatableSets.find(
-      ({ set }) => String(set.id) === String(setSelect.value)
-    );
-    if (!selected) return;
-    const validation = AutoSbcRunnerCore.validateCompletionCount(
-      countInput.value,
-      selected.info
-    );
-    if (!validation.ok) {
-      status.textContent = validation.error;
-      return;
-    }
-    if (!confirmInput.checked) {
-      status.textContent = "Marque a confirmação antes de executar.";
-      return;
-    }
-    const confirmed = window.confirm(
-      `Enviar ${validation.count} conclusão(ões) de “${selected.set.name}”? Esta ação consome jogadores.`
-    );
-    if (!confirmed) return;
 
-    startButton.disabled = true;
-    stopButton.disabled = false;
-    closeButton.disabled = true;
-    setSelect.disabled = true;
-    countInput.disabled = true;
-    confirmInput.disabled = true;
-    status.textContent = "Iniciando lote...";
-
-    const result = await runRepeatableSbcBatch(
-      selected.set.id,
-      validation.count,
-      (message) => {
-        status.textContent = message;
-      },
-      true
+  const renderLoading = () => {
+    content.replaceChildren();
+    const stage = createQueueElement("section", "esq-stage");
+    stage.append(
+      createQueueElement("h3", "esq-stage-heading", "Carregando seus packs..."),
+      createQueueElement(
+        "p",
+        "esq-stage-subtitle",
+        "Consultando os SBCs repetíveis disponíveis no Web App."
+      )
     );
-    const finalStatus = result.ok
-      ? `Lote concluído: ${result.completed}/${validation.count}.`
-      : result.stopped
-        ? `Lote parado após ${result.completed}/${validation.count}.`
-        : `Lote interrompido após ${result.completed}/${validation.count}: ${
-            result.failure?.message || result.error
-          }`;
-    stopButton.disabled = true;
+    content.appendChild(stage);
+  };
+
+  const renderCatalog = () => {
     closeButton.disabled = false;
-    setSelect.disabled = false;
-    countInput.disabled = false;
-    confirmInput.disabled = false;
-    await refreshOptions();
-    status.textContent = finalStatus;
-  });
+    content.replaceChildren();
+    const layout = createQueueElement("div", "esq-catalog-layout");
+    const main = createQueueElement("section", "esq-catalog-main");
+    const toolbar = createQueueElement("div", "esq-toolbar");
+    const search = createQueueElement("input", "esq-search");
+    search.type = "search";
+    search.placeholder = "Buscar SBC ou pack...";
+    search.value = searchTerm;
+    const allFilter = createQueueElement("button", "esq-filter", "Todos");
+    const selectedFilter = createQueueElement(
+      "button",
+      "esq-filter",
+      "Na fila"
+    );
+    allFilter.type = selectedFilter.type = "button";
+    allFilter.classList.toggle("is-active", activeFilter === "all");
+    selectedFilter.classList.toggle("is-active", activeFilter === "selected");
+    toolbar.append(search, allFilter, selectedFilter);
+    const catalogNotice = createQueueElement("p", "esq-notice");
+    catalogNotice.hidden = true;
+    const grid = createQueueElement("div", "esq-pack-grid");
+    main.append(toolbar, catalogNotice, grid);
 
-  await refreshOptions();
+    const sidebar = createQueueElement("aside", "esq-sidebar");
+    const sidebarTitle = createQueueElement("div", "esq-sidebar-title");
+    sidebarTitle.append(
+      createQueueElement("h3", "", "Sua fila"),
+      createQueueElement("span", "esq-queue-count")
+    );
+    const queueList = createQueueElement("div", "esq-queue-list");
+    const summary = createQueueElement("div", "esq-summary");
+    const summaryTotal = createQueueElement("div", "esq-summary-total");
+    const summaryActions = createQueueElement("div", "esq-summary-actions");
+    const clearButton = createQueueElement("button", "esq-button", "Limpar");
+    const reviewButton = createQueueElement(
+      "button",
+      "esq-primary",
+      "Revisar fila →"
+    );
+    clearButton.type = reviewButton.type = "button";
+    summaryActions.append(clearButton, reviewButton);
+    summary.append(summaryTotal, summaryActions);
+    sidebar.append(sidebarTitle, queueList, summary);
+    layout.append(main, sidebar);
+    content.appendChild(layout);
+
+    const refreshCatalog = () => {
+      const query = searchTerm.trim().toLocaleLowerCase();
+      const visible = repeatableSets.filter(({ set }) => {
+        const matchesSearch = String(set?.name || "")
+          .toLocaleLowerCase()
+          .includes(query);
+        const matchesFilter =
+          activeFilter === "all" || Boolean(getSelectedEntry(set.id));
+        return matchesSearch && matchesFilter;
+      });
+      grid.replaceChildren();
+
+      if (visible.length === 0) {
+        grid.appendChild(
+          createQueueElement(
+            "div",
+            "esq-empty",
+            repeatableSets.length
+              ? "Nenhum pack corresponde à busca atual."
+              : "Nenhum SBC repetível está disponível agora."
+          )
+        );
+        return;
+      }
+
+      visible.forEach((candidate) => {
+        const { set, info } = candidate;
+        const selected = getSelectedEntry(set.id);
+        const card = createQueueElement(
+          "article",
+          `esq-pack-card${selected ? " is-selected" : ""}`
+        );
+        const art = createQueueElement("div", "esq-pack-art");
+        const artLogo = createEasySoccerLogoImage("", "");
+        const badge = createQueueElement(
+          "span",
+          "esq-pack-badge",
+          getRepeatableModeLabel(info)
+        );
+        art.append(artLogo, badge);
+        const body = createQueueElement("div", "esq-pack-body");
+        const name = createQueueElement(
+          "h4",
+          "esq-pack-name",
+          String(set.name || `SBC ${set.id}`)
+        );
+        const remaining = Number.isFinite(info.remaining)
+          ? `${info.remaining} disponível${info.remaining === 1 ? "" : "is"}`
+          : "Sem limite informado pela EA";
+        const meta = createQueueElement(
+          "div",
+          "esq-pack-meta",
+          `${remaining} · ${getRepeatableRewardSummary(set)}`
+        );
+        const actions = createQueueElement("div", "esq-pack-actions");
+
+        if (!selected) {
+          const addButton = createQueueElement(
+            "button",
+            "esq-add-button",
+            "+ Adicionar à fila"
+          );
+          addButton.type = "button";
+          addButton.disabled =
+            queueEntries.length >= AUTO_SBC_REPEATABLE_MAX_QUEUE_ITEMS;
+          addButton.addEventListener("click", () => {
+            addToQueue(candidate);
+            refreshCatalog();
+            refreshSummary();
+          });
+          actions.appendChild(addButton);
+        } else {
+          const modeSwitch = createQueueElement("div", "esq-mode-switch");
+          const exactButton = createQueueElement(
+            "button",
+            `esq-mode-button${selected.mode === "exact" ? " is-active" : ""}`,
+            "Quantidade"
+          );
+          const maxButton = createQueueElement(
+            "button",
+            `esq-mode-button${selected.mode === "max" ? " is-active" : ""}`,
+            "Máximo"
+          );
+          exactButton.type = maxButton.type = "button";
+          exactButton.addEventListener("click", () => {
+            selected.mode = "exact";
+            refreshCatalog();
+            refreshSummary();
+          });
+          maxButton.addEventListener("click", () => {
+            selected.mode = "max";
+            refreshCatalog();
+            refreshSummary();
+          });
+          modeSwitch.append(exactButton, maxButton);
+          actions.appendChild(modeSwitch);
+
+          if (selected.mode === "max") {
+            const resolved = AutoSbcRunnerCore.resolveQueueTarget(
+              { mode: "max" },
+              info
+            );
+            actions.appendChild(
+              createQueueElement(
+                "div",
+                "esq-max-label",
+                resolved.ok
+                  ? info.remaining === Infinity
+                    ? `Ilimitado · teto seguro ${resolved.count}`
+                    : `Até ${resolved.count} conclusões`
+                  : "Indisponível"
+              )
+            );
+          } else {
+            const available = Number.isFinite(info.remaining)
+              ? Math.min(AUTO_SBC_REPEATABLE_MAX_COMPLETIONS, info.remaining)
+              : AUTO_SBC_REPEATABLE_MAX_COMPLETIONS;
+            const stepper = createQueueElement("div", "esq-stepper");
+            const minus = createQueueElement("button", "esq-stepper-button", "−");
+            const count = createQueueElement("input", "esq-count-input");
+            const plus = createQueueElement("button", "esq-stepper-button", "+");
+            minus.type = plus.type = "button";
+            count.type = "number";
+            count.min = "1";
+            count.max = String(available);
+            count.value = String(selected.count);
+            const setCount = (value) => {
+              selected.count = Math.max(
+                1,
+                Math.min(available, Math.trunc(Number(value) || 1))
+              );
+              refreshCatalog();
+              refreshSummary();
+            };
+            minus.addEventListener("click", () => setCount(selected.count - 1));
+            plus.addEventListener("click", () => setCount(selected.count + 1));
+            count.addEventListener("change", () => setCount(count.value));
+            stepper.append(minus, count, plus);
+            actions.appendChild(stepper);
+          }
+        }
+        body.append(name, meta, actions);
+        card.append(art, body);
+        grid.appendChild(card);
+      });
+    };
+
+    const refreshSummary = () => {
+      const countNode = sidebarTitle.querySelector(".esq-queue-count");
+      countNode.textContent = `${queueEntries.length} selecionado${
+        queueEntries.length === 1 ? "" : "s"
+      }`;
+      queueList.replaceChildren();
+      if (queueEntries.length === 0) {
+        queueList.appendChild(
+          createQueueElement(
+            "div",
+            "esq-empty",
+            "Adicione packs do catálogo para montar sua fila."
+          )
+        );
+      } else {
+        queueEntries.forEach((entry, index) => {
+          const item = createQueueElement("div", "esq-queue-item");
+          const number = createQueueElement(
+            "span",
+            "esq-queue-number",
+            String(index + 1)
+          );
+          const copy = createQueueElement("div");
+          const name = createQueueElement(
+            "div",
+            "esq-queue-name",
+            entry.nameSnapshot
+          );
+          const info = getRepeatabilityMap().get(String(entry.setId));
+          const resolved = AutoSbcRunnerCore.resolveQueueTarget(
+            entry.mode === "max"
+              ? { mode: "max" }
+              : { mode: "exact", count: entry.count },
+            info
+          );
+          const target = createQueueElement(
+            "div",
+            "esq-queue-target",
+            entry.mode === "max"
+              ? info?.remaining === Infinity
+                ? `Ilimitado · teto seguro ${resolved.ok ? resolved.count : 0}`
+                : `Máximo possível · até ${resolved.ok ? resolved.count : 0}`
+              : `${entry.count} vez${entry.count === 1 ? "" : "es"}`
+          );
+          copy.append(name, target);
+          const tools = createQueueElement("div", "esq-queue-tools");
+          const up = createQueueElement("button", "esq-mini-button", "↑");
+          const down = createQueueElement("button", "esq-mini-button", "↓");
+          const remove = createQueueElement("button", "esq-mini-button", "×");
+          up.type = down.type = remove.type = "button";
+          up.disabled = index === 0;
+          down.disabled = index === queueEntries.length - 1;
+          up.title = "Mover para cima";
+          down.title = "Mover para baixo";
+          remove.title = "Remover da fila";
+          up.addEventListener("click", () => {
+            moveQueueEntry(index, -1);
+            refreshSummary();
+          });
+          down.addEventListener("click", () => {
+            moveQueueEntry(index, 1);
+            refreshSummary();
+          });
+          remove.addEventListener("click", () => {
+            removeFromQueue(entry.setId);
+            refreshCatalog();
+            refreshSummary();
+          });
+          tools.append(up, down, remove);
+          item.append(number, copy, tools);
+          queueList.appendChild(item);
+        });
+      }
+
+      const validation = validateCurrentQueue();
+      summaryTotal.textContent = validation.ok
+        ? `${validation.entries.length} pack${
+            validation.entries.length === 1 ? "" : "s"
+          } diferente${
+            validation.entries.length === 1 ? "" : "s"
+          } · até ${validation.maximumCompletions} conclusão${
+            validation.maximumCompletions === 1 ? "" : "ões"
+          } · execução sequencial.`
+        : "Escolha os packs e quantidades para continuar.";
+      clearButton.disabled = queueEntries.length === 0;
+      reviewButton.disabled = !validation.ok;
+    };
+
+    search.addEventListener("input", () => {
+      searchTerm = search.value;
+      refreshCatalog();
+    });
+    allFilter.addEventListener("click", () => {
+      activeFilter = "all";
+      renderCatalog();
+    });
+    selectedFilter.addEventListener("click", () => {
+      activeFilter = "selected";
+      renderCatalog();
+    });
+    clearButton.addEventListener("click", () => {
+      queueEntries = [];
+      refreshCatalog();
+      refreshSummary();
+    });
+    reviewButton.addEventListener("click", () => {
+      const validation = validateCurrentQueue();
+      if (!validation.ok) {
+        catalogNotice.hidden = false;
+        catalogNotice.classList.add("is-error");
+        catalogNotice.textContent = validation.error;
+        return;
+      }
+      renderReview(validation);
+    });
+
+    refreshCatalog();
+    refreshSummary();
+  };
+
+  const renderReview = (validation) => {
+    content.replaceChildren();
+    const stage = createQueueElement("section", "esq-stage");
+    stage.append(
+      createQueueElement("h3", "esq-stage-heading", "Revise sua fila"),
+      createQueueElement(
+        "p",
+        "esq-stage-subtitle",
+        "Esta é a ordem real de execução. Cada conclusão monta e envia um SBC separadamente."
+      )
+    );
+    const list = createQueueElement("div", "esq-review-list");
+    validation.entries.forEach((entry, index) => {
+      const row = createQueueElement("div", "esq-review-row");
+      const number = createQueueElement(
+        "span",
+        "esq-queue-number",
+        String(index + 1)
+      );
+      const copy = createQueueElement("div");
+      copy.append(
+        createQueueElement("div", "esq-row-title", entry.nameSnapshot),
+        createQueueElement(
+          "div",
+          "esq-row-detail",
+          entry.target.mode === "max"
+            ? "Continua até o limite da EA, falta de jogadores ou teto seguro."
+            : "Quantidade exata; uma falha pausa o restante da fila."
+        )
+      );
+      const value = createQueueElement(
+        "div",
+        "esq-row-value",
+        entry.target.mode === "max"
+          ? entry.unlimited
+            ? `Ilimitado · teto ${entry.plannedCount}`
+            : `Máximo · até ${entry.plannedCount}`
+          : `${entry.plannedCount} conclusão${entry.plannedCount === 1 ? "" : "ões"}`
+      );
+      row.append(number, copy, value);
+      list.appendChild(row);
+    });
+
+    const safety = createQueueElement("div", "esq-safety");
+    safety.append(
+      createQueueElement(
+        "div",
+        "",
+        "🛡 Cartas protegidas continuam bloqueadas em todos os SBCs."
+      ),
+      createQueueElement(
+        "div",
+        "",
+        "✓ Respostas incertas, falhas de sessão ou servidor interrompem a fila."
+      ),
+      createQueueElement(
+        "div",
+        "",
+        `✓ Máximo autorizado neste plano: ${validation.maximumCompletions} conclusões.`
+      )
+    );
+    const status = createQueueElement("p", "esq-notice");
+    status.textContent = backendOnline
+      ? "Servidor local conectado. A fila será revalidada antes de iniciar."
+      : "Servidor local desligado. Abra 3_INICIAR_PROJETO.cmd antes de executar.";
+    if (!backendOnline) status.classList.add("is-error");
+    const confirm = createQueueElement("label", "esq-confirm");
+    const checkbox = createQueueElement("input");
+    checkbox.type = "checkbox";
+    const confirmText = createQueueElement(
+      "span",
+      "",
+      "Confirmo esta fila e entendo que cada envio concluído consome os jogadores selecionados."
+    );
+    confirm.append(checkbox, confirmText);
+    const actions = createQueueElement("div", "esq-stage-actions");
+    const back = createQueueElement("button", "esq-button", "← Editar fila");
+    const start = createQueueElement(
+      "button",
+      "esq-primary",
+      "Confirmar e iniciar"
+    );
+    back.type = start.type = "button";
+    start.disabled = true;
+    checkbox.addEventListener("change", () => {
+      start.disabled = !checkbox.checked;
+    });
+    back.addEventListener("click", renderCatalog);
+    start.addEventListener("click", async () => {
+      start.disabled = true;
+      back.disabled = true;
+      checkbox.disabled = true;
+      status.classList.remove("is-error");
+      status.textContent = "Revalidando servidor, packs e limites atuais...";
+
+      const [freshSets, online] = await Promise.all([
+        getRepeatableSbcSets().catch(() => []),
+        checkLocalEasySoccerBackend(),
+      ]);
+      repeatableSets = freshSets;
+      setServerStatus(online);
+      if (!online) {
+        status.classList.add("is-error");
+        status.textContent =
+          "Servidor local desligado. Abra 3_INICIAR_PROJETO.cmd e tente novamente.";
+        start.disabled = false;
+        back.disabled = false;
+        checkbox.disabled = false;
+        return;
+      }
+
+      const freshValidation = validateCurrentQueue();
+      if (!freshValidation.ok) {
+        status.classList.add("is-error");
+        status.textContent = freshValidation.error;
+        start.disabled = false;
+        back.disabled = false;
+        checkbox.disabled = false;
+        return;
+      }
+
+      const confirmedPlan = createConfirmedRepeatableQueuePlan(freshValidation);
+      const running = renderRunning(confirmedPlan);
+      const result = await runRepeatableSbcQueue(
+        confirmedPlan,
+        running.update
+      );
+      renderQueueResult(result);
+    });
+    actions.append(back, start);
+    stage.append(list, safety, status, confirm, actions);
+    content.appendChild(stage);
+  };
+
+  const renderRunning = (plan) => {
+    closeButton.disabled = true;
+    content.replaceChildren();
+    const stage = createQueueElement("section", "esq-stage");
+    stage.append(
+      createQueueElement("h3", "esq-stage-heading", "Executando sua fila"),
+      createQueueElement(
+        "p",
+        "esq-stage-subtitle",
+        "Não feche o Web App. Os packs são processados um por vez."
+      )
+    );
+    const hero = createQueueElement("div", "esq-progress-hero");
+    const message = createQueueElement(
+      "p",
+      "esq-progress-message",
+      "Preparando o primeiro pack..."
+    );
+    const track = createQueueElement("div", "esq-progress-track");
+    const bar = createQueueElement("div", "esq-progress-bar");
+    track.appendChild(bar);
+    hero.append(message, track);
+    const list = createQueueElement("div", "esq-progress-list");
+    const rows = new Map();
+    plan.entries.forEach((entry, index) => {
+      const row = createQueueElement("div", "esq-progress-row");
+      const number = createQueueElement(
+        "span",
+        "esq-queue-number",
+        String(index + 1)
+      );
+      const copy = createQueueElement("div");
+      const title = createQueueElement("div", "esq-row-title", entry.nameSnapshot);
+      const detail = createQueueElement("div", "esq-row-detail", "Aguardando");
+      copy.append(title, detail);
+      const pill = createQueueElement("span", "esq-status-pill", "Na fila");
+      row.append(number, copy, pill);
+      list.appendChild(row);
+      rows.set(String(entry.setId), { row, detail, pill });
+    });
+    const actions = createQueueElement("div", "esq-stage-actions");
+    const stop = createQueueElement(
+      "button",
+      "esq-button",
+      "Parar com segurança"
+    );
+    stop.type = "button";
+    stop.addEventListener("click", () => {
+      requestRepeatableBatchStop();
+      stop.disabled = true;
+      message.textContent =
+        "Parada solicitada. O EasySoccer não iniciará um novo envio.";
+    });
+    actions.appendChild(stop);
+    stage.append(hero, list, actions);
+    content.appendChild(stage);
+
+    return {
+      update(event) {
+        message.textContent = event?.message || "Atualizando fila...";
+        const progress = event?.totalRequested
+          ? Math.min(100, (event.totalCompleted / event.totalRequested) * 100)
+          : 0;
+        bar.style.width = `${progress}%`;
+        const current = rows.get(String(event?.setId));
+        if (!current) return;
+        rows.forEach(({ row }, setId) => {
+          row.classList.toggle("is-current", setId === String(event.setId));
+        });
+        current.detail.textContent = `${event.itemCompleted || 0}/${
+          event.itemRequested || 0
+        } concluído · total ${event.totalCompleted || 0}/${
+          event.totalRequested || 0
+        }`;
+        current.pill.textContent = "Executando";
+        if (event.type === "item-finished") {
+          current.row.classList.add("is-complete");
+          current.row.classList.remove("is-current");
+          current.pill.classList.add("is-success");
+          current.pill.textContent =
+            event.result?.status === "exhausted" ? "Esgotado" : "Concluído";
+        }
+      },
+    };
+  };
+
+  const renderQueueResult = (result) => {
+    closeButton.disabled = false;
+    content.replaceChildren();
+    const stage = createQueueElement("section", "esq-stage");
+    const heading = result.ok
+      ? "Fila finalizada"
+      : result.stopped
+        ? "Fila parada"
+        : "Fila interrompida";
+    stage.append(
+      createQueueElement("h3", "esq-stage-heading", heading),
+      createQueueElement(
+        "p",
+        "esq-stage-subtitle",
+        `${result.completed || 0} conclusão${
+          result.completed === 1 ? "" : "ões"
+        } enviada${result.completed === 1 ? "" : "s"} nesta execução.`
+      )
+    );
+    if (!result.ok && !result.stopped) {
+      const error = createQueueElement("p", "esq-notice is-error");
+      error.textContent =
+        result.failure?.message ||
+        result.error ||
+        "A fila foi interrompida por segurança.";
+      stage.appendChild(error);
+    }
+    const list = createQueueElement("div", "esq-result-list");
+    (result.items || []).forEach((item, index) => {
+      const row = createQueueElement("div", "esq-result-row");
+      const number = createQueueElement(
+        "span",
+        "esq-queue-number",
+        String(index + 1)
+      );
+      const copy = createQueueElement("div");
+      copy.append(
+        createQueueElement("div", "esq-row-title", item.name),
+        createQueueElement(
+          "div",
+          "esq-row-detail",
+          item.reason ||
+            (item.status === "exhausted"
+              ? "Máximo possível atingido."
+              : "Processamento finalizado.")
+        )
+      );
+      const successful = ["completed", "limit-reached", "exhausted"].includes(
+        item.status
+      );
+      const pill = createQueueElement(
+        "span",
+        `esq-status-pill${successful ? " is-success" : " is-error"}`,
+        `${item.completed}/${item.planned || item.completed}`
+      );
+      row.append(number, copy, pill);
+      list.appendChild(row);
+    });
+    const actions = createQueueElement("div", "esq-stage-actions");
+    const close = createQueueElement("button", "esq-button", "Fechar");
+    const newQueue = createQueueElement("button", "esq-primary", "Montar nova fila");
+    close.type = newQueue.type = "button";
+    close.addEventListener("click", closeDialog);
+    newQueue.addEventListener("click", async () => {
+      queueEntries = [];
+      renderLoading();
+      repeatableSets = await getRepeatableSbcSets().catch(() => []);
+      renderCatalog();
+    });
+    actions.append(close, newQueue);
+    stage.append(list, actions);
+    content.appendChild(stage);
+  };
+
+  renderLoading();
+  const [sets, online] = await Promise.all([
+    getRepeatableSbcSets().catch(() => []),
+    checkLocalEasySoccerBackend(),
+  ]);
+  repeatableSets = sets;
+  setServerStatus(online);
+  renderCatalog();
 };
 
 const createSBCButtons = async () => {
@@ -9808,12 +12218,13 @@ let createSBCTab = async () => {
   const repeatablesBtn = createNavButton(
     "btnLocalRepeatables",
     /* html */ `<div style="text-align:center;line-height:1.2">
-      <span>Repeatables locais</span>
-      <span style="display:block;font-size:0.75em;color:#07f468">quantidade exata</span>
+      <img src="${EASY_SOCCER_LOGO_DATA_URL}" alt="EasySoccer" style="display:block;width:34px;height:34px;object-fit:contain;margin:0 auto 4px" draggable="false">
+      <span>Fila de Packs</span>
+      <span style="display:block;font-size:0.75em;color:#07f468">exato ou máximo</span>
     </div>`,
     null,
     async () => {
-      await openRepeatableBatchDialog();
+      await openRepeatableQueueCatalogDialog();
     },
     { background: "none", color: "#fff" }
   );
@@ -11678,8 +14089,11 @@ const init = () => {
     sideBarNavOverride();
     favTagOverride();
     sbcSubmitChallengeOverride();
+    protectedSbcSubmissionOverride();
     initDefaultSettings();
     futHomeOverride();
+    installEasySoccerClubSearchPageSize();
+    initEasySoccerLayout();
   } else {
     setTimeout(init, 4000);
     console.log(

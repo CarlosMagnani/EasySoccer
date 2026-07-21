@@ -9,8 +9,10 @@ from typing import Annotated, Any
 import logger  # Import the logger module
 import setup
 import uvicorn
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 # Configure logging
@@ -38,7 +40,8 @@ class Requirement(BaseModel):
     model_config = ConfigDict(extra="allow")
 
     scope: str
-    count: int = Field(ge=0)
+    # EA uses -1 as the sentinel for requirements that apply to the whole squad.
+    count: int = Field(ge=-1)
     requirementKey: str
     eligibilityValues: list[Any]
 
@@ -65,6 +68,26 @@ class SolveRequest(BaseModel):
     clubPlayers: list[dict[str, Any]] = Field(min_length=1)
     maxSolveTime: Annotated[int, Field(strict=True, ge=1, le=180)]
     exportDebugCsv: bool = False
+
+
+@app.exception_handler(RequestValidationError)
+async def request_validation_error_handler(
+    _request: Request, error: RequestValidationError
+):
+    details = [
+        {
+            "loc": list(issue.get("loc", ())),
+            "msg": issue.get("msg", "Invalid value"),
+            "type": issue.get("type", "value_error"),
+        }
+        for issue in error.errors()
+    ]
+    summary = "; ".join(
+        f"{'.'.join(map(str, detail['loc']))}: {detail['msg']}"
+        for detail in details
+    )
+    logging.warning("Request validation failed: %s", summary)
+    return JSONResponse(status_code=422, content={"detail": details})
 
 
 @app.get("/health")

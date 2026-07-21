@@ -6,17 +6,23 @@ $ErrorActionPreference = 'Stop'
 
 $packageRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $venvPython = Join-Path $packageRoot '.venv\Scripts\python.exe'
-$testedWorkspacePython = [IO.Path]::GetFullPath((Join-Path $packageRoot '..\..\work\autosbc-venv\Scripts\python.exe'))
 $backendDirectory = Join-Path $packageRoot 'backend'
 
 if (-not (Test-Path -LiteralPath $venvPython -PathType Leaf)) {
-    if (Test-Path -LiteralPath $testedWorkspacePython -PathType Leaf) {
-        $venvPython = $testedWorkspacePython
-        Write-Host 'Usando o ambiente de teste já preparado neste workspace.' -ForegroundColor Yellow
-    }
-    else {
-        throw 'A .venv não foi encontrada. Execute .\INSTALL.ps1 primeiro.'
-    }
+    throw 'A .venv não foi encontrada. Execute 1_INSTALAR_DO_ZERO.cmd primeiro.'
+}
+
+$venvIsValid = $false
+try {
+    & $venvPython -c "import fastapi, uvicorn, ortools, pandas"
+    $venvIsValid = $LASTEXITCODE -eq 0
+}
+catch {
+    $venvIsValid = $false
+}
+
+if (-not $venvIsValid) {
+    throw 'O ambiente .venv está quebrado ou incompleto. Execute 2_REINSTALAR.cmd.'
 }
 
 if (-not (Test-Path -LiteralPath (Join-Path $backendDirectory 'main.py') -PathType Leaf)) {

@@ -34,6 +34,23 @@ class UnsupportedRequirementError(ValueError):
     pass
 
 
+RARITY_GROUP_FALLBACK_LABELS = {
+    83: "TOTW/TOTS/FOF",
+}
+
+MINIMUM_MEMBERSHIP_REQUIREMENT_KEYS = frozenset(
+    {
+        "CLUB_ID",
+        "LEAGUE_ID",
+        "NATION_ID",
+        "PLAYER_EXACT_OVR",
+        "PLAYER_QUALITY",
+        "PLAYER_RARITY",
+        "PLAYER_RARITY_GROUP",
+    }
+)
+
+
 def validate_sbc_requirements(sbc):
     constraints = sbc.get("constraints") if isinstance(sbc, dict) else None
     if not isinstance(constraints, list):
@@ -48,6 +65,143 @@ def validate_sbc_requirements(sbc):
                 f"Unsupported requirementKey at constraints[{index}]: "
                 f"{requirement_key!r}"
             )
+
+
+def _requirement_condition(df, requirement):
+    key = requirement["requirementKey"]
+    values = requirement.get("eligibilityValues", [])
+    scope = requirement.get("scope")
+
+    if key == "PLAYER_RARITY_GROUP":
+        return df["groups"].apply(
+            lambda groups: any(
+                item in values
+                for item in (groups if isinstance(groups, list) else [groups])
+            )
+        )
+    if key == "PLAYER_QUALITY":
+        if scope in ["GREATER", "EXACT"]:
+            return df["ratingTier"] >= values[0]
+        if scope == "LOWER":
+            return df["ratingTier"] <= values[0]
+    if key == "CLUB_ID":
+        return df["teamId"].isin(values)
+    if key == "LEAGUE_ID":
+        return df["leagueId"].isin(values)
+    if key == "NATION_ID":
+        return df["nationId"].isin(values)
+    if key == "PLAYER_RARITY":
+        return df["rarityId"].isin(values)
+    if key == "PLAYER_EXACT_OVR":
+        return df["rating"].isin(values)
+    return pd.Series(True, index=df.index)
+
+
+def find_unmet_minimum_requirements(df, sbc):
+    failures = []
+    for requirement in sbc["constraints"]:
+        minimum = int(requirement.get("count", 0))
+        # EA uses -1 for rules that apply to the whole squad, such as team rating.
+        if (
+            minimum <= 0
+            or requirement["requirementKey"]
+            not in MINIMUM_MEMBERSHIP_REQUIREMENT_KEYS
+        ):
+            continue
+
+        condition = _requirement_condition(df, requirement)
+        matches = df.loc[condition]
+        found = int(matches["id"].nunique()) if "id" in matches else len(matches)
+        if found >= minimum:
+            continue
+
+        failure = {
+            "requirementKey": requirement["requirementKey"],
+            "required": minimum,
+            "found": found,
+            "eligibilityValues": requirement.get("eligibilityValues", []),
+        }
+        failures.append(failure)
+        add_log(
+            f"Failed requirement: {failure['requirementKey']} requires at least "
+            f"{minimum} players, found {found}."
+        )
+    return failures
+
+
+def _rarity_group_diagnostic(sbc, eligibility_values):
+    diagnostics = sbc.get("filterDiagnostics", {}).get("rarityGroups", [])
+    wanted = {str(value) for value in eligibility_values}
+    return next(
+        (
+            item
+            for item in diagnostics
+            if str(item.get("groupId")) in wanted
+        ),
+        {},
+    )
+
+
+def build_missing_requirement_failure(sbc, failures):
+    first = failures[0]
+    if first["requirementKey"] == "PLAYER_RARITY_GROUP":
+        diagnostic = _rarity_group_diagnostic(sbc, first["eligibilityValues"])
+        fallback_id = next(iter(first["eligibilityValues"]), None)
+        label = diagnostic.get("label") or RARITY_GROUP_FALLBACK_LABELS.get(
+            fallback_id, f"grupo especial {fallback_id}"
+        )
+        raw_matches = int(diagnostic.get("rawMatches", first["found"]) or 0)
+        eligible_matches = int(
+            diagnostic.get("eligibleMatches", first["found"]) or 0
+        )
+        missing = max(1, first["required"] - first["found"])
+        if raw_matches == 0:
+            message = (
+                f"Falta {missing} carta elegível para {label}: nenhuma carta desse "
+                "tipo foi encontrada no clube."
+            )
+        elif eligible_matches == 0:
+            message = (
+                f"Falta {missing} carta elegível para {label}. Você possui "
+                f"{raw_matches}, mas todas foram removidas por filtros, proteção, "
+                "limite de preço ou por serem negociáveis."
+            )
+        else:
+            message = (
+                f"Falta {missing} carta elegível para {label}: necessárias "
+                f"{first['required']}, encontradas {first['found']}."
+            )
+    else:
+        message = (
+            f"Não há cartas suficientes para {first['requirementKey']}: "
+            f"necessárias {first['required']}, encontradas {first['found']}."
+        )
+
+    return {
+        "code": "MISSING_REQUIRED_PLAYERS",
+        "message": message,
+        "requirements": failures,
+    }
+
+
+def build_solver_failure(status, status_code):
+    if status_code == 3 or status == "INFEASIBLE":
+        message = (
+            "Não foi possível montar um elenco que cumpra todas as exigências com "
+            "as cartas permitidas. Revise média, química, cartas protegidas, "
+            "negociáveis e filtros do Auto SBC."
+        )
+        code = "NO_VALID_SQUAD"
+    elif status_code == 0 or status == "UNKNOWN":
+        message = (
+            "O tempo de busca terminou antes de encontrar uma solução. Aumente o "
+            "tempo máximo ou libere mais cartas nos filtros do Auto SBC."
+        )
+        code = "SOLVER_TIMEOUT"
+    else:
+        message = f"O montador não concluiu o desafio ({status or 'erro desconhecido'})."
+        code = "SOLVER_FAILED"
+    return {"code": code, "message": message}
 
 # Preprocess the club dataset obtained from api.
 
@@ -271,47 +425,17 @@ def runAutoSBC(sbc, players, maxSolveTime, export_debug_csv=False):
         # df = pd.concat([df, brick_df], ignore_index=True)
     df = preprocess_data(df, sbc, export_debug_csv=export_debug_csv)
     add_log(f"Processing {len(players)} players for SBC")
-    failed = False
-    for req in sbc["constraints"]:
-        min_required = req.get("count", 0)
-        if req["requirementKey"] == "PLAYER_RARITY_GROUP":
-            condition = df["groups"].apply(
-                lambda g: any(
-                    item in req["eligibilityValues"]
-                    for item in (g if isinstance(g, list) else [g])
-                )
-            )
-        elif req["requirementKey"] == "PLAYER_QUALITY":
-            if req.get("scope") in ["GREATER", "EXACT"]:
-                condition = df["ratingTier"] >= req["eligibilityValues"][0]
-            elif req.get("scope") == "LOWER":
-                condition = df["ratingTier"] <= req["eligibilityValues"][0]
-            else:
-                condition = pd.Series([True] * len(df))
-        elif req["requirementKey"] == "CLUB_ID":
-            condition = df["teamId"].isin(req["eligibilityValues"])
-        elif req["requirementKey"] == "LEAGUE_ID":
-            condition = df["leagueId"].isin(req["eligibilityValues"])
-        elif req["requirementKey"] == "NATION_ID":
-            condition = df["nationId"].isin(req["eligibilityValues"])
-        elif req["requirementKey"] == "PLAYER_RARITY":
-            condition = df["rarityId"].isin(req["eligibilityValues"])
-        elif req["requirementKey"] == "PLAYER_EXACT_OVR":
-            condition = df["rating"].isin(req["eligibilityValues"])
-        else:
-            condition = pd.Series([True] * len(df))
-        count_matches = (
-            condition.sum()
-            if isinstance(condition, pd.Series)
-            else df[condition].shape[0]
-        )
-        if count_matches < min_required:
-            add_log(
-                f"Failed requirement: {req['requirementKey']} requires at least {min_required} players, found {count_matches}."
-            )
-            failed = True
-    if failed:
+    failures = find_unmet_minimum_requirements(df, sbc)
+    if failures:
         add_log("One or more minimum requirements were not met.")
+        failure = build_missing_requirement_failure(sbc, failures)
+        add_log(failure["message"])
+        return {
+            "results": [],
+            "status": "INFEASIBLE",
+            "status_code": 3,
+            "failure": failure,
+        }
     final_players, status, status_code = optimize.SBC(df, sbc, maxSolveTime)
     results = []
     # if status != 2 and status != 4:
@@ -334,7 +458,11 @@ def runAutoSBC(sbc, players, maxSolveTime, export_debug_csv=False):
         add_log(status)
         return {"results": results, "status": status, "status_code": status_code}
     add_log(status)
-    return {"results": [], "status": status, "status_code": status_code}
+    response = {"results": [], "status": status, "status_code": status_code}
+    if status_code not in [2, 4]:
+        response["failure"] = build_solver_failure(status, status_code)
+        add_log(response["failure"]["message"])
+    return response
 
 
 def calc_squad_rating(ratings):
