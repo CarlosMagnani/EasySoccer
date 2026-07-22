@@ -245,10 +245,19 @@ assert.notEqual(end, -1, "runner core end marker must exist");
 const context = {};
 vm.createContext(context);
 vm.runInContext(
-  `${source.slice(start, end)}\nglobalThis.__runnerCore = AutoSbcRunnerCore;`,
+  `${source.slice(start, end)}
+globalThis.__runnerCore = AutoSbcRunnerCore;
+globalThis.__ownedPackModules = {
+  OwnedPackCatalog,
+  PackAggregationStore,
+  MarketQuoteProvider,
+  DuplicateDispositionPolicy,
+  PackBatchRunner
+};`,
   context
 );
 const core = context.__runnerCore;
+const ownedPackModules = context.__ownedPackModules;
 
 test("detects unlimited and bounded repeatable sets", () => {
   const unlimited = core.getRepeatabilityInfo({
@@ -485,4 +494,686 @@ test("authorizes submission only for a user-confirmed managed batch", () => {
     core.isSubmissionAuthorized({ managedBatch: true, userConfirmed: true }),
     true
   );
+});
+
+test("catalogs only strict Owned Packs and separates tradeability", () => {
+  const { OwnedPackCatalog } = ownedPackModules;
+  const packs = [
+    {
+      id: 20059,
+      packType: "CARDPACK",
+      packName: "PACK_A",
+      packDesc: "PACK_A_DESC",
+      isMyPack: true,
+      tradable: false,
+      state: "active",
+      open() {},
+    },
+    {
+      id: 20059,
+      packType: "CARDPACK",
+      packName: "PACK_A",
+      packDesc: "PACK_A_DESC",
+      isMyPack: true,
+      tradable: false,
+      state: "active",
+      open() {},
+    },
+    {
+      id: 20059,
+      packType: "CARDPACK",
+      packName: "PACK_A",
+      isMyPack: true,
+      tradable: true,
+      state: "active",
+      open() {},
+    },
+    {
+      id: 999,
+      packType: "CARDPACK",
+      packName: "COIN_OFFER",
+      isMyPack: false,
+      prices: { COINS: 0 },
+      open() {},
+    },
+  ];
+
+  const groups = OwnedPackCatalog.buildOwnedPackGroups(packs);
+  assert.equal(groups.length, 2);
+  assert.equal(groups[0].available, 2);
+  assert.equal(groups[0].tradeable, false);
+  assert.equal(groups[1].available, 1);
+  assert.equal(groups[1].tradeable, true);
+  assert.equal(OwnedPackCatalog.countEligibleOwnedPacks(packs), 3);
+});
+
+test("keeps unsupported Owned Packs visible but ineligible", () => {
+  const { OwnedPackCatalog } = ownedPackModules;
+  const groups = OwnedPackCatalog.buildOwnedPackGroups([
+    {
+      id: 300,
+      packType: "PLAYERPICK",
+      packName: "PLAYER_PICK",
+      isMyPack: true,
+      isPlayerPickPack: true,
+      state: "active",
+      open() {},
+    },
+  ]);
+
+  assert.equal(groups.length, 1);
+  assert.equal(groups[0].totalCount, 1);
+  assert.equal(groups[0].available, 0);
+  assert.equal(groups[0].eligible, false);
+  assert.match(groups[0].disabledReasons[0], /manualmente/);
+});
+
+test("rejects a Pack Batch when the Owned Pack count changes", () => {
+  const { OwnedPackCatalog } = ownedPackModules;
+  const pack = (suffix) => ({
+    id: 42,
+    packType: "CARDPACK",
+    packName: "PACK_42",
+    isMyPack: true,
+    state: "active",
+    instance: suffix,
+    open() {},
+  });
+  const initial = [pack("a"), pack("b")];
+  const group = OwnedPackCatalog.buildOwnedPackGroups(initial)[0];
+  const result = OwnedPackCatalog.resolveOwnedPackSelection([pack("fresh")], {
+    groupKey: group.key,
+    quantity: 1,
+    availableAtConfirmation: 2,
+  });
+
+  assert.equal(result.ok, false);
+  assert.equal(result.code, "owned-count-changed");
+});
+
+test("aggregates idempotently and ranks Top 5 by rating only", () => {
+  const { PackAggregationStore } = ownedPackModules;
+  const store = PackAggregationStore.createPackAggregationStore({ quantity: 2 });
+  const player = (id, name, rating, extra = {}) => ({
+    id,
+    definitionId: 1000 + id,
+    name,
+    rating,
+    isPlayer() {
+      return true;
+    },
+    isTradeable() {
+      return true;
+    },
+    ...extra,
+  });
+  const items = [
+    player(1, "First 90", 90),
+    player(2, "Second 90", 90),
+    player(3, "Loan 95", 95, {
+      loans: 7,
+      isLimitedUse() {
+        return true;
+      },
+    }),
+    player(4, "Duplicate 91", 91, { duplicateId: 44 }),
+  ];
+
+  store.apply({ type: "batch-started" });
+  store.apply({ type: "pack-opened", packSequence: 1, items });
+  store.apply({ type: "pack-opened", packSequence: 1, items });
+  store.apply({
+    type: "disposition-completed",
+    itemKey: "item:4",
+    destination: "transfer-list",
+  });
+  const summary = store.snapshot();
+
+  assert.equal(summary.counts.opened, 1);
+  assert.equal(summary.totalItems, 4);
+  assert.equal(summary.loanOrTimeLimitedPlayers, 1);
+  assert.deepEqual(
+    Array.from(summary.topPlayers, (item) => item.name),
+    ["Duplicate 91", "First 90", "Second 90"]
+  );
+  assert.equal(summary.duplicates.transferList.length, 1);
+  assert.equal(Object.isFrozen(summary), true);
+  assert.equal(Object.isFrozen(summary.topPlayers), true);
+});
+
+test("quotes the lowest corroborated Buy Now and caches it for ten minutes", async () => {
+  const { MarketQuoteProvider } = ownedPackModules;
+  let searches = 0;
+  const provider = MarketQuoteProvider.createMarketQuoteProvider({
+    clock: () => 1000,
+    async search(item) {
+      searches += 1;
+      return [
+        { id: 1, definitionId: item.definitionId, _auction: { buyNowPrice: 1000, tradeState: "active" } },
+        { id: 2, definitionId: item.definitionId, _auction: { buyNowPrice: 1100, tradeState: "active" } },
+        { id: 3, definitionId: item.definitionId, _auction: { buyNowPrice: 1200, tradeState: "active" } },
+      ];
+    },
+  });
+
+  const first = await provider.quote(
+    { definitionId: 777 },
+    { platform: "PSN", now: 1000 }
+  );
+  const second = await provider.quote(
+    { definitionId: 777 },
+    { platform: "PSN", now: 2000 }
+  );
+
+  assert.equal(first.price, 1000);
+  assert.equal(first.reliableForQuickSell, true);
+  assert.equal(first.searchCount, 1);
+  assert.equal(second.cached, true);
+  assert.equal(searches, 1);
+});
+
+test("uses at most three Market searches and fails closed on weak evidence", async () => {
+  const { MarketQuoteProvider } = ownedPackModules;
+  let searches = 0;
+  const provider = MarketQuoteProvider.createMarketQuoteProvider({
+    async search(item, { searchNumber }) {
+      searches += 1;
+      return [
+        {
+          id: searchNumber,
+          definitionId: item.definitionId,
+          _auction: {
+            buyNowPrice: searchNumber === 1 ? 1000 : searchNumber === 2 ? 1600 : 2200,
+            tradeState: "active",
+          },
+        },
+      ];
+    },
+  });
+
+  const quote = await provider.quote(
+    { definitionId: 888 },
+    { platform: "PSN", now: 10 }
+  );
+  assert.equal(searches, 3);
+  assert.equal(quote.searchCount, 3);
+  assert.equal(quote.reliableForQuickSell, false);
+  assert.match(quote.reason, /20%/);
+});
+
+test("applies the fail-closed duplicate disposition policy", () => {
+  const { DuplicateDispositionPolicy } = ownedPackModules;
+  const base = {
+    key: "item:1",
+    player: true,
+    duplicate: true,
+    tradeable: true,
+    loanOrTimeLimited: false,
+    storageEligible: false,
+  };
+
+  assert.equal(
+    DuplicateDispositionPolicy.decideDuplicate({
+      item: base,
+      marketQuote: { status: "ok", price: 1000, reliableForQuickSell: true },
+      quickSellValue: 950,
+    }).destination,
+    "quick-sell"
+  );
+  assert.equal(
+    DuplicateDispositionPolicy.decideDuplicate({
+      item: base,
+      marketQuote: { status: "missing" },
+      quickSellValue: 950,
+    }).destination,
+    "transfer-list"
+  );
+  assert.equal(
+    DuplicateDispositionPolicy.decideDuplicate({
+      item: { ...base, tradeable: false, storageEligible: true },
+      quickSellValue: 0,
+    }).destination,
+    "sbc-storage"
+  );
+  assert.equal(
+    DuplicateDispositionPolicy.decideDuplicate({
+      item: { ...base, player: false },
+    }).destination,
+    "review"
+  );
+  assert.equal(
+    DuplicateDispositionPolicy.decideDuplicate({
+      item: { ...base, loanOrTimeLimited: true },
+    }).destination,
+    "review"
+  );
+});
+
+test("retries dispositions only for explicit confirmed non-applied failures", async () => {
+  const { PackBatchRunner } = ownedPackModules;
+  let attempts = 0;
+  const retried = await PackBatchRunner.performDisposition(async () => {
+    attempts += 1;
+    if (attempts < 3) {
+      return {
+        ok: false,
+        explicit: true,
+        applied: false,
+        retryable: true,
+      };
+    }
+    return { ok: true };
+  }, { maxRetries: 2 });
+  assert.equal(retried.ok, true);
+  assert.equal(retried.attempts, 3);
+
+  attempts = 0;
+  const uncertain = await PackBatchRunner.performDisposition(async () => {
+    attempts += 1;
+    throw Object.assign(new Error("uncertain"), { uncertain: true });
+  }, { maxRetries: 2 });
+  assert.equal(uncertain.ok, false);
+  assert.equal(uncertain.attempts, 1);
+  assert.equal(attempts, 1);
+});
+
+test("runs exactly the confirmed pack count sequentially", async () => {
+  const {
+    OwnedPackCatalog,
+    DuplicateDispositionPolicy,
+    PackBatchRunner,
+  } = ownedPackModules;
+  const packs = [1, 2].map((instance) => ({
+    id: 500,
+    packType: "CARDPACK",
+    packName: "PACK_500",
+    isMyPack: true,
+    state: "active",
+    instance,
+    open() {},
+  }));
+  const group = OwnedPackCatalog.buildOwnedPackGroups(packs)[0];
+  let activeOpens = 0;
+  let maxActiveOpens = 0;
+  let opened = 0;
+  const summary = await PackBatchRunner.runPackBatch(
+    {
+      authorized: true,
+      groupKey: group.key,
+      quantity: 2,
+      availableAtConfirmation: 2,
+      packName: "Pack 500",
+    },
+    {
+      async getContext() {
+        return { valid: true };
+      },
+      async preflight() {
+        return { ok: true };
+      },
+      async fetchPacks() {
+        return packs;
+      },
+      async fetchUnassigned() {
+        return [];
+      },
+      async openPack() {
+        activeOpens += 1;
+        maxActiveOpens = Math.max(maxActiveOpens, activeOpens);
+        opened += 1;
+        await Promise.resolve();
+        activeOpens -= 1;
+        return {
+          items: [
+            {
+              id: 9000 + opened,
+              definitionId: 8000 + opened,
+              rating: 80 + opened,
+              isPlayer() {
+                return true;
+              },
+              isTradeable() {
+                return false;
+              },
+              isMovable() {
+                return true;
+              },
+            },
+          ],
+        };
+      },
+      async quote() {
+        throw new Error("normal Items must not be quoted");
+      },
+      decideDuplicate: DuplicateDispositionPolicy.decideDuplicate,
+      actions: {
+        async club() {
+          return { ok: true };
+        },
+      },
+      shouldStop() {
+        return false;
+      },
+    }
+  );
+
+  assert.equal(summary.status, "completed");
+  assert.equal(summary.counts.opened, 2);
+  assert.equal(opened, 2);
+  assert.equal(maxActiveOpens, 1);
+});
+
+test("stops after completing the current pack and never opens the next one", async () => {
+  const {
+    OwnedPackCatalog,
+    DuplicateDispositionPolicy,
+    PackBatchRunner,
+  } = ownedPackModules;
+  const packs = [1, 2].map((instance) => ({
+    id: 501,
+    packType: "CARDPACK",
+    packName: "PACK_501",
+    isMyPack: true,
+    state: "active",
+    instance,
+    open() {},
+  }));
+  const group = OwnedPackCatalog.buildOwnedPackGroups(packs)[0];
+  let stopRequested = false;
+  let opened = 0;
+
+  const summary = await PackBatchRunner.runPackBatch(
+    {
+      authorized: true,
+      groupKey: group.key,
+      quantity: 2,
+      availableAtConfirmation: 2,
+    },
+    {
+      async getContext() {
+        return { valid: true };
+      },
+      async preflight() {
+        return { ok: true };
+      },
+      async fetchPacks() {
+        return packs;
+      },
+      async fetchUnassigned() {
+        return [];
+      },
+      async openPack() {
+        opened += 1;
+        return {
+          items: [{
+            id: 9100 + opened,
+            definitionId: 8100 + opened,
+            rating: 82,
+            isPlayer() { return true; },
+            isTradeable() { return false; },
+          }],
+        };
+      },
+      async quote() {
+        throw new Error("normal Items must not be quoted");
+      },
+      decideDuplicate: DuplicateDispositionPolicy.decideDuplicate,
+      actions: {
+        async club() {
+          stopRequested = true;
+          return { ok: true };
+        },
+      },
+      shouldStop() {
+        return stopRequested;
+      },
+    }
+  );
+
+  assert.equal(summary.status, "stopped");
+  assert.equal(summary.counts.opened, 1);
+  assert.equal(summary.items[0].finalDestination, "club");
+  assert.equal(opened, 1);
+});
+
+test("never retries an uncertain pack-open response", async () => {
+  const { OwnedPackCatalog, PackBatchRunner } = ownedPackModules;
+  const packs = [{
+    id: 502,
+    packType: "CARDPACK",
+    packName: "PACK_502",
+    isMyPack: true,
+    state: "active",
+    open() {},
+  }];
+  const group = OwnedPackCatalog.buildOwnedPackGroups(packs)[0];
+  let attempts = 0;
+
+  const summary = await PackBatchRunner.runPackBatch(
+    {
+      authorized: true,
+      groupKey: group.key,
+      quantity: 1,
+      availableAtConfirmation: 1,
+    },
+    {
+      async getContext() { return { valid: true }; },
+      async preflight() { return { ok: true }; },
+      async fetchPacks() { return packs; },
+      async fetchUnassigned() { return []; },
+      async openPack() {
+        attempts += 1;
+        throw Object.assign(new Error("resultado incerto"), { uncertain: true });
+      },
+    }
+  );
+
+  assert.equal(summary.status, "failed");
+  assert.equal(summary.counts.uncertain, 1);
+  assert.equal(summary.counts.opened, 0);
+  assert.equal(attempts, 1);
+});
+
+test("fails closed when a supposedly standard pack returns an interactive reward", async () => {
+  const { OwnedPackCatalog, PackBatchRunner } = ownedPackModules;
+  const packs = [{
+    id: 504,
+    packType: "CARDPACK",
+    packName: "PACK_504",
+    isMyPack: true,
+    state: "active",
+    open() {},
+  }];
+  const group = OwnedPackCatalog.buildOwnedPackGroups(packs)[0];
+  const item = {
+    id: 9300,
+    definitionId: 8300,
+    rating: 90,
+    isPlayer() { return true; },
+    isTradeable() { return false; },
+  };
+
+  const summary = await PackBatchRunner.runPackBatch(
+    {
+      authorized: true,
+      groupKey: group.key,
+      quantity: 1,
+      availableAtConfirmation: 1,
+    },
+    {
+      async getContext() { return { valid: true }; },
+      async preflight() { return { ok: true }; },
+      async fetchPacks() { return packs; },
+      async fetchUnassigned() { return []; },
+      async openPack() { return { items: [item], interactive: true }; },
+    }
+  );
+
+  assert.equal(summary.status, "failed");
+  assert.equal(summary.counts.opened, 1);
+  assert.equal(summary.unresolvedItems.length, 1);
+  assert.match(summary.unresolvedItems[0].outcomeReason, /escolha manual/);
+});
+
+test("marks a supposedly moved Item unresolved when it remains Unassigned", async () => {
+  const {
+    OwnedPackCatalog,
+    DuplicateDispositionPolicy,
+    PackBatchRunner,
+  } = ownedPackModules;
+  const packs = [{
+    id: 503,
+    packType: "CARDPACK",
+    packName: "PACK_503",
+    isMyPack: true,
+    state: "active",
+    open() {},
+  }];
+  const group = OwnedPackCatalog.buildOwnedPackGroups(packs)[0];
+  const item = {
+    id: 9200,
+    definitionId: 8200,
+    rating: 83,
+    isPlayer() { return true; },
+    isTradeable() { return false; },
+  };
+  let unassignedChecks = 0;
+
+  const summary = await PackBatchRunner.runPackBatch(
+    {
+      authorized: true,
+      groupKey: group.key,
+      quantity: 1,
+      availableAtConfirmation: 1,
+    },
+    {
+      async getContext() { return { valid: true }; },
+      async preflight() { return { ok: true }; },
+      async fetchPacks() { return packs; },
+      async fetchUnassigned() {
+        unassignedChecks += 1;
+        return unassignedChecks === 1 ? [] : [item];
+      },
+      async openPack() { return { items: [item] }; },
+      async quote() { throw new Error("normal Items must not be quoted"); },
+      decideDuplicate: DuplicateDispositionPolicy.decideDuplicate,
+      actions: { async club() { return { ok: true }; } },
+      shouldStop() { return false; },
+    }
+  );
+
+  assert.equal(summary.status, "failed");
+  assert.equal(summary.unresolvedItems.length, 1);
+  assert.equal(summary.unresolvedItems[0].finalDestination, "unresolved");
+  assert.match(summary.unresolvedItems[0].outcomeReason, /Unassigned/);
+});
+
+test("uses authoritative Unassigned state before deciding SBC Storage", async () => {
+  const {
+    OwnedPackCatalog,
+    DuplicateDispositionPolicy,
+    PackBatchRunner,
+  } = ownedPackModules;
+  const packs = [{
+    id: 505,
+    packType: "CARDPACK",
+    packName: "PACK_505",
+    isMyPack: true,
+    state: "active",
+    tradable: false,
+    open() {},
+  }];
+  const group = OwnedPackCatalog.buildOwnedPackGroups(packs)[0];
+  const provisionalItem = {
+    id: 9400,
+    definitionId: 8400,
+    rating: 84,
+    isPlayer() { return true; },
+    isTradeable() { return false; },
+    isStorable() { return false; },
+  };
+  const authoritativeDuplicate = {
+    ...provisionalItem,
+    duplicateId: 4400,
+    isStorable() { return true; },
+  };
+  let unassignedChecks = 0;
+  const destinations = [];
+
+  const summary = await PackBatchRunner.runPackBatch(
+    {
+      authorized: true,
+      groupKey: group.key,
+      quantity: 1,
+      availableAtConfirmation: 1,
+    },
+    {
+      async getContext() { return { valid: true }; },
+      async preflight() { return { ok: true }; },
+      async fetchPacks() { return packs; },
+      async fetchUnassigned() {
+        unassignedChecks += 1;
+        if (unassignedChecks === 1) return [];
+        return [];
+      },
+      async refreshOpenedItems() {
+        unassignedChecks += 1;
+        return [authoritativeDuplicate];
+      },
+      async openPack() { return { items: [provisionalItem] }; },
+      async quote() { throw new Error("untradeable duplicates must not be quoted"); },
+      decideDuplicate: DuplicateDispositionPolicy.decideDuplicate,
+      actions: {
+        async club() {
+          destinations.push("club");
+          return { ok: true };
+        },
+        async "sbc-storage"(item) {
+          destinations.push("sbc-storage");
+          assert.equal(item, authoritativeDuplicate);
+          return { ok: true };
+        },
+      },
+      shouldStop() { return false; },
+    }
+  );
+
+  assert.equal(summary.status, "completed");
+  assert.deepEqual(destinations, ["sbc-storage"]);
+  assert.equal(summary.duplicates.sbcStorage.length, 1);
+});
+
+test("wires Auto Open only to My Packs with direct open and move-only review fallback", () => {
+  const featureStart = source.indexOf(
+    "const EASY_SOCCER_AUTO_OPEN_TRIGGER_ID"
+  );
+  const featureEnd = source.indexOf("\nconst createSBCButtons", featureStart);
+  assert.notEqual(featureStart, -1);
+  assert.notEqual(featureEnd, -1);
+  const feature = source.slice(featureStart, featureEnd);
+
+  assert.match(feature, /\.ut-store-hub-view > \.ea-filter-bar-view/);
+  assert.match(feature, /tabs\[0\]\.classList\.contains\("selected"\)/);
+  assert.match(feature, /pack\.open\(\)/);
+  assert.doesNotMatch(feature, /showPack\s*\(/);
+  assert.match(feature, /services\.Item\.move\(\[item\], ItemPile\.TRANSFER\)/);
+  assert.doesNotMatch(feature, /createAuction|purchasePack|buyPack|listItem/i);
+  assert.match(source, /OwnedPackAutoOpenView\.mountOwnedPackAutoOpen\(\)/);
+});
+
+test("shows EasySoccer pack shortcuts and visually distinguishes duplicates", () => {
+  const featureStart = source.indexOf(
+    "const EASY_SOCCER_AUTO_OPEN_TRIGGER_ID"
+  );
+  const featureEnd = source.indexOf("\nconst createSBCButtons", featureStart);
+  const feature = source.slice(featureStart, featureEnd);
+
+  assert.match(feature, /createOwnedPackShortcutBar/);
+  assert.match(feature, /event\.code === "KeyR"/);
+  assert.match(feature, /event\.code === "KeyS"/);
+  assert.match(feature, /event\.code === "KeyN"/);
+  assert.match(feature, /event\.code === "Digit1"/);
+  assert.match(feature, /esao-player-card\.is-duplicate/);
+  assert.match(feature, /esao-duplicate-badge/);
+  assert.match(feature, /esao-lock-badge/);
 });

@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         EasySoccer - EAFC 26 Auto SBC
 // @namespace    http://tampermonkey.net/
-// @version      26.1.13.11
-// @description  Local SBC solver with a visual, confirmed multi-pack queue
+// @version      26.1.13.13
+// @description  Local SBC solver plus confirmed Auto Open for Owned Packs
 // @author       EasySoccer (fork de TitiroMonkey)
 // @license      MIT
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAALM0lEQVR42u2ZeZRUxb3Hv7+qe29vszLMgCyOCAyLgmZCRIM4w6YYBzUhjUYQl+RBotGX6NNEI/a0iUYlgSRwUBM9eT55aOgnCYgsEWFGg1EC+lAYQQRkYGCGYenZuvveW1W//DEM8WQ5J4fNaPrzT99T5/S9v/rWr+q3FJAlS5YsWbJkyfJvCv2rGMIMqkbsuD3ViDMR+DOtfoxjIrauwgL/g4VgUGxdhRXjmPhMeQAzaEoiKhJTErpr7JG624uSuqHEcuyA67ue4wSaf1yWaP64WKfDK864ANHFUdk18Xt3TD4vg47roc14xarMAAWCIIwxLIVIStg7WGKtpYKL5g5Z+t5f//9TJ0CUozJBCf1fb93Us6Ow+Yca3nQRgqNTBspngASYGESABEFIQAYIOsO+YOt52+3+g3kX/O++inUVVu2YWvWpEqDL6G9snDTWD6efFWHq4yZ9DRbCybfJ83z4ntfuWHarYbaUUkWBkCOlFlAZZQIFltAuNXEqcMv/lC9feapEoFPt3geLDxIAlFSWcIISGgyKbo3aifMT3s2bqia5wfSLymib03ADhcFAS3tbm4a3uNTr/+5wjEqlPjSgHGY5KIOm7tvO2t74wfigHarQKQZDQzgWww1MfaF8xfNdHvWp8IAbN1z9uVSg4w3lq4Dx4dvdAs6R1OHEHSV3P1/lXDdGCXXlPQ8+dM6KV9dauZEwHCvQcm6ffm/f973bli4IV6ca/YZZQRnqqz2t4Ehh3OC4pV94uSbGMRGnuPlkBWAQCHzt+stvNSFzkW+M8Vza9uqoV3/xtbevGphm/9u+613DASo1GeNZBbbTlDw6e8PIjR9C4hEARcnWFoyrug7vbanjSDiMYDBAjU0Hcc93bsfj9z1Qs2R/Yu6C5E8fyrVzL/A8nzXLhiKv5/BFaxa1oBqME4wO4lQGlDT730exNROF1rc85T8GgFq0N1b0te50LS5NtyqNPNtpaD789IYvbmyExFOt7W1Fe+rrlSUkr1qyEAt/NZ/Khw+jkOPwt75+kxl9yUVKBVXlV0qjP7/jrAcePJJubTBGaA6iTyM33Y84TBRR8Yl5QNe+r62sNePXVPWxQhgMbSGdTtXXTvz9tqplVWHVDZdm0D5bhsWwI+1tW347KBHPEXn/15Zq05FQWHTrVkhSyuPvPNjcjM1b3seEMZcBAJTvK097VlhH1k/f9bWFe939T5gU2GduN6pg4FvjX2rq8sJ/rUwvxoLBBACj11Uuu/S9MXz15uh/TLlm5qs9B17I0269TTEzK6XYaM1aKVZKcTLZwlvf385KKfY8l40xzKz9uve388OPzp85Yv3INy79QyWPfLOCP79m7Le7osyJ2Gid1L4H4/LXJzxmFVoXdhxSv66tWfObL46qnOWH9M06ZdRyGk0v/Z70CIwOZ4Tp4zb6DeX/P7RtxYevjD16+IixLFsyM4wxEJbsXEJmOI4Nx7ZARBBCwBgNKS3a8dFufu6ZF68tu+bs3x440nQJu8RGqyoA82sra82ZPAMIAGLV1ZRhNayN3XKPzdmIg9PG6+exOcfT5lxPc39jUZkv0SejGSLsbDi04fD5PjRywhFTv3cfiAi2bQMgGGZIKbFz10dYW7seQggQCWjDACCKuxWST5mL83eVNKQ7lO+7hnzGsAmrp0VAMP+wpjilHhCDQDWAaiBeHQcIV8bAIg4yAPDOxPW3jFh17SxhfKGE0aREruu1LEGeHOxQpL6xoamf0QYdHSnq27cXdu76CJaU6NWrJ2zbxnOLEvjRT+ahsbEJDfsbEbv/Lji2BaVc2rlrDx9tb8nD20KqETiqjSlhQz2Sor03gA9QHSMgzqdXgDgM4sefj/2QIQAGTALEGydi73G9Fi92FlpzM9AEYZT50sXl1h8XvoOp138FT82bDc/z0NDQiC1bt+Gn857EkmWrkJ+Xi4KCAjw2Zz6279iJu+6YyY5jmyGDBtKQIWViy7vbbfMF8rXPAJFMazcPAHBe3enzgK6EY/xrEyt8y/ux5ympNO3+07ja6we/OLY8bfvPnp25zOkTqjSUpmkRYwozeWbBrzt+lseKe8i0wJ7k/u4Pzf5+89kXlPKkK8YywAgGAxgwoB+01ti5ux7hcAi248Bog5LiYrOm5nV+8P675NBBZRIA7r7x1tdnvTV7n69MvvaYIYhsMp37PzqUT5sAdYlOdX2ti33JQzzNUht2CISMNrk+uNT4WpADSF/mZCTl+wZ92SBomMBpg4yrzk95qadvmDyJWlpbKNXRAcu2QBAIhkKYMGY0ttRtQ04kojUxNR8+Km6fMR1DB5UlYbB086EP1j4xZAm1F+BBnaKIVqxBhkTYae3sosTPTB4QjcWc8M0Qz/Z7KINjoXf43dMiarAbCO0rzGyK/zLVGSgWy4krl5a8e2T3ek3o5xpXXV16+XU/O/c7812hetjSIgAkhEB+QT5Wrl6rJ113s+zR8yzkBIPoFsx/b87DsSUbz9m+/f4Nc4cR4cuRYGgwKQK7Bii0gTazr789suzNKXMzx+PTaRXg7yQci6OL5ZTEFA0AMzbOsFfv2neen3bJhGyXOnShR+0vaOaeVsQWh44eeo5vqdvYrjrm2USe73uO63qahJDNR5Ko2/oBdm3d89KHh/ctq686ymsPvDlReHRlODcc4QxDswE5ApThtAzSascNP9ow/ZW3EINAHObMZIIMwi8/b2HmJtX7N5X36jzxAxw08cbpNXO6PXPJUlUkJ3G7BiwCE8F4BqQBYkDDcPnAYZMnvDToxtZA+svRSVegrGwA2g61ZYpCBc8He+WvuKjmhp47GnZPZc9cbFk2jDJgSSAAkrEpCPFMbjh/2Y4pLzd8bB585hIhAoOrNGZuYkPibTLWc0a4m0Bg8wRW8WGEKE0EkE0ABEsDkGbBBWTjc3+q2/Jkc8mhyWJBU2rly69cddv10xeFRhW+MuOdR4caN/NIMDdnoNCAYYKxDYRCsyXFipxQ8MmSlpIDDeF0mdqhFBiERFTgJDpEp6Uc7loO+jvjwTmXbDZhMRyKmoYWl945JNk3+UJqXYXW3q3BcKQnPANDnRpb4I22kP+d5+QsqZ+5+kDvRyaMPBLsWG4iVnfZ6u+8zBlx3qr/nOedyN4/dQLEYgKVNQI1tQZxGMQqLKDWdC+8rH9KmSnG50wgaD3TOwm1N6hnu+xPY+awsC1hYGB83WrlBPLQoWDAEESwpFhpW9YTR79bu5yIGAC6PT5uespknlZKWZBEtsZr9/qBcXEc++4JYp20APH43xoQh/Ee5smm2PoR0oBslZtDB/rXqr5b+pqAzEGrr4yrGAwhhMwzzb4HhywLYvVZpUXf3H3T8noGIO6W6B6/YnSaU3e2Z9JfNa5SLIksoobeofyp8QdWKcROrqSn07UDBsQm5iVtPYpd9nqIwtfr4gmfAI7MGj3HI/1dnVEgw4qICAxim4T08UZQB39nhMlXQvVmgwuNhQuNYLCrfQpKW2jsKeT8q5oeX70VsZhA/MS7QWe6K0yIgSgOk39P5dS0Tj+uBXpBMaCYAdawhEWWADMDzGDNgAZgEYQg2CR/VyTCt++dvWY/olGJxMm3x+m0TnjxsU7Nx0/pKCQS0APum1h8MN32Tc/zbzCGB7MlwAywMSAIgDpLO9LcLm1RE5SBBcmfv7aSu86dk1z5T/Zu8GOrN+OpGfbSzXXlLpuLlMYAKC5gITwIfUBCbI0Ew39s/MWaev5LJcr4TNwZMqgzYvyTJXg0Kj+rt8OEaFRgaOd9AmqOjVYee648uTCXJUuWLFmyZMmSJUuWLFmyZMmSJUuWLFmyZMnSxZ8BMcO7+r7OkkUAAAAASUVORK5CYII=
@@ -6889,6 +6889,1057 @@ const AutoSbcRunnerCore = (() => {
   };
 })();
 
+// ---------------------------------------------------------------------------
+// EasySoccer Owned Pack Auto Open — pure, Node-testable modules
+// ---------------------------------------------------------------------------
+
+const OwnedPackCatalog = (() => {
+  const toText = (value) => (value == null ? "" : String(value));
+
+  const isTradeablePack = (pack) =>
+    pack?.tradable === true || pack?.tradeable === true;
+
+  const getPackTypeIdentity = (pack) => {
+    const candidates = [
+      pack?.id,
+      pack?.packId,
+      pack?.typeId,
+      pack?.assetId,
+      pack?.packName,
+    ];
+    const identity = candidates.find(
+      (value) => value != null && toText(value).trim() !== ""
+    );
+    return identity == null ? "unknown" : toText(identity).trim();
+  };
+
+  const getStablePackKey = (pack) =>
+    `${toText(pack?.packType || "PACK")}:${getPackTypeIdentity(pack)}:${
+      isTradeablePack(pack) ? "tradeable" : "untradeable"
+    }`;
+
+  const getIneligibilityReason = (pack) => {
+    if (pack?.isMyPack !== true) return "not-owned";
+    const packType = toText(pack?.packType).toUpperCase();
+    const contentType = toText(pack?.contentType).toUpperCase();
+    if (
+      pack?.isPlayerPickPack === true ||
+      pack?.isPlayerPick === true ||
+      pack?.isChoicePack === true ||
+      pack?.requiresSelection === true ||
+      packType.includes("PICK") ||
+      packType.includes("CHOICE") ||
+      contentType.includes("PICK") ||
+      contentType.includes("CHOICE")
+    ) {
+      return "Recompensas interativas devem ser abertas manualmente.";
+    }
+    if (
+      pack?.isLoanPack === true ||
+      pack?.isTimeLimitedReward === true ||
+      contentType.includes("LOAN")
+    ) {
+      return "Recompensas por empréstimo ou tempo limitado não são elegíveis.";
+    }
+    if (
+      pack?.state != null &&
+      !["active", "available"].includes(toText(pack.state).toLowerCase())
+    ) {
+      return "Este pack não pode ser aberto agora.";
+    }
+    if (
+      pack?.locked === true ||
+      pack?.isLocked === true ||
+      pack?.canOpen === false ||
+      pack?.isOpenable === false
+    ) {
+      return "Este pack está bloqueado no momento.";
+    }
+    if (typeof pack?.open !== "function") {
+      return "A abertura deste pack não está disponível.";
+    }
+    return null;
+  };
+
+  const getPackImage = (pack) =>
+    toText(
+      pack?.thumbnailUrl ||
+        pack?.imageUrl ||
+        pack?.packImageUrl ||
+        pack?.assetUrl
+    );
+
+  const buildOwnedPackGroups = (packs = []) => {
+    const groups = [];
+    const byKey = new Map();
+    for (const pack of Array.isArray(packs) ? packs : []) {
+      if (pack?.isMyPack !== true) continue;
+      const key = getStablePackKey(pack);
+      let group = byKey.get(key);
+      if (!group) {
+        group = {
+          key,
+          packTypeId: getPackTypeIdentity(pack),
+          packType: toText(pack?.packType || "PACK"),
+          tradeable: isTradeablePack(pack),
+          nameKey: toText(pack?.packName || pack?.name || "Owned Pack"),
+          descriptionKey: toText(pack?.packDesc || pack?.description || ""),
+          assetId: pack?.assetId ?? null,
+          thumbnailUrl: getPackImage(pack),
+          itemQuantity: Number(pack?.itemQuantity) || 0,
+          rareQuantity: Number(pack?.rareQuantity) || 0,
+          totalCount: 0,
+          available: 0,
+          eligible: false,
+          disabledReasons: [],
+          instances: [],
+          allInstances: [],
+        };
+        byKey.set(key, group);
+        groups.push(group);
+      }
+
+      group.totalCount += 1;
+      group.allInstances.push(pack);
+      const reason = getIneligibilityReason(pack);
+      if (!reason) {
+        group.available += 1;
+        group.instances.push(pack);
+      } else if (reason !== "not-owned" && !group.disabledReasons.includes(reason)) {
+        group.disabledReasons.push(reason);
+      }
+      group.eligible = group.available > 0;
+    }
+    return groups;
+  };
+
+  const resolveOwnedPackSelection = (freshPacks, selection = {}) => {
+    const quantity = Number(selection?.quantity);
+    if (!Number.isInteger(quantity) || quantity < 1) {
+      return {
+        ok: false,
+        code: "invalid-quantity",
+        error: "Escolha uma quantidade inteira maior que zero.",
+      };
+    }
+    const groups = buildOwnedPackGroups(freshPacks);
+    const group = groups.find((candidate) => candidate.key === selection?.groupKey);
+    if (!group || !group.eligible) {
+      return {
+        ok: false,
+        code: "pack-unavailable",
+        error: "O pack selecionado não está mais disponível.",
+        groups,
+      };
+    }
+    const confirmedAvailable = Number(selection?.availableAtConfirmation);
+    if (
+      Number.isInteger(confirmedAvailable) &&
+      confirmedAvailable >= 0 &&
+      group.available !== confirmedAvailable
+    ) {
+      return {
+        ok: false,
+        code: "owned-count-changed",
+        error: "A quantidade disponível mudou. Revise o Pack Batch novamente.",
+        groups,
+        group,
+      };
+    }
+    if (quantity > group.available) {
+      return {
+        ok: false,
+        code: "insufficient-owned-packs",
+        error: `Agora existem apenas ${group.available} pack(s) disponíveis.`,
+        groups,
+        group,
+      };
+    }
+    return {
+      ok: true,
+      groups,
+      group,
+      quantity,
+      packs: group.instances.slice(0, quantity),
+    };
+  };
+
+  const countEligibleOwnedPacks = (packs = []) =>
+    buildOwnedPackGroups(packs).reduce(
+      (total, group) => total + group.available,
+      0
+    );
+
+  return {
+    buildOwnedPackGroups,
+    resolveOwnedPackSelection,
+    countEligibleOwnedPacks,
+    getStablePackKey,
+    getIneligibilityReason,
+    isTradeablePack,
+  };
+})();
+
+const PackAggregationStore = (() => {
+  const callBoolean = (target, method, fallback = false) => {
+    try {
+      return typeof target?.[method] === "function"
+        ? target[method]() === true
+        : fallback;
+    } catch (_) {
+      return fallback;
+    }
+  };
+
+  const isPlayer = (item) =>
+    callBoolean(item, "isPlayer", item?.itemType === "player" || item?.rating > 0);
+  const isTradeable = (item) =>
+    callBoolean(
+      item,
+      "isTradeable",
+      item?.tradeable === true || item?.tradable === true
+    );
+  const isLoanOrTimeLimited = (item) =>
+    callBoolean(item, "isLimitedUse", false) ||
+    callBoolean(item, "isTimeLimited", false) ||
+    (Number.isFinite(Number(item?.loans)) && Number(item.loans) >= 0);
+  const isStorageEligible = (item) =>
+    callBoolean(item, "isStorable", item?.storageEligible === true);
+  const isDuplicate = (item) => Number(item?.duplicateId) > 0;
+
+  const getItemName = (item) =>
+    String(
+      item?._staticData?.name ||
+        [item?._staticData?.firstName, item?._staticData?.lastName]
+          .filter(Boolean)
+          .join(" ") ||
+        item?.name ||
+        `Item ${item?.definitionId || item?.id || ""}`
+    ).trim();
+
+  const getItemImage = (item) =>
+    String(
+      item?.imageUrl ||
+        item?._staticData?.imageUrl ||
+        item?._staticData?.image ||
+        ""
+    );
+
+  const getItemKey = (item, packSequence = 0, itemIndex = 0) => {
+    const itemId = Number(item?.id);
+    if (Number.isSafeInteger(itemId) && itemId > 0) return `item:${itemId}`;
+    return `pack:${packSequence}:item:${itemIndex}:def:${
+      item?.definitionId || "unknown"
+    }`;
+  };
+
+  const snapshotItem = (item, packSequence = 0, itemIndex = 0) => ({
+    key: getItemKey(item, packSequence, itemIndex),
+    id: Number(item?.id) || null,
+    definitionId: Number(item?.definitionId) || null,
+    name: getItemName(item),
+    imageUrl: getItemImage(item),
+    rating: Number(item?.rating ?? item?._staticData?.rating) || 0,
+    discardValue: Number(item?.discardValue) || 0,
+    player: isPlayer(item),
+    tradeable: isTradeable(item),
+    duplicate: isDuplicate(item),
+    loanOrTimeLimited: isLoanOrTimeLimited(item),
+    storageEligible: isStorageEligible(item),
+    packSequence,
+    itemIndex,
+    packedOrder: `${String(packSequence).padStart(6, "0")}:${String(
+      itemIndex
+    ).padStart(6, "0")}`,
+    finalDestination: "pending",
+    outcomeReason: "",
+    quote: null,
+    confirmedCoins: 0,
+  });
+
+  const deepFreeze = (value) => {
+    if (!value || typeof value !== "object" || Object.isFrozen(value)) return value;
+    Object.freeze(value);
+    Object.values(value).forEach(deepFreeze);
+    return value;
+  };
+
+  const clone = (value) => JSON.parse(JSON.stringify(value));
+
+  const createPackAggregationStore = (request = {}) => {
+    const state = {
+      request: {
+        groupKey: String(request?.groupKey || ""),
+        packName: String(request?.packName || "Owned Pack"),
+        tradeable: request?.tradeable === true,
+        requested: Number(request?.quantity) || 0,
+      },
+      status: "pending",
+      reason: "",
+      stopRequested: false,
+      counts: {
+        requested: Number(request?.quantity) || 0,
+        opened: 0,
+        failed: 0,
+        uncertain: 0,
+      },
+      totalItems: 0,
+      totalPlayers: 0,
+      loanOrTimeLimitedPlayers: 0,
+      confirmedCoins: 0,
+      items: [],
+      packFailures: [],
+      warnings: [],
+      current: null,
+    };
+    const packSequences = new Set();
+    const itemKeys = new Set();
+    const itemByKey = new Map();
+
+    const getSummary = () => {
+      const topPlayers = state.items
+        .filter((item) => item.player && !item.loanOrTimeLimited)
+        .slice()
+        .sort((a, b) => b.rating - a.rating || a.packedOrder.localeCompare(b.packedOrder))
+        .slice(0, 5);
+      const duplicates = state.items.filter((item) => item.duplicate);
+      const summary = {
+        ...state,
+        topPlayers,
+        duplicates: {
+          transferList: duplicates.filter(
+            (item) => item.finalDestination === "transfer-list"
+          ),
+          quickSold: duplicates.filter(
+            (item) => item.finalDestination === "quick-sold"
+          ),
+          sbcStorage: duplicates.filter(
+            (item) => item.finalDestination === "sbc-storage"
+          ),
+          unresolved: duplicates.filter(
+            (item) => item.finalDestination === "unresolved"
+          ),
+        },
+        unresolvedItems: state.items.filter(
+          (item) => item.finalDestination === "unresolved"
+        ),
+      };
+      return deepFreeze(clone(summary));
+    };
+
+    const findRecord = (event) => {
+      const key =
+        event?.itemKey ||
+        getItemKey(event?.item, event?.packSequence, event?.itemIndex);
+      const direct = itemByKey.get(key);
+      if (direct) return direct;
+      const itemId = Number(event?.item?.id);
+      if (Number.isSafeInteger(itemId) && itemId > 0) {
+        const byId = itemByKey.get(`item:${itemId}`);
+        if (byId) return byId;
+      }
+      const definitionId = Number(event?.item?.definitionId);
+      const candidates = state.items.filter(
+        (item) =>
+          item.packSequence === Number(event?.packSequence) &&
+          item.definitionId === definitionId
+      );
+      return candidates.length === 1 ? candidates[0] : null;
+    };
+
+    const apply = (event = {}) => {
+      switch (event.type) {
+        case "batch-started":
+          state.status = "running";
+          state.current = { state: "preflight", message: event.message || "" };
+          break;
+        case "pack-started":
+          state.current = {
+            state: "opening-pack",
+            packSequence: event.packSequence,
+            message: event.message || "",
+          };
+          break;
+        case "pack-opened": {
+          if (packSequences.has(event.packSequence)) break;
+          packSequences.add(event.packSequence);
+          state.counts.opened += 1;
+          const items = Array.isArray(event.items) ? event.items : [];
+          items.forEach((item, itemIndex) => {
+            const record = snapshotItem(item, event.packSequence, itemIndex);
+            if (itemKeys.has(record.key)) return;
+            itemKeys.add(record.key);
+            itemByKey.set(record.key, record);
+            state.items.push(record);
+            state.totalItems += 1;
+            if (record.player) state.totalPlayers += 1;
+            if (record.player && record.loanOrTimeLimited) {
+              state.loanOrTimeLimitedPlayers += 1;
+            }
+          });
+          state.current = {
+            state: "processing-items",
+            packSequence: event.packSequence,
+            message: event.message || "",
+          };
+          break;
+        }
+        case "pack-failed":
+          state.counts.failed += 1;
+          state.packFailures.push({
+            packSequence: event.packSequence,
+            reason: event.reason || "Falha ao abrir pack.",
+          });
+          break;
+        case "pack-uncertain":
+          state.counts.uncertain += 1;
+          state.packFailures.push({
+            packSequence: event.packSequence,
+            uncertain: true,
+            reason: event.reason || "Resultado da abertura incerto.",
+          });
+          break;
+        case "disposition-started": {
+          const record = findRecord(event);
+          if (record) {
+            record.outcomeReason = event.reason || record.outcomeReason;
+            record.quote = event.quote ? clone(event.quote) : record.quote;
+          }
+          state.current = {
+            state: "disposing-item",
+            packSequence: event.packSequence,
+            itemKey: record?.key || null,
+            message: event.message || "",
+          };
+          break;
+        }
+        case "disposition-completed": {
+          const record = findRecord(event);
+          if (!record || record.finalDestination !== "pending") break;
+          record.finalDestination = event.destination || "club";
+          record.outcomeReason = event.reason || record.outcomeReason;
+          record.quote = event.quote ? clone(event.quote) : record.quote;
+          record.confirmedCoins = Math.max(0, Number(event.confirmedCoins) || 0);
+          state.confirmedCoins += record.confirmedCoins;
+          break;
+        }
+        case "disposition-failed": {
+          const record = findRecord(event);
+          if (
+            !record ||
+            (record.finalDestination !== "pending" && event.forceUnresolved !== true)
+          ) {
+            break;
+          }
+          if (event.forceUnresolved === true && record.confirmedCoins > 0) {
+            state.confirmedCoins = Math.max(
+              0,
+              state.confirmedCoins - record.confirmedCoins
+            );
+            record.confirmedCoins = 0;
+          }
+          record.finalDestination = "unresolved";
+          record.outcomeReason = event.reason || "Ação não concluída.";
+          record.quote = event.quote ? clone(event.quote) : record.quote;
+          break;
+        }
+        case "warning":
+          state.warnings.push(String(event.message || "Aviso do Pack Batch."));
+          break;
+        case "stop-requested":
+          state.stopRequested = true;
+          break;
+        case "batch-finished":
+          state.status = event.status || "failed";
+          state.reason = event.reason || "";
+          if (state.status !== "completed") {
+            state.items.forEach((item) => {
+              if (item.finalDestination !== "pending") return;
+              item.finalDestination = "unresolved";
+              item.outcomeReason =
+                item.outcomeReason || state.reason || "Ação não confirmada.";
+            });
+          }
+          state.current = null;
+          break;
+        default:
+          break;
+      }
+      return getSummary();
+    };
+
+    return { apply, snapshot: getSummary };
+  };
+
+  return {
+    createPackAggregationStore,
+    snapshotItem,
+    getItemKey,
+    isPlayer,
+    isTradeable,
+    isDuplicate,
+    isLoanOrTimeLimited,
+    isStorageEligible,
+  };
+})();
+
+const MarketQuoteProvider = (() => {
+  const DEFAULT_TTL_MS = 10 * 60 * 1000;
+  const DEFAULT_MAX_SEARCHES = 3;
+
+  const getDefinitionId = (item) => Number(item?.definitionId) || null;
+
+  const normalizeListings = (listings, definitionId, searchNumber) =>
+    (Array.isArray(listings) ? listings : [])
+      .map((listing, index) => {
+        if (Number.isFinite(Number(listing))) {
+          return {
+            key: `search:${searchNumber}:index:${index}:price:${Number(listing)}`,
+            price: Number(listing),
+            definitionId,
+          };
+        }
+        const auction = listing?._auction || listing?.auction || listing;
+        return {
+          key: String(
+            listing?.id ||
+              auction?.tradeId ||
+              auction?.auctionId ||
+              `search:${searchNumber}:index:${index}:price:${auction?.buyNowPrice}`
+          ),
+          price: Number(auction?.buyNowPrice),
+          definitionId: Number(listing?.definitionId) || definitionId,
+          active:
+            auction?.tradeState == null ||
+            String(auction.tradeState).toLowerCase() === "active",
+        };
+      })
+      .filter(
+        (listing) =>
+          listing.definitionId === definitionId &&
+          listing.active !== false &&
+          Number.isFinite(listing.price) &&
+          listing.price > 0
+      );
+
+  const createMarketQuoteProvider = ({
+    search,
+    ttlMs = DEFAULT_TTL_MS,
+    maxSearches = DEFAULT_MAX_SEARCHES,
+    clock = () => Date.now(),
+  } = {}) => {
+    if (typeof search !== "function") {
+      throw new TypeError("MarketQuoteProvider requires a search adapter.");
+    }
+    const cache = new Map();
+
+    const quote = async (item, options = {}) => {
+      const definitionId = getDefinitionId(item);
+      const platform = String(options?.platform || "").trim();
+      const now = Number(options?.now ?? clock());
+      if (!definitionId || !platform) {
+        return {
+          status: "ambiguous",
+          reason: "Identidade exata do jogador ou plataforma indisponível.",
+          definitionId,
+          platform: platform || null,
+          reliableForQuickSell: false,
+        };
+      }
+      if (options?.signal?.aborted) {
+        const error = new Error("Market Quote cancelada.");
+        error.name = "AbortError";
+        throw error;
+      }
+
+      const cacheKey = `${platform}:${definitionId}`;
+      const cached = cache.get(cacheKey);
+      if (cached && cached.expiresAt > now) {
+        return deepCloneQuote({ ...cached, cached: true });
+      }
+
+      const uniqueListings = new Map();
+      const errors = [];
+      let searchCount = 0;
+      while (searchCount < maxSearches && uniqueListings.size < 3) {
+        searchCount += 1;
+        if (options?.signal?.aborted) {
+          const error = new Error("Market Quote cancelada.");
+          error.name = "AbortError";
+          throw error;
+        }
+        try {
+          const result = await search(item, {
+            searchNumber: searchCount,
+            signal: options?.signal,
+            platform,
+          });
+          normalizeListings(result?.listings ?? result, definitionId, searchCount).forEach(
+            (listing) => uniqueListings.set(listing.key, listing)
+          );
+        } catch (error) {
+          errors.push(error?.message || String(error));
+        }
+      }
+
+      const prices = Array.from(uniqueListings.values())
+        .map((listing) => listing.price)
+        .sort((a, b) => a - b);
+      if (prices.length === 0) {
+        return {
+          status: errors.length ? "error" : "missing",
+          reason: errors.length
+            ? "A busca de mercado falhou."
+            : "Nenhum anúncio ativo foi encontrado.",
+          definitionId,
+          platform,
+          source: "EA Transfer Market",
+          observedAt: now,
+          searchCount,
+          sampleSize: 0,
+          reliableForQuickSell: false,
+          errors,
+        };
+      }
+
+      const lowestThree = prices.slice(0, 3);
+      const reliableForQuickSell =
+        lowestThree.length === 3 && lowestThree[2] <= lowestThree[0] * 1.2;
+      const result = {
+        status: "ok",
+        price: prices[0],
+        definitionId,
+        platform,
+        source: "EA Transfer Market",
+        observedAt: now,
+        expiresAt: now + ttlMs,
+        searchCount,
+        sampleSize: prices.length,
+        lowestPrices: lowestThree,
+        reliableForQuickSell,
+        reason: reliableForQuickSell
+          ? "Três anúncios compatíveis dentro da faixa de 20%."
+          : lowestThree.length < 3
+            ? "Menos de três anúncios ativos compatíveis."
+            : "Os três menores anúncios divergem mais de 20%.",
+        cached: false,
+      };
+      cache.set(cacheKey, result);
+      return deepCloneQuote(result);
+    };
+
+    const clear = () => cache.clear();
+    return { quote, clear };
+  };
+
+  const deepCloneQuote = (quote) => JSON.parse(JSON.stringify(quote));
+
+  return {
+    createMarketQuoteProvider,
+    DEFAULT_TTL_MS,
+    DEFAULT_MAX_SEARCHES,
+  };
+})();
+
+const DuplicateDispositionPolicy = (() => {
+  const decideDuplicate = ({ item, marketQuote, quickSellValue } = {}) => {
+    const snapshot =
+      item?.key && typeof item?.player === "boolean"
+        ? item
+        : PackAggregationStore.snapshotItem(item);
+    if (!snapshot.duplicate) {
+      return { destination: "club", reason: "Item não duplicado." };
+    }
+    if (!snapshot.player) {
+      return {
+        destination: "review",
+        reason: "Duplicatas que não são jogadores exigem revisão manual.",
+      };
+    }
+    if (snapshot.loanOrTimeLimited) {
+      return {
+        destination: "review",
+        reason: "Jogadores por empréstimo ou tempo limitado exigem revisão manual.",
+      };
+    }
+    if (!snapshot.tradeable) {
+      return snapshot.storageEligible
+        ? {
+            destination: "sbc-storage",
+            reason: "Duplicata intransferível elegível para Armazenamento de DMEs.",
+          }
+        : {
+            destination: "review",
+            reason: "Duplicata intransferível não elegível para Armazenamento de DMEs.",
+          };
+    }
+
+    const discard = Math.max(0, Number(quickSellValue) || 0);
+    const quotePrice = Number(marketQuote?.price);
+    if (marketQuote?.status !== "ok" || !Number.isFinite(quotePrice)) {
+      return {
+        destination: "transfer-list",
+        reason: "Market Quote indisponível; manter para revisão.",
+        netMarketValue: null,
+      };
+    }
+    const netMarketValue = Math.floor(quotePrice * 0.95);
+    if (netMarketValue > discard) {
+      return {
+        destination: "transfer-list",
+        reason: "Net Market Value maior que o Quick Sell.",
+        netMarketValue,
+      };
+    }
+    if (marketQuote.reliableForQuickSell !== true) {
+      return {
+        destination: "transfer-list",
+        reason: "Evidência de preço insuficiente para Quick Sell automático.",
+        netMarketValue,
+      };
+    }
+    return {
+      destination: "quick-sell",
+      reason: "Quick Sell maior ou igual ao Net Market Value.",
+      netMarketValue,
+    };
+  };
+
+  return { decideDuplicate };
+})();
+
+const PackBatchRunner = (() => {
+  const makeFailure = (code, message, detail = {}) =>
+    Object.assign(new Error(message), { code, ...detail });
+
+  const toOperationResult = (value) =>
+    value && typeof value === "object" ? value : { ok: value !== false };
+
+  const reconcileOpenedItems = (provisionalItems = [], authoritativeItems = []) => {
+    const provisional = Array.isArray(provisionalItems) ? provisionalItems : [];
+    const authoritative = Array.isArray(authoritativeItems)
+      ? authoritativeItems
+      : [];
+    if (provisional.length !== authoritative.length) {
+      return {
+        ok: false,
+        code: "opened-item-count-mismatch",
+        reason: `A EA retornou ${provisional.length} Item(s) na abertura e ${authoritative.length} em Unassigned.`,
+      };
+    }
+
+    const unused = new Set(authoritative.map((_item, index) => index));
+    const resolved = [];
+    for (const item of provisional) {
+      const itemId = Number(item?.id);
+      const definitionId = Number(item?.definitionId);
+      const candidates = Array.from(unused).filter((index) => {
+        const candidate = authoritative[index];
+        if (Number.isSafeInteger(itemId) && itemId > 0) {
+          return Number(candidate?.id) === itemId;
+        }
+        return (
+          Number.isSafeInteger(definitionId) &&
+          definitionId > 0 &&
+          Number(candidate?.definitionId) === definitionId
+        );
+      });
+      if (candidates.length !== 1) {
+        return {
+          ok: false,
+          code: "opened-item-identity-mismatch",
+          reason:
+            "Não foi possível reconciliar com segurança um Item aberto com Unassigned.",
+        };
+      }
+      const matchIndex = candidates[0];
+      unused.delete(matchIndex);
+      resolved.push(authoritative[matchIndex]);
+    }
+    return { ok: true, items: resolved };
+  };
+
+  const performDisposition = async (action, { maxRetries = 0 } = {}) => {
+    let attempt = 0;
+    while (attempt <= maxRetries) {
+      attempt += 1;
+      try {
+        const result = toOperationResult(await action({ attempt }));
+        if (result.ok === true) return { ...result, attempts: attempt };
+        const canRetry =
+          result.explicit === true &&
+          result.applied === false &&
+          result.retryable === true &&
+          result.uncertain !== true &&
+          attempt <= maxRetries;
+        if (!canRetry) return { ...result, attempts: attempt };
+      } catch (error) {
+        const canRetry =
+          error?.explicit === true &&
+          error?.applied === false &&
+          error?.retryable === true &&
+          error?.uncertain !== true &&
+          attempt <= maxRetries;
+        if (!canRetry) {
+          return {
+            ok: false,
+            attempts: attempt,
+            uncertain: error?.uncertain !== false,
+            error,
+            reason: error?.message || "Ação não confirmada.",
+          };
+        }
+      }
+    }
+    return { ok: false, reason: "Limite de tentativas atingido." };
+  };
+
+  const runPackBatch = async (confirmedRequest = {}, dependencies = {}) => {
+    if (confirmedRequest?.authorized !== true) {
+      throw makeFailure(
+        "batch-not-authorized",
+        "O Pack Batch precisa de autorização explícita."
+      );
+    }
+    const store =
+      dependencies?.aggregationStore ||
+      PackAggregationStore.createPackAggregationStore(confirmedRequest);
+    const emit = (event) => {
+      const snapshot = store.apply(event);
+      dependencies?.onSnapshot?.(snapshot, event);
+      return snapshot;
+    };
+    const finish = (status, reason) =>
+      emit({ type: "batch-finished", status, reason });
+    const fail = (reason) => finish("failed", reason);
+
+    emit({ type: "batch-started", message: "Revalidando o Pack Batch..." });
+    try {
+      const context = await dependencies?.getContext?.();
+      if (context?.valid === false) return fail(context.reason || "Sessão inválida.");
+
+      const preflight = await dependencies?.preflight?.(confirmedRequest);
+      if (preflight?.ok === false) return fail(preflight.reason || "Pré-verificação falhou.");
+
+      const freshPacks = await dependencies.fetchPacks();
+      const resolution = OwnedPackCatalog.resolveOwnedPackSelection(
+        freshPacks?.packs || freshPacks,
+        confirmedRequest
+      );
+      if (!resolution.ok) return fail(resolution.error);
+
+      for (let index = 0; index < resolution.packs.length; index += 1) {
+        const packSequence = index + 1;
+        if (dependencies?.shouldStop?.()) {
+          emit({ type: "stop-requested" });
+          return finish("stopped", "Parada solicitada antes do próximo pack.");
+        }
+        const liveContext = await dependencies?.getContext?.();
+        if (liveContext?.valid === false) {
+          return finish("stopped", liveContext.reason || "My Packs não está mais ativo.");
+        }
+
+        const before = await dependencies.fetchUnassigned();
+        if (Array.isArray(before) && before.length > 0) {
+          return fail("Unassigned não estava vazio antes da abertura.");
+        }
+
+        emit({
+          type: "pack-started",
+          packSequence,
+          message: `Abrindo pack ${packSequence}/${resolution.quantity} sem animação...`,
+        });
+
+        let packResponse;
+        try {
+          packResponse = await dependencies.openPack(
+            resolution.packs[index],
+            { packSequence }
+          );
+        } catch (error) {
+          emit({
+            type: error?.uncertain === true ? "pack-uncertain" : "pack-failed",
+            packSequence,
+            reason: error?.message || "Falha ao abrir o pack.",
+          });
+          return fail(error?.message || "Falha ao abrir o pack.");
+        }
+
+        const provisionalItems = Array.isArray(packResponse?.items)
+          ? packResponse.items
+          : [];
+        if (packResponse?.interactive === true) {
+          emit({ type: "pack-opened", packSequence, items: provisionalItems });
+          for (
+            let interactiveIndex = 0;
+            interactiveIndex < provisionalItems.length;
+            interactiveIndex += 1
+          ) {
+            emit({
+              type: "disposition-failed",
+              item: provisionalItems[interactiveIndex],
+              packSequence,
+              itemIndex: interactiveIndex,
+              reason: "A resposta exige uma escolha manual.",
+            });
+          }
+          return fail("O pack retornou uma recompensa interativa.");
+        }
+
+        let items = provisionalItems;
+        if (typeof dependencies?.refreshOpenedItems === "function") {
+          try {
+            const refreshedItems = await dependencies.refreshOpenedItems(
+              provisionalItems,
+              { packSequence }
+            );
+            if (!Array.isArray(refreshedItems)) {
+              throw makeFailure(
+                "opened-items-refresh-invalid",
+                "A atualização de Unassigned retornou uma resposta inválida."
+              );
+            }
+            items = refreshedItems;
+          } catch (error) {
+            emit({ type: "pack-opened", packSequence, items: provisionalItems });
+            emit({
+              type: "warning",
+              message:
+                error?.message ||
+                "Não foi possível confirmar o estado dos Items em Unassigned.",
+            });
+            return fail(
+              error?.message ||
+                "Não foi possível confirmar o estado dos Items em Unassigned."
+            );
+          }
+        }
+        emit({ type: "pack-opened", packSequence, items });
+        let stopAfterPack = false;
+        let stopReason = "";
+
+        for (let itemIndex = 0; itemIndex < items.length; itemIndex += 1) {
+          const item = items[itemIndex];
+          const snapshot = PackAggregationStore.snapshotItem(
+            item,
+            packSequence,
+            itemIndex
+          );
+          let quote = null;
+          if (snapshot.duplicate && snapshot.player && snapshot.tradeable) {
+            quote = await dependencies.quote(item, { packSequence, itemIndex });
+          }
+          const decision = snapshot.duplicate
+            ? dependencies.decideDuplicate({
+                item: snapshot,
+                marketQuote: quote,
+                quickSellValue: snapshot.discardValue,
+              })
+            : { destination: "club", reason: "Item normal enviado ao Clube." };
+          const auditQuote = quote
+            ? {
+                ...quote,
+                quickSellValue: snapshot.discardValue,
+                netMarketValue: decision.netMarketValue ?? null,
+              }
+            : null;
+
+          emit({
+            type: "disposition-started",
+            itemKey: snapshot.key,
+            packSequence,
+            itemIndex,
+            quote: auditQuote,
+            reason: decision.reason,
+            message: `${snapshot.name}: ${decision.destination}`,
+          });
+
+          if (decision.destination === "review") {
+            emit({
+              type: "disposition-failed",
+              itemKey: snapshot.key,
+              quote: auditQuote,
+              reason: decision.reason,
+            });
+            stopAfterPack = true;
+            stopReason ||= decision.reason;
+            continue;
+          }
+
+          const action = dependencies.actions?.[decision.destination];
+          if (typeof action !== "function") {
+            emit({
+              type: "disposition-failed",
+              itemKey: snapshot.key,
+              quote: auditQuote,
+              reason: `Ação ${decision.destination} indisponível.`,
+            });
+            stopAfterPack = true;
+            stopReason ||= `Ação ${decision.destination} indisponível.`;
+            continue;
+          }
+
+          const result = await performDisposition(
+            ({ attempt }) => action(item, { attempt, quote: auditQuote, decision }),
+            { maxRetries: decision.destination === "club" ? 0 : 2 }
+          );
+          if (result.ok === true) {
+            emit({
+              type: "disposition-completed",
+              itemKey: snapshot.key,
+              destination: decision.destination,
+              reason: decision.reason,
+              quote: auditQuote,
+              confirmedCoins: result.confirmedCoins || 0,
+            });
+          } else {
+            const reason =
+              result.reason || result.error?.message || "Ação não confirmada.";
+            emit({
+              type: "disposition-failed",
+              itemKey: snapshot.key,
+              quote: auditQuote,
+              reason,
+            });
+            stopAfterPack = true;
+            stopReason ||= reason;
+          }
+        }
+
+        const remaining = await dependencies.fetchUnassigned();
+        if (Array.isArray(remaining) && remaining.length > 0) {
+          for (let indexInUnassigned = 0; indexInUnassigned < remaining.length; indexInUnassigned += 1) {
+            const item = remaining[indexInUnassigned];
+            emit({
+              type: "disposition-failed",
+              item,
+              packSequence,
+              itemIndex: indexInUnassigned,
+              forceUnresolved: true,
+              reason: "Item permaneceu em Unassigned.",
+            });
+          }
+          stopAfterPack = true;
+          stopReason ||= "Unassigned permaneceu com Items.";
+        }
+
+        if (stopAfterPack) return fail(stopReason);
+        if (dependencies?.shouldStop?.()) {
+          emit({ type: "stop-requested" });
+          return finish("stopped", "Parada concluída após o pack atual.");
+        }
+      }
+
+      return finish("completed", "Todos os packs autorizados foram processados.");
+    } catch (error) {
+      emit({ type: "warning", message: error?.message || String(error) });
+      return fail(error?.message || "O Pack Batch foi interrompido.");
+    }
+  };
+
+  return { runPackBatch, performDisposition, reconcileOpenedItems };
+})();
+
 let repeatableBatchState = {
   running: false,
   stopRequested: false,
@@ -7895,7 +8946,7 @@ const sbcViewOverride = () => {
         statusContent.appendChild(titleBlock);
 
         const conceptItems = getCurrentConceptItems();
-     
+
 
         if (!conceptItems.length) {
           showNotification(
@@ -8045,12 +9096,12 @@ const sbcViewOverride = () => {
         }
       }
     );
-    
 
-     
-   
+
+
+
     insertAfter(quickBuySquadButton, button);
-    
+
 
     const ensureStatusContainer = () => {
       const statusContainerId = "quick-buy-squad-status";
@@ -11964,6 +13015,1679 @@ const openRepeatableQueueCatalogDialog = async () => {
   renderCatalog();
 };
 
+// ---------------------------------------------------------------------------
+// EasySoccer Owned Pack Auto Open — production adapters
+// ---------------------------------------------------------------------------
+
+const EASY_SOCCER_AUTO_OPEN_TRIGGER_ID = "easy-soccer-auto-open-trigger";
+const EASY_SOCCER_AUTO_OPEN_DIALOG_ID = "easy-soccer-owned-pack-dialog";
+const EASY_SOCCER_AUTO_OPEN_STYLE_ID = "easy-soccer-owned-pack-styles";
+const EASY_SOCCER_EA_OPERATION_TIMEOUT_MS = 25000;
+
+const ownedPackAutoOpenState = {
+  running: false,
+  stopRequested: false,
+  activeTrigger: null,
+  dialog: null,
+  quoteProvider: null,
+  quoteProviderIdentity: "",
+  mountTimer: null,
+  mountObserver: null,
+  refreshingTrigger: false,
+  pendingForcedTriggerRefresh: false,
+  lastTriggerRefreshAt: 0,
+  summaryVisible: false,
+};
+
+const makeOwnedPackError = (code, message, detail = {}) =>
+  Object.assign(new Error(message), { code, ...detail });
+
+const getOwnedPackSessionIdentity = () => {
+  try {
+    const persona = services.User.getUser().getSelectedPersona();
+    const accountId =
+      persona?.id || persona?.personaId || persona?.nucleusPersonaId || null;
+    const platform =
+      persona?.platform || persona?.platformType || persona?.consoleType || null;
+    return {
+      accountId: accountId == null ? null : String(accountId),
+      platform: platform == null ? null : String(platform),
+      key:
+        accountId == null || platform == null
+          ? ""
+          : `${String(accountId)}:${String(platform)}`,
+    };
+  } catch (_) {
+    return { accountId: null, platform: null, key: "" };
+  }
+};
+
+const localizeOwnedPackText = (key, fallback = "") => {
+  if (!key) return fallback;
+  try {
+    const localized = services.Localization.localize(key);
+    return localized && localized !== key ? localized : fallback || String(key);
+  } catch (_) {
+    return fallback || String(key);
+  }
+};
+
+const isOwnedPackMyPacksActive = () => {
+  const hub = document.querySelector(".ut-store-hub-view");
+  const menu = hub?.querySelector(".ea-filter-bar-view .menu-container");
+  const tabs = menu ? Array.from(menu.querySelectorAll("button")) : [];
+  return Boolean(hub && tabs.length > 0 && tabs[0].classList.contains("selected"));
+};
+
+const observeOwnedPackEaRequest = (
+  request,
+  { operation = "Operação EA", timeoutMs = EASY_SOCCER_EA_OPERATION_TIMEOUT_MS } = {}
+) =>
+  new Promise((resolve, reject) => {
+    if (!request || typeof request.observe !== "function") {
+      reject(
+        makeOwnedPackError(
+          "operation-unavailable",
+          `${operation} não retornou uma operação observável.`,
+          { uncertain: true }
+        )
+      );
+      return;
+    }
+    let settled = false;
+    const timer = setTimeout(() => {
+      if (settled) return;
+      settled = true;
+      reject(
+        makeOwnedPackError(
+          "operation-timeout",
+          `${operation} não respondeu; o resultado é incerto.`,
+          { uncertain: true }
+        )
+      );
+    }, timeoutMs);
+
+    try {
+      request.observe(undefined, (_sender, response) => {
+        if (settled) return;
+        settled = true;
+        clearTimeout(timer);
+        resolve(response || {});
+      });
+    } catch (error) {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      reject(
+        makeOwnedPackError(
+          "operation-observe-failed",
+          error?.message || `${operation} falhou antes de responder.`,
+          { uncertain: true, cause: error }
+        )
+      );
+    }
+  });
+
+const fetchOwnedPacksForBatch = async () => {
+  repositories.Store.setDirty();
+  const response = await observeOwnedPackEaRequest(
+    services.Store.getPacks("ALL", true, true),
+    { operation: "Consulta de My Packs" }
+  );
+  if (response?.success === false) {
+    throw makeOwnedPackError(
+      "fetch-packs-failed",
+      "Não foi possível atualizar My Packs.",
+      { status: response?.status, uncertain: false }
+    );
+  }
+  const packs = response?.response?.packs;
+  if (!Array.isArray(packs)) {
+    throw makeOwnedPackError(
+      "fetch-packs-invalid",
+      "My Packs retornou uma resposta inválida.",
+      { uncertain: true }
+    );
+  }
+  return packs;
+};
+
+const fetchOwnedPackUnassigned = async () => {
+  repositories.Item.unassigned.clear();
+  repositories.Item.unassigned.reset();
+  const response = await observeOwnedPackEaRequest(
+    services.Item.requestUnassignedItems(),
+    { operation: "Consulta de Unassigned" }
+  );
+  if (response?.success === false) {
+    throw makeOwnedPackError(
+      "fetch-unassigned-failed",
+      "Não foi possível verificar Unassigned.",
+      { status: response?.status, uncertain: true }
+    );
+  }
+  const items = response?.response?.items;
+  if (!Array.isArray(items)) {
+    throw makeOwnedPackError(
+      "fetch-unassigned-invalid",
+      "Unassigned retornou uma resposta inválida.",
+      { uncertain: true }
+    );
+  }
+  return items;
+};
+
+const openOwnedPackWithoutAnimation = async (pack) => {
+  if (pack?.isMyPack !== true || typeof pack?.open !== "function") {
+    throw makeOwnedPackError(
+      "owned-pack-invalid",
+      "O pack selecionado não é um Owned Pack elegível.",
+      { uncertain: false }
+    );
+  }
+  repositories.Store.setDirty();
+  const response = await observeOwnedPackEaRequest(pack.open(), {
+    operation: "Abertura do Owned Pack",
+  });
+  if (response?.success === false) {
+    throw makeOwnedPackError(
+      "pack-open-rejected",
+      `A EA rejeitou a abertura do pack (${response?.status || "erro"}).`,
+      { status: response?.status, uncertain: false }
+    );
+  }
+  const payload = response?.response;
+  if (!payload || !Array.isArray(payload.items)) {
+    throw makeOwnedPackError(
+      "pack-open-uncertain",
+      "A resposta da abertura não contém a lista confirmada de Items.",
+      { uncertain: true }
+    );
+  }
+  const interactive =
+    Number(payload?.availablePicks) > 0 ||
+    payload.items.some((item) => {
+      try {
+        return typeof item?.isPlayerPickItem === "function" && item.isPlayerPickItem();
+      } catch (_) {
+        return false;
+      }
+    });
+  return { ...payload, interactive };
+};
+
+const getOwnedPackPileStatus = (pile) => {
+  try {
+    const size = Number(repositories.Item.getPileSize(pile));
+    const items =
+      pile === ItemPile.TRANSFER
+        ? repositories.Item.getTransferItems()
+        : pile === ItemPile.STORAGE
+          ? repositories.Item.getStorageItems()
+          : [];
+    const used = Array.isArray(items) ? items.length : 0;
+    return {
+      known: Number.isFinite(size) && size >= 0,
+      size,
+      used,
+      available: Number.isFinite(size) ? Math.max(0, size - used) : 0,
+      full: repositories.Item.isPileFull(pile) === true,
+    };
+  } catch (error) {
+    return { known: false, size: 0, used: 0, available: 0, full: true, error };
+  }
+};
+
+const getOwnedPackBatchContext = (confirmedRequest = null) => {
+  const identity = getOwnedPackSessionIdentity();
+  if (!identity.key) {
+    return { valid: false, reason: "Identidade da conta ou plataforma indisponível." };
+  }
+  if (
+    confirmedRequest?.accountIdentity &&
+    confirmedRequest.accountIdentity !== identity.key
+  ) {
+    return { valid: false, reason: "A conta ou plataforma mudou durante o Pack Batch." };
+  }
+  if (!isOwnedPackMyPacksActive()) {
+    return { valid: false, reason: "My Packs não está mais ativo." };
+  }
+  return { valid: true, ...identity };
+};
+
+const preflightOwnedPackBatch = async (request) => {
+  const context = getOwnedPackBatchContext(request);
+  if (!context.valid) return { ok: false, reason: context.reason };
+  const unassigned = await fetchOwnedPackUnassigned();
+  if (unassigned.length > 0) {
+    return { ok: false, reason: "Esvazie Unassigned antes de iniciar." };
+  }
+  const destination = request?.tradeable ? ItemPile.TRANSFER : ItemPile.STORAGE;
+  const capacity = getOwnedPackPileStatus(destination);
+  if (!capacity.known) {
+    return {
+      ok: false,
+      reason: "Não foi possível confirmar a capacidade do destino seguro.",
+    };
+  }
+  if (capacity.full || capacity.available < 1) {
+    return {
+      ok: false,
+      reason: request?.tradeable
+        ? "A Lista de Transferências está cheia."
+        : "O Armazenamento de DMEs está cheio.",
+    };
+  }
+  return { ok: true, capacity };
+};
+
+const searchOwnedPackExactPlayerListings = async (item) => {
+  const definitionId = Number(item?.definitionId);
+  if (!definitionId) throw new Error("Jogador sem definitionId exato.");
+  const viewModel = new UTBucketedItemSearchViewModel();
+  const criteria = viewModel.searchCriteria || {};
+  criteria.defId = [definitionId];
+  criteria.offset = 0;
+  criteria.count = 21;
+  delete criteria.maxBuy;
+  services.Item.clearTransferMarketCache();
+  const response = await observeOwnedPackEaRequest(
+    services.Item.searchTransferMarket(criteria, 1),
+    { operation: "Busca exata no Mercado de Transferências" }
+  );
+  if (response?.success === false) {
+    throw makeOwnedPackError(
+      "market-search-failed",
+      `Busca de mercado rejeitada (${response?.status || "erro"}).`,
+      { status: response?.status, uncertain: false }
+    );
+  }
+  return Array.isArray(response?.data?.items)
+    ? response.data.items
+    : Array.isArray(response?.response?.items)
+      ? response.response.items
+      : [];
+};
+
+const getOwnedPackQuoteProvider = () => {
+  const identity = getOwnedPackSessionIdentity();
+  if (
+    !ownedPackAutoOpenState.quoteProvider ||
+    ownedPackAutoOpenState.quoteProviderIdentity !== identity.key
+  ) {
+    ownedPackAutoOpenState.quoteProvider?.clear?.();
+    ownedPackAutoOpenState.quoteProvider =
+      MarketQuoteProvider.createMarketQuoteProvider({
+        search: searchOwnedPackExactPlayerListings,
+      });
+    ownedPackAutoOpenState.quoteProviderIdentity = identity.key;
+  }
+  return ownedPackAutoOpenState.quoteProvider;
+};
+
+const getOwnedPackActionFailureFlags = (response) => {
+  const payload = response?.response || response || {};
+  const appliedSignal =
+    payload?.applied ?? payload?.actionApplied ?? response?.applied;
+  const confirmedNotApplied = appliedSignal === false;
+  const status = Number(response?.status || payload?.status);
+  const retryableStatus = [409, 500, 502, 503, 504].includes(status);
+  return {
+    explicit: response?.success === false,
+    applied: confirmedNotApplied ? false : null,
+    retryable: confirmedNotApplied && retryableStatus,
+    uncertain: !confirmedNotApplied,
+  };
+};
+
+const runOwnedPackItemAction = async (request, operation, { quickSell = false } = {}) => {
+  let response;
+  try {
+    response = await observeOwnedPackEaRequest(request, { operation });
+  } catch (error) {
+    return {
+      ok: false,
+      uncertain: true,
+      reason: error?.message || `${operation} não foi confirmada.`,
+      error,
+    };
+  }
+  if (response?.success === false) {
+    return {
+      ok: false,
+      ...getOwnedPackActionFailureFlags(response),
+      reason: `${operation} foi rejeitada (${response?.status || "erro"}).`,
+      response,
+    };
+  }
+  const payload = response?.response || {};
+  const confirmedCoins = quickSell
+    ? Math.max(
+        0,
+        Number(
+          payload?.credits ??
+            payload?.coins ??
+            payload?.coinValue ??
+            payload?.discardValue ??
+            0
+        ) || 0
+      )
+    : 0;
+  return { ok: true, response, confirmedCoins };
+};
+
+const createOwnedPackRunnerDependencies = (confirmedRequest, onSnapshot) => {
+  const quoteProvider = getOwnedPackQuoteProvider();
+  return {
+    onSnapshot,
+    shouldStop: () => ownedPackAutoOpenState.stopRequested,
+    getContext: () => getOwnedPackBatchContext(confirmedRequest),
+    preflight: preflightOwnedPackBatch,
+    fetchPacks: fetchOwnedPacksForBatch,
+    fetchUnassigned: fetchOwnedPackUnassigned,
+    refreshOpenedItems: async (provisionalItems) => {
+      const authoritativeItems = await fetchOwnedPackUnassigned();
+      const reconciliation = PackBatchRunner.reconcileOpenedItems(
+        provisionalItems,
+        authoritativeItems
+      );
+      if (!reconciliation.ok) {
+        throw makeOwnedPackError(
+          reconciliation.code,
+          reconciliation.reason,
+          { uncertain: true }
+        );
+      }
+      return reconciliation.items;
+    },
+    openPack: openOwnedPackWithoutAnimation,
+    quote: (item) =>
+      quoteProvider.quote(item, {
+        platform: confirmedRequest.platform,
+        now: Date.now(),
+      }),
+    decideDuplicate: DuplicateDispositionPolicy.decideDuplicate,
+    actions: {
+      club: (item) =>
+        runOwnedPackItemAction(
+          services.Item.move([item], ItemPile.CLUB),
+          "Movimento para o Clube"
+        ),
+      "transfer-list": (item) =>
+        runOwnedPackItemAction(
+          services.Item.move([item], ItemPile.TRANSFER),
+          "Movimento para a Lista de Transferências"
+        ),
+      "sbc-storage": (item) =>
+        runOwnedPackItemAction(
+          services.Item.move([item], ItemPile.STORAGE),
+          "Movimento para o Armazenamento de DMEs"
+        ),
+      "quick-sell": (item) =>
+        runOwnedPackItemAction(services.Item.discard([item]), "Quick Sell", {
+          quickSell: true,
+        }),
+    },
+  };
+};
+
+// ---------------------------------------------------------------------------
+// EasySoccer Owned Pack Auto Open — My Packs trigger and modal
+// ---------------------------------------------------------------------------
+
+const createOwnedPackElement = (tag, className = "", text = "") => {
+  const element = document.createElement(tag);
+  if (className) element.className = className;
+  if (text) element.textContent = text;
+  return element;
+};
+
+const formatOwnedPackCoins = (value) =>
+  `${Math.max(0, Number(value) || 0).toLocaleString("pt-BR")} Coins`;
+
+const getOwnedPackDestinationLabel = (destination) =>
+  ({
+    club: "Clube",
+    "transfer-list": "Lista de Transferências",
+    "quick-sell": "Quick Sell",
+    "sbc-storage": "Armazenamento de DMEs",
+    unresolved: "Não resolvido",
+    pending: "Pendente",
+  })[destination] || destination || "Pendente";
+
+const createOwnedPackShortcutBar = (entries = []) => {
+  const bar = createOwnedPackElement("div", "esao-shortcut-bar");
+  bar.setAttribute("aria-label", "Atalhos do Auto Open");
+  entries.forEach(([key, label]) => {
+    const shortcut = createOwnedPackElement("span", "esao-shortcut");
+    const keycap = createOwnedPackElement("kbd", "", key);
+    shortcut.append(keycap, document.createTextNode(label));
+    bar.appendChild(shortcut);
+  });
+  return bar;
+};
+
+const ensureOwnedPackAutoOpenStyles = () => {
+  if (document.getElementById(EASY_SOCCER_AUTO_OPEN_STYLE_ID)) return;
+  const style = document.createElement("style");
+  style.id = EASY_SOCCER_AUTO_OPEN_STYLE_ID;
+  style.textContent = `
+    #${EASY_SOCCER_AUTO_OPEN_TRIGGER_ID} {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      margin: 4px 8px 4px auto;
+      padding: 8px 14px;
+      border: 1px solid rgba(7,244,104,.72);
+      border-radius: 10px;
+      background: rgba(7,244,104,.1);
+      color: #8df8b9;
+      cursor: pointer;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    #${EASY_SOCCER_AUTO_OPEN_TRIGGER_ID}:hover:not(:disabled) { background: rgba(7,244,104,.18); }
+    #${EASY_SOCCER_AUTO_OPEN_TRIGGER_ID}:disabled { cursor: not-allowed; opacity: .5; }
+    #${EASY_SOCCER_AUTO_OPEN_TRIGGER_ID} .esao-trigger-count {
+      display: inline-grid;
+      place-items: center;
+      min-width: 24px;
+      height: 24px;
+      padding: 0 6px;
+      border-radius: 999px;
+      background: #07f468;
+      color: #07120b;
+      font-size: 11px;
+    }
+    #${EASY_SOCCER_AUTO_OPEN_DIALOG_ID} {
+      position: fixed;
+      inset: 0;
+      z-index: 100100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(4,6,10,.86);
+      backdrop-filter: blur(10px);
+      color: #f6f8f7;
+      font-family: UltimateTeam, Arial, sans-serif;
+    }
+    #${EASY_SOCCER_AUTO_OPEN_DIALOG_ID} * { box-sizing: border-box; }
+    #${EASY_SOCCER_AUTO_OPEN_DIALOG_ID} :focus-visible { outline: 2px solid #07f468; outline-offset: 2px; }
+    .esao-panel {
+      display: flex;
+      flex-direction: column;
+      width: min(1160px, 96vw);
+      height: min(820px, 92vh);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 20px;
+      background: radial-gradient(circle at 0 0, rgba(7,244,104,.11), transparent 34%), #15171c;
+      box-shadow: 0 28px 90px rgba(0,0,0,.7);
+    }
+    .esao-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-height: 82px;
+      padding: 16px 22px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      background: rgba(13,15,19,.9);
+    }
+    .esao-logo { width: 48px; height: 48px; object-fit: contain; }
+    .esao-header-copy { min-width: 0; }
+    .esao-kicker { display: block; color: #07f468; font-size: 12px; font-weight: 900; letter-spacing: .09em; text-transform: uppercase; }
+    .esao-title { margin: 2px 0 0; font-size: 25px; line-height: 1.1; }
+    .esao-header-status { margin-left: auto; color: #aeb7c2; font-size: 12px; font-weight: 800; }
+    .esao-icon-button {
+      display: inline-grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px;
+      background: rgba(255,255,255,.04);
+      color: #fff;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    .esao-icon-button:disabled { cursor: not-allowed; opacity: .35; }
+    .esao-content { flex: 1; min-height: 0; overflow: auto; }
+    .esao-catalog-layout { display: grid; grid-template-columns: minmax(0,1fr) 330px; min-height: 100%; }
+    .esao-catalog-main { min-width: 0; padding: 20px; }
+    .esao-toolbar { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 16px; }
+    .esao-search {
+      flex: 1 1 250px;
+      min-width: 180px;
+      padding: 11px 13px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px;
+      outline: 0;
+      background: #202329;
+      color: #fff;
+      font: inherit;
+    }
+    .esao-search:focus { border-color: #07f468; box-shadow: 0 0 0 3px rgba(7,244,104,.12); }
+    .esao-filter, .esao-button, .esao-stepper-button {
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 9px;
+      background: #252930;
+      color: #f7f8f8;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 800;
+    }
+    .esao-filter { padding: 9px 12px; font-size: 12px; }
+    .esao-filter.is-active { border-color: rgba(7,244,104,.7); color: #07f468; }
+    .esao-pack-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap: 13px; align-content: start; }
+    .esao-pack-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 270px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 15px;
+      background: linear-gradient(155deg,#252932,#1c1f25 70%);
+      box-shadow: 0 10px 24px rgba(0,0,0,.22);
+    }
+    .esao-pack-card.is-selected { border-color: rgba(7,244,104,.82); box-shadow: 0 0 0 2px rgba(7,244,104,.1),0 14px 30px rgba(0,0,0,.35); }
+    .esao-pack-card.is-disabled { opacity: .62; }
+    .esao-pack-card.is-disabled .esao-pack-art { filter: saturate(.45); }
+    .esao-pack-art {
+      position: relative;
+      display: grid;
+      place-items: center;
+      height: 96px;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 110%,rgba(7,244,104,.35),transparent 55%),linear-gradient(130deg,#171a20,#2a3040);
+    }
+    .esao-pack-art img { z-index: 1; width: 64px; height: 64px; object-fit: contain; }
+    .esao-count-badge { position: absolute; top: 10px; right: 10px; z-index: 2; min-width: 28px; padding: 5px 8px; border-radius: 999px; background: #f11656; color: #fff; text-align: center; font-size: 11px; font-weight: 900; }
+    .esao-lock-badge { position: absolute; top: 10px; left: 10px; z-index: 2; padding: 5px 7px; border: 1px solid rgba(255,95,103,.45); border-radius: 8px; background: rgba(28,8,12,.88); color: #ff7888; font-size: 10px; font-weight: 900; }
+    .esao-pack-body { display: flex; flex: 1; flex-direction: column; gap: 8px; padding: 13px; }
+    .esao-pack-name { margin: 0; min-height: 38px; font-size: 15px; line-height: 1.25; }
+    .esao-pack-desc { display: -webkit-box; overflow: hidden; color: #9fa9b5; font-size: 11px; line-height: 1.35; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+    .esao-meta-row { display: flex; flex-wrap: wrap; gap: 6px; }
+    .esao-pill { padding: 4px 7px; border-radius: 999px; background: rgba(255,255,255,.07); color: #bac2cc; font-size: 10px; font-weight: 850; }
+    .esao-pill.is-green { background: rgba(7,244,104,.12); color: #8df8b9; }
+    .esao-pack-actions { margin-top: auto; }
+    .esao-primary {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #07f468;
+      border-radius: 9px;
+      background: #07f468;
+      color: #07120b;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 900;
+    }
+    .esao-primary:disabled, .esao-button:disabled { cursor: not-allowed; opacity: .42; }
+    .esao-stepper { display: grid; grid-template-columns: 36px 1fr 36px; gap: 6px; }
+    .esao-stepper-button { min-height: 36px; font-size: 18px; }
+    .esao-count-input { width: 100%; border: 1px solid rgba(7,244,104,.45); border-radius: 8px; background: #15171c; color: #fff; text-align: center; font: inherit; font-weight: 900; }
+    .esao-sidebar { display: flex; flex-direction: column; min-height: 100%; padding: 20px; border-left: 1px solid rgba(255,255,255,.1); background: rgba(10,12,16,.68); }
+    .esao-sidebar h3 { margin: 0 0 12px; font-size: 17px; }
+    .esao-selection { padding: 13px; border: 1px solid rgba(7,244,104,.25); border-radius: 12px; background: rgba(7,244,104,.06); }
+    .esao-selection-name { font-size: 13px; font-weight: 900; }
+    .esao-selection-detail { margin-top: 5px; color: #aeb7c2; font-size: 11px; line-height: 1.5; }
+    .esao-sidebar-actions { margin-top: auto; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.09); }
+    .esao-shortcut-bar { display: flex; flex-wrap: wrap; gap: 7px 11px; margin-top: 14px; color: #96a0ac; font-size: 10px; }
+    .esao-shortcut { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+    .esao-shortcut kbd { min-width: 23px; padding: 3px 6px; border: 1px solid rgba(255,255,255,.18); border-bottom-color: rgba(255,255,255,.32); border-radius: 6px; background: #111318; color: #e9edf0; box-shadow: 0 2px 0 rgba(0,0,0,.45); text-align: center; font-family: inherit; font-size: 9px; font-weight: 900; }
+    .esao-empty { display: grid; place-items: center; min-height: 130px; padding: 18px; border: 1px dashed rgba(255,255,255,.14); border-radius: 12px; color: #8f99a5; text-align: center; font-size: 12px; }
+    .esao-stage { width: min(820px,100%); margin: 0 auto; padding: 28px; }
+    .esao-stage-heading { margin: 0 0 7px; font-size: 24px; }
+    .esao-stage-subtitle { margin: 0 0 22px; color: #aeb7c2; line-height: 1.5; }
+    .esao-review-card, .esao-notice, .esao-progress-hero { padding: 14px; border: 1px solid rgba(255,255,255,.1); border-radius: 12px; background: #202329; }
+    .esao-review-card { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 16px; align-items: center; }
+    .esao-review-value { color: #8df8b9; font-size: 15px; font-weight: 900; text-align: right; }
+    .esao-notice { margin: 14px 0; border-color: rgba(244,199,107,.28); background: rgba(244,199,107,.08); color: #f4d695; font-size: 12px; line-height: 1.55; }
+    .esao-notice.is-risk, .esao-notice.is-error { border-color: rgba(255,95,103,.35); background: rgba(255,95,103,.09); color: #ffaaaa; }
+    .esao-confirm { display: flex; gap: 9px; align-items: flex-start; margin: 18px 0; color: #e7eaec; font-size: 13px; line-height: 1.45; }
+    .esao-confirm input { margin-top: 3px; accent-color: #07f468; }
+    .esao-stage-actions { display: flex; justify-content: flex-end; gap: 9px; margin-top: 18px; }
+    .esao-button { padding: 10px 13px; }
+    .esao-stage-actions .esao-primary { width: auto; min-width: 190px; }
+    .esao-progress-hero { margin-bottom: 16px; border-color: rgba(7,244,104,.2); background: linear-gradient(135deg,rgba(7,244,104,.1),rgba(255,255,255,.025)); }
+    .esao-progress-message { min-height: 22px; margin: 0 0 12px; color: #dce3e7; }
+    .esao-progress-track { height: 9px; overflow: hidden; border-radius: 999px; background: rgba(255,255,255,.09); }
+    .esao-progress-bar { width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg,#00c653,#07f468); transition: width 180ms ease; }
+    .esao-stat-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 9px; }
+    .esao-stat { padding: 12px; border: 1px solid rgba(255,255,255,.09); border-radius: 10px; background: #202329; }
+    .esao-stat-label { color: #9fa9b5; font-size: 10px; font-weight: 800; text-transform: uppercase; }
+    .esao-stat-value { margin-top: 5px; font-size: 18px; font-weight: 900; }
+    .esao-result-counts { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 9px; margin: 16px 0; }
+    .esao-top-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(145px,1fr)); gap: 10px; margin: 12px 0 18px; }
+    .esao-player-card { position: relative; overflow: hidden; padding: 12px; border: 1px solid rgba(255,255,255,.1); border-radius: 12px; background: #202329; }
+    .esao-player-card.is-duplicate { border-color: rgba(241,22,86,.8); background: linear-gradient(155deg,rgba(241,22,86,.15),#202329 55%); box-shadow: inset 0 3px 0 #f11656,0 8px 22px rgba(241,22,86,.14); }
+    .esao-player-art { position: relative; display: grid; place-items: center; height: 88px; margin-bottom: 9px; border-radius: 9px; background: radial-gradient(circle,rgba(7,244,104,.16),transparent 70%); }
+    .esao-player-card.is-duplicate .esao-player-art { background: radial-gradient(circle,rgba(241,22,86,.24),transparent 70%); }
+    .esao-player-art img { width: 72px; height: 72px; object-fit: contain; }
+    .esao-duplicate-badge { position: absolute; top: 5px; right: 5px; padding: 3px 6px; border-radius: 999px; background: #f11656; color: #fff; font-size: 8px; font-weight: 950; letter-spacing: .04em; }
+    .esao-player-rating { color: #07f468; font-size: 22px; font-weight: 950; }
+    .esao-player-name { min-height: 32px; font-size: 12px; font-weight: 850; }
+    .esao-player-detail { margin-top: 5px; color: #9fa9b5; font-size: 10px; line-height: 1.4; }
+    .esao-details { margin: 9px 0; border: 1px solid rgba(255,255,255,.09); border-radius: 10px; background: #202329; }
+    .esao-details summary { padding: 12px; cursor: pointer; font-size: 12px; font-weight: 900; }
+    .esao-detail-list { display: grid; gap: 7px; padding: 0 12px 12px; }
+    .esao-detail-item { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 10px; padding: 9px; border-radius: 8px; background: rgba(255,255,255,.035); }
+    .esao-detail-item.is-duplicate { border-left: 3px solid #f11656; background: rgba(241,22,86,.075); }
+    .esao-detail-title { font-size: 11px; font-weight: 850; }
+    .esao-detail-copy { margin-top: 3px; color: #9fa9b5; font-size: 10px; line-height: 1.45; }
+    .esao-detail-value { color: #8df8b9; font-size: 10px; font-weight: 850; text-align: right; }
+    @media (max-width: 820px) {
+      #${EASY_SOCCER_AUTO_OPEN_DIALOG_ID} { padding: 8px; }
+      .esao-panel { width: 100%; height: 96vh; border-radius: 14px; }
+      .esao-catalog-layout { display: block; }
+      .esao-sidebar { position: sticky; bottom: 0; z-index: 4; min-height: 0; border-top: 1px solid rgba(255,255,255,.12); border-left: 0; box-shadow: 0 -16px 36px rgba(0,0,0,.55); }
+      .esao-pack-grid { grid-template-columns: 1fr; }
+      .esao-header-status { display: none; }
+      .esao-stage { padding: 18px; }
+      .esao-stat-grid, .esao-result-counts { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .esao-stage-actions { flex-wrap: wrap; }
+    }
+  `;
+  document.head.appendChild(style);
+};
+
+const decorateOwnedPackGroups = (groups) =>
+  groups.map((group) => ({
+    ...group,
+    displayName: localizeOwnedPackText(group.nameKey, group.nameKey),
+    displayDescription: localizeOwnedPackText(
+      group.descriptionKey,
+      group.descriptionKey
+    ),
+  }));
+
+const renderOwnedPackDetailSection = (label, items) => {
+  const details = createOwnedPackElement("details", "esao-details");
+  const summary = createOwnedPackElement(
+    "summary",
+    "",
+    `${label} (${items.length})`
+  );
+  const list = createOwnedPackElement("div", "esao-detail-list");
+  items.forEach((item) => {
+    const row = createOwnedPackElement(
+      "div",
+      `esao-detail-item${item.duplicate ? " is-duplicate" : ""}`
+    );
+    const copy = createOwnedPackElement("div");
+    const title = createOwnedPackElement(
+      "div",
+      "esao-detail-title",
+      `${item.name} · Pack ${item.packSequence}${
+        item.duplicate ? " · DUPLICATA" : ""
+      }`
+    );
+    const quote = item.quote;
+    const formatOptionalCoins = (value) =>
+      Number.isFinite(Number(value)) ? formatOwnedPackCoins(value) : "—";
+    const quoteCopy = quote
+      ? `${quote.source || "EA Transfer Market"} · ${formatOwnedPackCoins(
+          quote.price
+        )} · líquido ${formatOptionalCoins(
+          quote.netMarketValue
+        )} · Quick Sell ${formatOptionalCoins(
+          quote.quickSellValue
+        )} · ${new Date(quote.observedAt).toLocaleString("pt-BR")}`
+      : item.outcomeReason || "Sem Market Quote.";
+    const detail = createOwnedPackElement(
+      "div",
+      "esao-detail-copy",
+      `${item.outcomeReason || "Ação concluída."}${
+        quote ? ` · ${quoteCopy}` : ""
+      }`
+    );
+    const value = createOwnedPackElement(
+      "div",
+      "esao-detail-value",
+      getOwnedPackDestinationLabel(item.finalDestination)
+    );
+    copy.append(title, detail);
+    row.append(copy, value);
+    list.appendChild(row);
+  });
+  details.append(summary, list);
+  return details;
+};
+
+const openOwnedPackAutoOpenDialog = async (trigger = null) => {
+  const existing = document.getElementById(EASY_SOCCER_AUTO_OPEN_DIALOG_ID);
+  if (existing) {
+    existing.querySelector("button:not(:disabled),input:not(:disabled)")?.focus();
+    return;
+  }
+  ensureOwnedPackAutoOpenStyles();
+
+  const previousFocus = trigger || document.activeElement;
+  const overlay = createOwnedPackElement("div");
+  overlay.id = EASY_SOCCER_AUTO_OPEN_DIALOG_ID;
+  overlay.setAttribute("role", "dialog");
+  overlay.setAttribute("aria-modal", "true");
+  overlay.setAttribute("aria-labelledby", "esao-dialog-title");
+  const panel = createOwnedPackElement("section", "esao-panel");
+  const header = createOwnedPackElement("header", "esao-header");
+  const logo = createEasySoccerLogoImage("esao-logo", "EasySoccer");
+  const headerCopy = createOwnedPackElement("div", "esao-header-copy");
+  const kicker = createOwnedPackElement("span", "esao-kicker", "EasySoccer");
+  const title = createOwnedPackElement("h2", "esao-title", "Auto Open");
+  title.id = "esao-dialog-title";
+  headerCopy.append(kicker, title);
+  const headerStatus = createOwnedPackElement(
+    "span",
+    "esao-header-status",
+    "My Packs · sem animação"
+  );
+  const closeButton = createOwnedPackElement("button", "esao-icon-button", "×");
+  closeButton.type = "button";
+  closeButton.title = "Fechar";
+  closeButton.setAttribute("aria-label", "Fechar Auto Open");
+  const content = createOwnedPackElement("main", "esao-content");
+  header.append(logo, headerCopy, headerStatus, closeButton);
+  panel.append(header, content);
+  overlay.appendChild(panel);
+  document.body.appendChild(overlay);
+  ownedPackAutoOpenState.dialog = overlay;
+  ownedPackAutoOpenState.summaryVisible = false;
+
+  let groups = [];
+  let selected = null;
+  let searchTerm = "";
+  let activeFilter = "all";
+  let runningUpdate = null;
+  let currentStage = "loading";
+  let requestRunningStop = null;
+  let startAnotherBatch = null;
+
+  const closeDialog = () => {
+    if (ownedPackAutoOpenState.running) return;
+    ownedPackAutoOpenState.closeDraft = null;
+    ownedPackAutoOpenState.dialog = null;
+    ownedPackAutoOpenState.summaryVisible = false;
+    requestRunningStop = null;
+    startAnotherBatch = null;
+    overlay.remove();
+    previousFocus?.focus?.();
+  };
+  ownedPackAutoOpenState.closeDraft = closeDialog;
+  closeButton.addEventListener("click", closeDialog);
+  overlay.addEventListener("click", (event) => {
+    if (
+      event.target === overlay &&
+      ["catalog", "review"].includes(currentStage)
+    ) {
+      closeDialog();
+    }
+  });
+  overlay.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      if (["catalog", "review"].includes(currentStage)) {
+        event.preventDefault();
+        closeDialog();
+      }
+      return;
+    }
+    if (event.key === "Tab") {
+      const focusable = Array.from(
+        overlay.querySelectorAll(
+          'button:not(:disabled),input:not(:disabled),details summary,[tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((element) => element.offsetParent !== null);
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+      return;
+    }
+
+    const target = event.target;
+    const isTextEntry =
+      ["INPUT", "TEXTAREA", "SELECT"].includes(target?.tagName) ||
+      target?.isContentEditable === true;
+    if (isTextEntry) return;
+
+    if (event.code === "Digit1") {
+      if (currentStage === "review") {
+        event.preventDefault();
+        renderCatalog();
+      } else if (["catalog", "summary"].includes(currentStage)) {
+        event.preventDefault();
+        closeDialog();
+      }
+      return;
+    }
+    if (currentStage === "catalog") {
+      if (event.code === "Slash") {
+        event.preventDefault();
+        content.querySelector(".esao-search")?.focus();
+        return;
+      }
+      if (["ArrowDown", "ArrowUp"].includes(event.code)) {
+        const controls = Array.from(
+          content.querySelectorAll(
+            ".esao-pack-card button:not(:disabled),.esao-pack-card input:not(:disabled)"
+          )
+        );
+        if (controls.length === 0) return;
+        event.preventDefault();
+        const currentIndex = controls.indexOf(document.activeElement);
+        const direction = event.code === "ArrowDown" ? 1 : -1;
+        const nextIndex =
+          currentIndex < 0
+            ? direction > 0
+              ? 0
+              : controls.length - 1
+            : (currentIndex + direction + controls.length) % controls.length;
+        controls[nextIndex]?.focus();
+        return;
+      }
+      if (
+        selected &&
+        ["Equal", "NumpadAdd", "Minus", "NumpadSubtract"].includes(event.code)
+      ) {
+        event.preventDefault();
+        const delta = ["Equal", "NumpadAdd"].includes(event.code) ? 1 : -1;
+        setSelectedQuantity(selected.quantity + delta);
+        renderCatalog();
+        content.querySelector(".esao-count-input")?.focus();
+        return;
+      }
+      if (event.code === "KeyR" && selected) {
+        event.preventDefault();
+        renderReview();
+      }
+      return;
+    }
+    if (currentStage === "running" && event.code === "KeyS") {
+      event.preventDefault();
+      requestRunningStop?.();
+      return;
+    }
+    if (currentStage === "summary" && event.code === "KeyN") {
+      event.preventDefault();
+      startAnotherBatch?.();
+    }
+  });
+
+  const renderLoading = (message = "Atualizando seus Owned Packs...") => {
+    currentStage = "loading";
+    content.replaceChildren();
+    const stage = createOwnedPackElement("section", "esao-stage");
+    stage.append(
+      createOwnedPackElement("h3", "esao-stage-heading", "Carregando My Packs"),
+      createOwnedPackElement("p", "esao-stage-subtitle", message)
+    );
+    content.appendChild(stage);
+  };
+
+  const loadGroups = async () => {
+    const packs = await fetchOwnedPacksForBatch();
+    groups = decorateOwnedPackGroups(
+      OwnedPackCatalog.buildOwnedPackGroups(packs)
+    );
+    return groups;
+  };
+
+  const setSelectedQuantity = (value) => {
+    if (!selected) return;
+    const group = groups.find((candidate) => candidate.key === selected.groupKey);
+    if (!group) return;
+    selected.quantity = Math.max(
+      1,
+      Math.min(group.available, Math.trunc(Number(value) || 1))
+    );
+  };
+
+  const renderCatalog = ({ focusSearch = false } = {}) => {
+    currentStage = "catalog";
+    requestRunningStop = null;
+    startAnotherBatch = null;
+    content.replaceChildren();
+    const layout = createOwnedPackElement("div", "esao-catalog-layout");
+    const main = createOwnedPackElement("section", "esao-catalog-main");
+    const toolbar = createOwnedPackElement("div", "esao-toolbar");
+    const search = createOwnedPackElement("input", "esao-search");
+    search.type = "search";
+    search.placeholder = "Buscar nome ou descrição...";
+    search.setAttribute("aria-label", "Buscar Owned Packs");
+    search.value = searchTerm;
+    toolbar.appendChild(search);
+    const filters = [
+      ["all", "Todos"],
+      ["tradeable", "Transferíveis"],
+      ["untradeable", "Intransferíveis"],
+    ];
+    filters.forEach(([value, label]) => {
+      const button = createOwnedPackElement(
+        "button",
+        `esao-filter${activeFilter === value ? " is-active" : ""}`,
+        label
+      );
+      button.type = "button";
+      button.addEventListener("click", () => {
+        activeFilter = value;
+        renderCatalog();
+      });
+      toolbar.appendChild(button);
+    });
+    main.appendChild(toolbar);
+
+    const grid = createOwnedPackElement("div", "esao-pack-grid");
+    const normalizedSearch = searchTerm.trim().toLocaleLowerCase();
+    const visibleGroups = groups.filter((group) => {
+      const matchesFilter =
+        activeFilter === "all" ||
+        (activeFilter === "tradeable" && group.tradeable) ||
+        (activeFilter === "untradeable" && !group.tradeable);
+      const haystack = `${group.displayName} ${group.displayDescription}`.toLocaleLowerCase();
+      return matchesFilter && (!normalizedSearch || haystack.includes(normalizedSearch));
+    });
+    if (visibleGroups.length === 0) {
+      grid.appendChild(
+        createOwnedPackElement(
+          "div",
+          "esao-empty",
+          "Nenhum Owned Pack corresponde à busca atual."
+        )
+      );
+    }
+
+    visibleGroups.forEach((group) => {
+      const isSelected = selected?.groupKey === group.key;
+      const card = createOwnedPackElement(
+        "article",
+        `esao-pack-card${isSelected ? " is-selected" : ""}${
+          group.eligible ? "" : " is-disabled"
+        }`
+      );
+      const art = createOwnedPackElement("div", "esao-pack-art");
+      const image = document.createElement("img");
+      image.src = group.thumbnailUrl || EASY_SOCCER_LOGO_DATA_URL;
+      image.alt = "";
+      image.addEventListener("error", () => {
+        image.src = EASY_SOCCER_LOGO_DATA_URL;
+      });
+      const badge = createOwnedPackElement(
+        "span",
+        "esao-count-badge",
+        String(group.available)
+      );
+      art.append(image, badge);
+      if (!group.eligible) {
+        art.appendChild(
+          createOwnedPackElement("span", "esao-lock-badge", "BLOQUEADO")
+        );
+      }
+      const body = createOwnedPackElement("div", "esao-pack-body");
+      const name = createOwnedPackElement(
+        "h3",
+        "esao-pack-name",
+        group.displayName
+      );
+      const description = createOwnedPackElement(
+        "div",
+        "esao-pack-desc",
+        group.displayDescription || "Owned Pack"
+      );
+      const meta = createOwnedPackElement("div", "esao-meta-row");
+      meta.append(
+        createOwnedPackElement(
+          "span",
+          `esao-pill${group.tradeable ? " is-green" : ""}`,
+          group.tradeable ? "Transferível" : "Intransferível"
+        ),
+        createOwnedPackElement(
+          "span",
+          "esao-pill",
+          `${group.itemQuantity || "?"} Items · ${group.rareQuantity || 0} raros`
+        )
+      );
+      const actions = createOwnedPackElement("div", "esao-pack-actions");
+      if (!group.eligible) {
+        actions.appendChild(
+          createOwnedPackElement(
+            "div",
+            "esao-notice is-error",
+            group.disabledReasons[0] || "Pack indisponível."
+          )
+        );
+      } else if (!isSelected) {
+        const selectButton = createOwnedPackElement(
+          "button",
+          "esao-primary",
+          "Selecionar pack"
+        );
+        selectButton.type = "button";
+        selectButton.addEventListener("click", () => {
+          selected = { groupKey: group.key, quantity: 1 };
+          renderCatalog();
+        });
+        actions.appendChild(selectButton);
+      } else {
+        const stepper = createOwnedPackElement("div", "esao-stepper");
+        const minus = createOwnedPackElement("button", "esao-stepper-button", "−");
+        const input = createOwnedPackElement("input", "esao-count-input");
+        const plus = createOwnedPackElement("button", "esao-stepper-button", "+");
+        minus.type = plus.type = "button";
+        input.type = "number";
+        input.min = "1";
+        input.max = String(group.available);
+        input.value = String(selected.quantity);
+        input.setAttribute("aria-label", `Quantidade de ${group.displayName}`);
+        minus.disabled = selected.quantity <= 1;
+        plus.disabled = selected.quantity >= group.available;
+        minus.addEventListener("click", () => {
+          setSelectedQuantity(selected.quantity - 1);
+          renderCatalog();
+        });
+        plus.addEventListener("click", () => {
+          setSelectedQuantity(selected.quantity + 1);
+          renderCatalog();
+        });
+        input.addEventListener("change", () => {
+          setSelectedQuantity(input.value);
+          renderCatalog();
+        });
+        stepper.append(minus, input, plus);
+        actions.appendChild(stepper);
+      }
+      body.append(name, description, meta, actions);
+      card.append(art, body);
+      grid.appendChild(card);
+    });
+    main.appendChild(grid);
+
+    const sidebar = createOwnedPackElement("aside", "esao-sidebar");
+    sidebar.appendChild(createOwnedPackElement("h3", "", "Seu Pack Batch"));
+    const selectedGroup = groups.find(
+      (group) => group.key === selected?.groupKey
+    );
+    if (!selectedGroup) {
+      sidebar.appendChild(
+        createOwnedPackElement(
+          "div",
+          "esao-empty",
+          "Selecione um Owned Pack e uma quantidade exata."
+        )
+      );
+    } else {
+      const selection = createOwnedPackElement("div", "esao-selection");
+      selection.append(
+        createOwnedPackElement(
+          "div",
+          "esao-selection-name",
+          selectedGroup.displayName
+        ),
+        createOwnedPackElement(
+          "div",
+          "esao-selection-detail",
+          `${selectedGroup.tradeable ? "Transferível" : "Intransferível"} · ${
+            selected.quantity
+          } de ${selectedGroup.available} disponível(is) · abertura sequencial sem animação.`
+        )
+      );
+      const remove = createOwnedPackElement(
+        "button",
+        "esao-button",
+        "Remover seleção"
+      );
+      remove.type = "button";
+      remove.style.marginTop = "10px";
+      remove.addEventListener("click", () => {
+        selected = null;
+        renderCatalog();
+      });
+      selection.appendChild(remove);
+      sidebar.appendChild(selection);
+    }
+    const sidebarActions = createOwnedPackElement("div", "esao-sidebar-actions");
+    const review = createOwnedPackElement(
+      "button",
+      "esao-primary",
+      "Revisar Pack Batch →"
+    );
+    review.type = "button";
+    review.disabled = !selectedGroup;
+    review.addEventListener("click", () => renderReview());
+    sidebar.appendChild(
+      createOwnedPackShortcutBar([
+        ["/", "Buscar"],
+        ["↑↓", "Navegar"],
+        ["+ −", "Quantidade"],
+        ["R", "Revisar"],
+        ["1", "Voltar"],
+      ])
+    );
+    sidebarActions.appendChild(review);
+    sidebar.appendChild(sidebarActions);
+    layout.append(main, sidebar);
+    content.appendChild(layout);
+
+    search.addEventListener("input", () => {
+      searchTerm = search.value;
+      renderCatalog({ focusSearch: true });
+    });
+    if (focusSearch) {
+      const activeSearch = content.querySelector(".esao-search");
+      activeSearch?.focus();
+      activeSearch?.setSelectionRange?.(
+        activeSearch.value.length,
+        activeSearch.value.length
+      );
+    }
+  };
+
+  const renderReview = () => {
+    const group = groups.find((candidate) => candidate.key === selected?.groupKey);
+    if (!group || !selected) return renderCatalog();
+    currentStage = "review";
+    requestRunningStop = null;
+    startAnotherBatch = null;
+    content.replaceChildren();
+    const stage = createOwnedPackElement("section", "esao-stage");
+    stage.append(
+      createOwnedPackElement("h3", "esao-stage-heading", "Revise seu Pack Batch"),
+      createOwnedPackElement(
+        "p",
+        "esao-stage-subtitle",
+        "Esta autorização vale somente para o pack e a quantidade abaixo."
+      )
+    );
+    const reviewCard = createOwnedPackElement("div", "esao-review-card");
+    const copy = createOwnedPackElement("div");
+    copy.append(
+      createOwnedPackElement("div", "esao-selection-name", group.displayName),
+      createOwnedPackElement(
+        "div",
+        "esao-selection-detail",
+        `${group.tradeable ? "Transferível" : "Intransferível"} · sem animação · quantidade disponível confirmada: ${group.available}.`
+      )
+    );
+    reviewCard.append(
+      copy,
+      createOwnedPackElement(
+        "div",
+        "esao-review-value",
+        `${selected.quantity} pack${selected.quantity === 1 ? "" : "s"}`
+      )
+    );
+    const policy = createOwnedPackElement(
+      "div",
+      "esao-notice",
+      "Duplicatas transferíveis usam Market Quote exata e a taxa de 5%. Preço ausente, obsoleto ou ambíguo envia o jogador para a Lista de Transferências sem colocá-lo à venda. Duplicatas intransferíveis elegíveis vão para o Armazenamento de DMEs. Items não resolvidos interrompem o lote."
+    );
+    const risk = createOwnedPackElement(
+      "div",
+      "esao-notice is-risk",
+      "A EA considera automação, extensões e interação modificada com o Web App não autorizadas. Isso pode resultar em restrições ou punição da conta. Limites e execução sequencial não tornam a automação segura. Não atualize nem feche o Web App: este Pack Batch não pode ser retomado automaticamente."
+    );
+    const confirm = createOwnedPackElement("label", "esao-confirm");
+    const checkbox = createOwnedPackElement("input");
+    checkbox.type = "checkbox";
+    const confirmCopy = createOwnedPackElement(
+      "span",
+      "",
+      `Confirmo a abertura de ${selected.quantity} ${group.displayName} e autorizo as movimentações e Quick Sells descritos acima.`
+    );
+    confirm.append(checkbox, confirmCopy);
+    const actions = createOwnedPackElement("div", "esao-stage-actions");
+    const back = createOwnedPackElement("button", "esao-button", "← Editar seleção");
+    const start = createOwnedPackElement(
+      "button",
+      "esao-primary",
+      "Iniciar Pack Batch"
+    );
+    back.type = start.type = "button";
+    start.disabled = true;
+    checkbox.addEventListener("change", () => {
+      start.disabled = !checkbox.checked;
+    });
+    back.addEventListener("click", () => renderCatalog());
+    start.addEventListener("click", async () => {
+      const identity = getOwnedPackSessionIdentity();
+      if (!identity.key) {
+        risk.textContent = "Não foi possível confirmar a conta e plataforma atuais.";
+        return;
+      }
+      start.disabled = true;
+      back.disabled = true;
+      checkbox.disabled = true;
+      ownedPackAutoOpenState.running = true;
+      ownedPackAutoOpenState.stopRequested = false;
+      closeButton.disabled = true;
+      const confirmedRequest = Object.freeze({
+        authorized: true,
+        groupKey: group.key,
+        packName: group.displayName,
+        tradeable: group.tradeable,
+        quantity: selected.quantity,
+        availableAtConfirmation: group.available,
+        accountIdentity: identity.key,
+        platform: identity.platform,
+      });
+      renderRunning(confirmedRequest);
+      const result = await PackBatchRunner.runPackBatch(
+        confirmedRequest,
+        createOwnedPackRunnerDependencies(confirmedRequest, (snapshot) => {
+          runningUpdate?.(snapshot);
+        })
+      );
+      ownedPackAutoOpenState.running = false;
+      closeButton.disabled = false;
+      renderSummary(result);
+      scheduleOwnedPackAutoOpenMount(50, true);
+    });
+    actions.append(back, start);
+    stage.append(
+      reviewCard,
+      policy,
+      risk,
+      confirm,
+      createOwnedPackShortcutBar([
+        ["1", "Editar seleção"],
+        ["Tab", "Navegar"],
+        ["Enter", "Ativar botão"],
+      ]),
+      actions
+    );
+    content.appendChild(stage);
+    checkbox.focus();
+  };
+
+  const renderRunning = (request) => {
+    currentStage = "running";
+    startAnotherBatch = null;
+    ownedPackAutoOpenState.summaryVisible = false;
+    content.replaceChildren();
+    const stage = createOwnedPackElement("section", "esao-stage");
+    stage.append(
+      createOwnedPackElement("h3", "esao-stage-heading", "Executando Pack Batch"),
+      createOwnedPackElement(
+        "p",
+        "esao-stage-subtitle",
+        "O pack atual e todas as suas destinações terminarão antes de uma parada."
+      )
+    );
+    const hero = createOwnedPackElement("div", "esao-progress-hero");
+    const message = createOwnedPackElement(
+      "p",
+      "esao-progress-message",
+      "Revalidando My Packs e destinos seguros..."
+    );
+    const track = createOwnedPackElement("div", "esao-progress-track");
+    const bar = createOwnedPackElement("div", "esao-progress-bar");
+    track.appendChild(bar);
+    hero.append(message, track);
+    const stats = createOwnedPackElement("div", "esao-stat-grid");
+    const createStat = (label) => {
+      const node = createOwnedPackElement("div", "esao-stat");
+      const value = createOwnedPackElement("div", "esao-stat-value", "0");
+      node.append(
+        createOwnedPackElement("div", "esao-stat-label", label),
+        value
+      );
+      stats.appendChild(node);
+      return value;
+    };
+    const openedValue = createStat("Abertos / pedidos");
+    const operationValue = createStat("Operação atual");
+    const itemsValue = createStat("Items coletados");
+    const duplicatesValue = createStat("Duplicatas pendentes");
+    const actions = createOwnedPackElement("div", "esao-stage-actions");
+    const stop = createOwnedPackElement(
+      "button",
+      "esao-button",
+      "Parar após o pack atual"
+    );
+    stop.type = "button";
+    requestRunningStop = () => {
+      ownedPackAutoOpenState.stopRequested = true;
+      stop.disabled = true;
+      message.textContent =
+        "Parada solicitada. Nenhum novo pack será aberto após a operação atual.";
+    };
+    stop.addEventListener("click", requestRunningStop);
+    actions.appendChild(stop);
+    stage.append(
+      hero,
+      stats,
+      createOwnedPackShortcutBar([["S", "Parar após o pack atual"]]),
+      actions
+    );
+    content.appendChild(stage);
+
+    runningUpdate = (snapshot) => {
+      const opened = Number(snapshot?.counts?.opened) || 0;
+      openedValue.textContent = `${opened} / ${request.quantity}`;
+      operationValue.textContent = snapshot?.current?.state
+        ? String(snapshot.current.state).replaceAll("-", " ")
+        : snapshot?.status || "Preparando";
+      itemsValue.textContent = String(snapshot?.totalItems || 0);
+      const pendingDuplicates = (snapshot?.items || []).filter(
+        (item) =>
+          item.duplicate &&
+          item.tradeable &&
+          item.finalDestination === "pending"
+      ).length;
+      duplicatesValue.textContent = String(pendingDuplicates);
+      message.textContent =
+        snapshot?.current?.message || snapshot?.reason || "Atualizando Pack Batch...";
+      bar.style.width = `${Math.min(
+        100,
+        request.quantity ? (opened / request.quantity) * 100 : 0
+      )}%`;
+    };
+  };
+
+  const renderSummary = (summary) => {
+    currentStage = "summary";
+    requestRunningStop = null;
+    runningUpdate = null;
+    ownedPackAutoOpenState.summaryVisible = true;
+    content.replaceChildren();
+    const stage = createOwnedPackElement("section", "esao-stage");
+    const heading =
+      summary.status === "completed"
+        ? "Pack Batch concluído"
+        : summary.status === "stopped"
+          ? "Pack Batch parado"
+          : "Pack Batch interrompido";
+    stage.append(
+      createOwnedPackElement("h3", "esao-stage-heading", heading),
+      createOwnedPackElement(
+        "p",
+        "esao-stage-subtitle",
+        summary.reason || "Confira os resultados observados abaixo."
+      )
+    );
+    if (summary.status !== "completed") {
+      stage.appendChild(
+        createOwnedPackElement(
+          "div",
+          "esao-notice is-error",
+          summary.reason || "O Pack Batch foi interrompido por segurança."
+        )
+      );
+    }
+    const counts = createOwnedPackElement("div", "esao-result-counts");
+    [
+      ["Pedidos", summary.counts.requested],
+      ["Abertos", summary.counts.opened],
+      ["Falhos", summary.counts.failed],
+      ["Incertos", summary.counts.uncertain],
+    ].forEach(([label, value]) => {
+      const stat = createOwnedPackElement("div", "esao-stat");
+      stat.append(
+        createOwnedPackElement("div", "esao-stat-label", label),
+        createOwnedPackElement("div", "esao-stat-value", String(value || 0))
+      );
+      counts.appendChild(stat);
+    });
+    stage.appendChild(counts);
+    stage.appendChild(
+      createOwnedPackElement(
+        "div",
+        "esao-notice",
+        `${summary.totalItems} Items · ${summary.totalPlayers} jogadores · ${
+          summary.loanOrTimeLimitedPlayers
+        } empréstimo/tempo limitado · ${formatOwnedPackCoins(
+          summary.confirmedCoins
+        )} confirmados em Quick Sell.`
+      )
+    );
+
+    stage.appendChild(
+      createOwnedPackElement("h4", "esao-stage-heading", "Top 5 por rating")
+    );
+    const topGrid = createOwnedPackElement("div", "esao-top-grid");
+    if (summary.topPlayers.length === 0) {
+      topGrid.appendChild(
+        createOwnedPackElement("div", "esao-empty", "Nenhum jogador elegível foi observado.")
+      );
+    }
+    summary.topPlayers.forEach((player) => {
+      const card = createOwnedPackElement(
+        "article",
+        `esao-player-card${player.duplicate ? " is-duplicate" : ""}`
+      );
+      const art = createOwnedPackElement("div", "esao-player-art");
+      const image = document.createElement("img");
+      image.src = player.imageUrl || EASY_SOCCER_LOGO_DATA_URL;
+      image.alt = "";
+      image.addEventListener("error", () => {
+        image.src = EASY_SOCCER_LOGO_DATA_URL;
+      });
+      art.appendChild(image);
+      if (player.duplicate) {
+        art.appendChild(
+          createOwnedPackElement("span", "esao-duplicate-badge", "DUPLICATA")
+        );
+      }
+      card.append(
+        art,
+        createOwnedPackElement("div", "esao-player-rating", String(player.rating)),
+        createOwnedPackElement("div", "esao-player-name", player.name),
+        createOwnedPackElement(
+          "div",
+          "esao-player-detail",
+          `Pack ${player.packSequence} · ${
+            player.tradeable ? "Transferível" : "Intransferível"
+          } · ${player.duplicate ? "Duplicata" : "Novo"} · ${getOwnedPackDestinationLabel(
+            player.finalDestination
+          )}`
+        )
+      );
+      topGrid.appendChild(card);
+    });
+    stage.appendChild(topGrid);
+
+    [
+      ["Movidos para Lista de Transferências", summary.duplicates.transferList],
+      ["Quick Sold", summary.duplicates.quickSold],
+      ["Movidos para Armazenamento de DMEs", summary.duplicates.sbcStorage],
+      ["Items não resolvidos", summary.unresolvedItems],
+    ].forEach(([label, items]) => {
+      if (items.length > 0) stage.appendChild(renderOwnedPackDetailSection(label, items));
+    });
+
+    const actions = createOwnedPackElement("div", "esao-stage-actions");
+    const close = createOwnedPackElement("button", "esao-button", "Fechar");
+    const another = createOwnedPackElement(
+      "button",
+      "esao-primary",
+      "Iniciar outro Pack Batch"
+    );
+    close.type = another.type = "button";
+    close.addEventListener("click", closeDialog);
+    startAnotherBatch = async () => {
+      selected = null;
+      searchTerm = "";
+      activeFilter = "all";
+      renderLoading("Buscando uma lista nova de Owned Packs...");
+      try {
+        await loadGroups();
+        renderCatalog();
+      } catch (error) {
+        renderLoadError(error);
+      }
+    };
+    another.addEventListener("click", startAnotherBatch);
+    actions.append(close, another);
+    stage.append(
+      createOwnedPackShortcutBar([
+        ["N", "Outro Pack Batch"],
+        ["1", "Fechar"],
+      ]),
+      actions
+    );
+    content.appendChild(stage);
+    close.focus();
+  };
+
+  const renderLoadError = (error) => {
+    currentStage = "error";
+    content.replaceChildren();
+    const stage = createOwnedPackElement("section", "esao-stage");
+    stage.append(
+      createOwnedPackElement("h3", "esao-stage-heading", "My Packs indisponível"),
+      createOwnedPackElement(
+        "div",
+        "esao-notice is-error",
+        error?.message || "Não foi possível carregar seus Owned Packs."
+      )
+    );
+    const actions = createOwnedPackElement("div", "esao-stage-actions");
+    const retry = createOwnedPackElement("button", "esao-primary", "Tentar novamente");
+    retry.type = "button";
+    retry.addEventListener("click", async () => {
+      renderLoading();
+      try {
+        await loadGroups();
+        renderCatalog();
+      } catch (nextError) {
+        renderLoadError(nextError);
+      }
+    });
+    actions.appendChild(retry);
+    stage.appendChild(actions);
+    content.appendChild(stage);
+  };
+
+  renderLoading();
+  try {
+    await loadGroups();
+    renderCatalog();
+    content.querySelector(".esao-search")?.focus();
+  } catch (error) {
+    renderLoadError(error);
+  }
+};
+
+const ensureOwnedPackAutoOpenTrigger = (filterBar) => {
+  let trigger = document.getElementById(EASY_SOCCER_AUTO_OPEN_TRIGGER_ID);
+  if (!trigger) {
+    trigger = createOwnedPackElement("button");
+    trigger.id = EASY_SOCCER_AUTO_OPEN_TRIGGER_ID;
+    trigger.type = "button";
+  }
+  if (trigger.dataset.easySoccerAutoOpenBound !== "true") {
+    trigger.dataset.easySoccerAutoOpenBound = "true";
+    trigger.addEventListener("click", () => {
+      openOwnedPackAutoOpenDialog(trigger);
+    });
+  }
+  if (trigger.parentElement !== filterBar) filterBar.appendChild(trigger);
+  return trigger;
+};
+
+const refreshOwnedPackAutoOpenTrigger = async ({ force = false } = {}) => {
+  const existing = document.getElementById(EASY_SOCCER_AUTO_OPEN_TRIGGER_ID);
+  if (!isOwnedPackMyPacksActive()) {
+    existing?.remove();
+    ownedPackAutoOpenState.activeTrigger = null;
+    if (ownedPackAutoOpenState.running) {
+      ownedPackAutoOpenState.stopRequested = true;
+    } else if (!ownedPackAutoOpenState.summaryVisible) {
+      ownedPackAutoOpenState.closeDraft?.();
+    }
+    return;
+  }
+  if (ownedPackAutoOpenState.refreshingTrigger) {
+    if (force) ownedPackAutoOpenState.pendingForcedTriggerRefresh = true;
+    return;
+  }
+  const filterBar = document.querySelector(
+    ".ut-store-hub-view > .ea-filter-bar-view"
+  );
+  if (!filterBar) return;
+  if (
+    existing &&
+    !force &&
+    Date.now() - ownedPackAutoOpenState.lastTriggerRefreshAt < 5000
+  ) {
+    existing.disabled =
+      Number(existing.dataset.eligibleCount || 0) === 0 ||
+      ownedPackAutoOpenState.running;
+    ownedPackAutoOpenState.activeTrigger = existing;
+    return;
+  }
+  ownedPackAutoOpenState.refreshingTrigger = true;
+  ensureOwnedPackAutoOpenStyles();
+  try {
+    const packs = await fetchOwnedPacksForBatch();
+    const eligibleCount = OwnedPackCatalog.countEligibleOwnedPacks(packs);
+    const trigger = ensureOwnedPackAutoOpenTrigger(filterBar);
+    trigger.replaceChildren(
+      createOwnedPackElement("span", "", "Auto Open"),
+      createOwnedPackElement(
+        "span",
+        "esao-trigger-count",
+        String(eligibleCount)
+      )
+    );
+    trigger.dataset.eligibleCount = String(eligibleCount);
+    trigger.disabled = eligibleCount === 0 || ownedPackAutoOpenState.running;
+    trigger.title =
+      eligibleCount === 0
+        ? "Nenhum Owned Pack elegível agora."
+        : `Selecionar entre ${eligibleCount} Owned Pack(s) elegível(is).`;
+    ownedPackAutoOpenState.activeTrigger = trigger;
+    ownedPackAutoOpenState.lastTriggerRefreshAt = Date.now();
+  } catch (error) {
+    const trigger = ensureOwnedPackAutoOpenTrigger(filterBar);
+    trigger.textContent = "Auto Open (0)";
+    trigger.dataset.eligibleCount = "0";
+    trigger.disabled = true;
+    trigger.title = error?.message || "My Packs indisponível.";
+  } finally {
+    ownedPackAutoOpenState.refreshingTrigger = false;
+    if (ownedPackAutoOpenState.pendingForcedTriggerRefresh) {
+      ownedPackAutoOpenState.pendingForcedTriggerRefresh = false;
+      scheduleOwnedPackAutoOpenMount(50, true);
+    }
+  }
+};
+
+const scheduleOwnedPackAutoOpenMount = (delay = 250, force = false) => {
+  clearTimeout(ownedPackAutoOpenState.mountTimer);
+  ownedPackAutoOpenState.mountTimer = setTimeout(() => {
+    refreshOwnedPackAutoOpenTrigger({ force }).catch((error) => {
+      console.error("[EasySoccer Auto Open] trigger refresh failed", error);
+    });
+  }, delay);
+};
+
+const installOwnedPackAutoOpen = () => {
+  if (ownedPackAutoOpenState.mountObserver) return;
+  ownedPackAutoOpenState.mountObserver = new MutationObserver(() => {
+    scheduleOwnedPackAutoOpenMount();
+  });
+  ownedPackAutoOpenState.mountObserver.observe(document.body, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+  scheduleOwnedPackAutoOpenMount(0, true);
+};
+
+const OwnedPackAutoOpenView = Object.freeze({
+  mountOwnedPackAutoOpen: installOwnedPackAutoOpen,
+});
+
 const createSBCButtons = async () => {
   let sets = await sbcSets();
   if (sets === undefined) {
@@ -13502,13 +16226,13 @@ const pollSolverLogs = async () => {
 };
 
 const migrateMaxRatingSettings = () => {
-  
-  
+
+
   const settings = getSolverSettings();
   const sbcSettings = settings?.sbcSettings;
 
   if (!sbcSettings) {
-  
+
     return;
   }
 
@@ -13516,7 +16240,7 @@ const migrateMaxRatingSettings = () => {
 
   Object.entries(sbcSettings).forEach(([sbcId, challenges]) => {
     if (!challenges || typeof challenges !== "object") {
-  
+
       return;
     }
 
@@ -14094,6 +16818,7 @@ const init = () => {
     futHomeOverride();
     installEasySoccerClubSearchPageSize();
     initEasySoccerLayout();
+    OwnedPackAutoOpenView.mountOwnedPackAutoOpen();
   } else {
     setTimeout(init, 4000);
     console.log(

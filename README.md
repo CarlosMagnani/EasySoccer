@@ -11,6 +11,9 @@ O EasySoccer adiciona ao EA FC Ultimate Team Web App uma fila supervisionada par
 ## O que o projeto faz
 
 - adiciona o botão **Fila de Packs** na tela de SBCs;
+- adiciona **Auto Open** somente em **My Packs**, com seleção de um Owned Pack e quantidade exata;
+- abre o lote sequencialmente sem animação e mostra os cinco melhores jogadores por rating;
+- trata duplicatas de jogadores com regras explícitas para Lista de Transferências, Quick Sell e Armazenamento de DMEs;
 - mostra um catálogo visual para escolher vários SBCs/packs na mesma fila;
 - permite definir uma quantidade exata ou **Máximo possível** separadamente para cada pack;
 - permite revisar e alterar a ordem real de execução antes de confirmar;
@@ -27,6 +30,16 @@ O EasySoccer adiciona ao EA FC Ultimate Team Web App uma fila supervisionada par
 - oferece um botão para interromper a fila antes do próximo envio.
 
 Esta versão reconhece tanto a URL normal quanto endereços localizados do Web App, incluindo `https://www.ea.com/pt-br/ea-sports-fc/ultimate-team/web-app/`.
+
+## Auto Open de Owned Packs
+
+Na tela **Store → My Packs**, o botão **Auto Open** abre um catálogo EasySoccer com packs equivalentes agrupados, busca, filtro de negociabilidade e seletor de quantidade. Antes de iniciar, o EasySoccer revalida a conta, a quantidade disponível, o Unassigned e a capacidade do destino. A autorização vale para um único lote.
+
+Os packs são abertos um por vez, sem mostrar a animação. Items normais vão para o Clube. Duplicatas intransferíveis elegíveis vão para o Armazenamento de DMEs. Duplicatas transferíveis usam até três buscas exatas no Mercado de Transferências; o Quick Sell só é permitido com evidência de preço suficiente e quando seu valor é maior ou igual ao valor líquido de mercado. Nos demais casos, o jogador é apenas movido para a Lista de Transferências para revisão — nunca colocado à venda automaticamente.
+
+Depois de cada abertura, o EasySoccer atualiza Unassigned antes de classificar os Items. Essa leitura autoritativa é necessária porque a resposta inicial do pack pode ainda não conter `duplicateId` ou a elegibilidade para o Armazenamento de DMEs. O modal mostra duplicatas com destaque vermelho e oferece atalhos visíveis para busca, navegação, quantidade, revisão, parada e novo lote.
+
+> **Risco de conta:** a EA considera automação e interação modificada com o Web App não autorizadas. O uso pode resultar em restrições ou punição. Execução sequencial, limites e confirmação não tornam a automação segura.
 
 ## Como funciona
 
@@ -74,7 +87,7 @@ Feche o servidor com `Ctrl+C` e abra `2_REINSTALAR.cmd`. Esse atalho apaga exclu
 2. No painel do Tampermonkey, desative ou exclua versões antigas do Auto-SBC.
 3. Entre em **Utilitários → Importar de arquivo**.
 4. Selecione `tampermonkey-ai-sbc.user.js` desta pasta.
-5. Confirme a instalação e verifique se a versão exibida é **26.1.13.11** e se o ícone verde do EasySoccer aparece ao lado do script.
+5. Confirme a instalação e verifique se a versão exibida é **26.1.13.13** e se o ícone verde do EasySoccer aparece ao lado do script.
 6. Nos detalhes da extensão Tampermonkey, habilite **Permitir scripts de usuário**.
 7. Deixe somente esta versão do Auto-SBC habilitada.
 8. Volte ao Web App da EA e pressione `Ctrl+F5`.
@@ -183,7 +196,7 @@ Abra `3_INICIAR_PROJETO.cmd` e mantenha a janela aberta. Se ela informar que a `
 
 ### Erro `422 Unprocessable Entity`
 
-A versão `26.1.13.11` aceita o marcador `-1` que a EA usa em requisitos globais, como a nota mínima do elenco do **84+ TOTW Upgrade**. Feche o backend antigo com `Ctrl+C`, abra novamente `3_INICIAR_PROJETO.cmd`, reinstale o userscript atualizado e recarregue o Web App com `Ctrl+F5`. Se outro payload for rejeitado, a notificação e a janela do backend agora informam o campo exato que precisa ser corrigido.
+A versão `26.1.13.13` aceita o marcador `-1` que a EA usa em requisitos globais, como a nota mínima do elenco do **84+ TOTW Upgrade**. Feche o backend antigo com `Ctrl+C`, abra novamente `3_INICIAR_PROJETO.cmd`, reinstale o userscript atualizado e recarregue o Web App com `Ctrl+F5`. Se outro payload for rejeitado, a notificação e a janela do backend agora informam o campo exato que precisa ser corrigido.
 
 ### Erro `INFEASIBLE` ou falta de carta especial
 
@@ -199,7 +212,7 @@ Esse é o comportamento de segurança esperado. Leia o erro mostrado, corrija a 
 
 ### Grid Mode, Wide Mode ou Card Info não aparece
 
-Confirme que instalou a versão `26.1.13.11`, desative o Paletools e outras versões concorrentes e recarregue o Web App com `Ctrl+F5`. Se o clube já estava aberto durante a atualização, saia dele e entre novamente para disparar uma nova busca.
+Confirme que instalou a versão `26.1.13.13`, desative o Paletools e outras versões concorrentes e recarregue o Web App com `Ctrl+F5`. Se o clube já estava aberto durante a atualização, saia dele e entre novamente para disparar uma nova busca.
 
 ## Testes
 

@@ -2,6 +2,27 @@
 
 Base: `titiroMonkey/Auto-SBC`, commit `9827990`, licença MIT.
 
+## Auto Open de Owned Packs
+
+- ação **Auto Open** montada somente na aba **My Packs**, com badge da quantidade elegível;
+- catálogo EasySoccer responsivo com packs agregados, busca, filtros e quantidade exata;
+- revisão e autorização de uso único com aviso explícito sobre risco de punição da conta EA;
+- abertura estritamente sequencial, sem animação, sem compra de packs e sem retry da abertura;
+- Top 5 por rating, preservando a ordem de abertura em empates e ignorando empréstimos/itens temporários;
+- Market Quote baseada somente em anúncios ativos da EA para a definição exata, com cache de dez minutos e no máximo três buscas;
+- Quick Sell automático somente com três anúncios corroborados dentro de 20% e valor líquido menor ou igual ao descarte;
+- fallback de duplicata transferível para simples movimento à Lista de Transferências, sem criar leilão;
+- duplicatas intransferíveis elegíveis enviadas ao Armazenamento de DMEs, inclusive quando o Quick Sell é zero;
+- no máximo dois retries de movimentação/Quick Sell, apenas após falha explícita e confirmada como não aplicada;
+- qualquer resposta incerta, Item não resolvido, Unassigned remanescente ou troca de sessão interrompe o lote;
+- resumo terminal com contagens, destinos, Coins confirmados e proveniência de cada Market Quote;
+- estado do Pack Batch mantido apenas em memória durante a sessão atual.
+- correção da classificação prematura: Unassigned agora é atualizado e reconciliado por identidade imediatamente após cada abertura, antes de decidir o destino;
+- duplicatas elegíveis passam a usar o estado autoritativo de `duplicateId`/`isStorable`, corrigindo o envio automático ao Armazenamento de DMEs;
+- cards duplicados recebem borda, fundo e selo vermelhos próprios no resumo;
+- packs bloqueados recebem estado visual explícito e o modal exibe atalhos para busca, navegação, quantidade, revisão, parada e novo lote;
+- os atalhos destrutivos em massa observados no Paletools não foram reproduzidos; Quick Sell continua restrito à autorização e política do Pack Batch.
+
 ## Runner de repetíveis
 
 - botão `Fila de Packs` dentro da UI SBC;
@@ -91,7 +112,7 @@ Base: `titiroMonkey/Auto-SBC`, commit `9827990`, licença MIT.
 ## Testes executados
 
 - parser/sintaxe do userscript;
-- 20 testes do userscript, incluindo packs ilimitados, erros estruturados, preservação da carta especial obrigatória, fila multi-pack, quantidade exata/máxima, catálogo visual, URL localizada, identidade, proteção e layout;
+- 36 testes do userscript, incluindo packs ilimitados, erros estruturados, preservação da carta especial obrigatória, fila multi-pack, quantidade exata/máxima, catálogo visual, reconciliação autoritativa de Unassigned/SBC Storage, atalhos, duplicatas, URL localizada, identidade, proteção e layout;
 - 10 testes de API, pré-processamento e hardening do backend;
 - 3 smoke tests reais do OR-Tools, incluindo os formatos de requisitos do `10x 84+ Upgrade` e do `84+ TOTW Upgrade` ilimitado;
 - inicialização HTTP real, `/health` e preflight CORS da origem EA;

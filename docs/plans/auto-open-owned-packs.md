@@ -1,6 +1,6 @@
 # Auto Open Owned Packs — implementation plan
 
-Status: approved design, not yet implemented
+Status: implemented; automated verification complete; installed-browser and one-pack smoke test pending
 
 ## Outcome
 
@@ -13,33 +13,48 @@ The feature must never purchase a pack, activate on a purchasable Store offer, l
 - Catalog only packs where `pack.isMyPack === true`.
 - Aggregate equivalent Owned Packs by a stable pack-type key plus tradeability. Localized pack names are display text, not identity.
 - Select one aggregated pack type and an exact quantity between `1` and the available count.
+- Keep the feature entirely inside EasySoccer. It must not depend on Paletools at runtime.
+- Include only standard, deterministic Owned Packs. Exclude Player Picks, other interactive rewards, loans/time-limited rewards, and unsupported pack responses from automatic processing.
+- Keep temporarily unavailable standard Owned Packs visible as disabled cards with a reason. The My Packs action badge counts only currently eligible Owned Packs and remains visible as disabled **Auto Open (0)** when none are eligible.
 - Re-fetch My Packs and revalidate the selection immediately before starting.
+- Refuse to start unless Unassigned is empty and the selected pack's safe duplicate destination has capacity.
 - Open sequentially without pack animation. Only one pack-open request may be in flight.
+- Allow only one EA account operation in flight at a time, including Market searches and Item disposition actions.
 - The authorization screen must explicitly state that the batch may move or Quick Sell Tradeable Duplicates under the approved rule.
-- Rank the five best packed players by rating, then rarity and discard value. This does not cause additional market searches.
+- Rank the five best non-loan players by rating only. Equal ratings preserve pack and Item response order. This does not cause additional market searches.
 - For each unique Tradeable Duplicate definition, obtain a Market Quote with no more than three bounded Transfer Market searches and cache it for ten minutes.
+- Market Quotes come only from exact-definition live EA Transfer Market searches; there is no Paletools, FUT.GG, FUTBIN, or other external-provider dependency.
+- Use the lowest valid active Buy Now listing as the quote. A quote can authorize Quick Sell only when at least three matching active listings exist and the three lowest prices fall within 20% of one another.
 - Calculate `Net Market Value = Market Quote × 0.95`.
 - If Net Market Value is greater than Quick Sell value, move the Item to the Transfer List without offering it for sale.
 - If Net Market Value is less than or equal to Quick Sell value, Quick Sell the Item.
 - If a quote is missing, stale, extinct, ambiguous, or fails, keep the Item for Transfer List/review; never Quick Sell it from the Allowed Listing Range.
+- Automatic duplicate disposition applies only to player Items. Non-player duplicates remain unresolved and stop the batch.
+- Move every SBC-Storage-eligible untradeable player duplicate to SBC Storage regardless of Quick Sell value. Storage-ineligible untradeable duplicates remain unresolved and are never automatically Quick Sold.
+- Send every non-duplicate Item to its normal valid Club destination without a Market Quote.
+- Refresh and reconcile Unassigned immediately after each successful open. Use that authoritative Item instance for duplicate and SBC Storage eligibility instead of trusting provisional pack-response flags.
+- Retry a Quick Sell, Transfer List move, or SBC Storage move at most twice only after EA explicitly confirms a retryable failure where no action was applied. Never retry a missing or uncertain response.
 
 EA treats automated or modified Web App interaction as unauthorized. The authorization screen and documentation must show that account-enforcement risk without claiming that delays or request limits make the feature safe.
 
-## Paletools-inspired interface
+## Chrome-observed interaction reference
 
-Reproduce the useful interaction pattern independently; do not copy Paletools source, CSS, assets, branding, or private endpoints.
+Chrome inspection on 2026-07-21 showed that current Paletools aggregates six identical Owned Packs into one native-style pack card with a prominent count badge. Its My Packs surface also exposes a pack-type filter, search, responsive toolbar wrapping, and horizontally scrollable Store tabs. It does not provide exact batch quantity, authorization, progress, or a Pack Batch Summary.
+
+Reuse only those observable aggregation and information-density ideas. Implement the complete workflow independently in EasySoccer's established queue visual language; do not copy Paletools source, CSS, assets, branding, private endpoints, or runtime behavior.
 
 ### My Packs action
 
 - Place one EasySoccer **Auto Open** action in the My Packs view only.
-- Show the total Owned Pack count as a badge.
+- Place it beside the active My Packs controls rather than in the permanent EasySoccer sidebar.
+- Show the eligible Owned Pack count as a badge and keep a disabled **Auto Open (0)** action in the empty state.
 - Do not install or override a purchase handler.
 
 ### Aggregated pack picker
 
-Use the compact Paletools pattern as the reference:
+Use the existing EasySoccer queue modal and compact cards:
 
-- one row per aggregated pack type;
+- one card per aggregated pack type, preserving the first-seen EA My Packs order;
 - pack art or native thumbnail when available;
 - localized pack name and description;
 - tradeable/untradeable tag;
@@ -47,8 +62,15 @@ Use the compact Paletools pattern as the reference:
 - selected-row highlight;
 - exact-quantity stepper and numeric input;
 - no **Open All Packs** shortcut.
+- name/description search and **All / Tradeable / Untradeable** filters;
+- a persistent **Seu Pack Batch** summary instead of multi-pack queue controls;
+- selecting a different card replaces the draft and resets quantity to `1`.
 
-The confirmation area shows the selected pack, requested quantity, no-animation behavior, duplicate policy, missing-price fallback, and a single explicit **Start Pack Batch** action.
+The review area shows the selected pack, requested quantity, no-animation behavior, duplicate policy, missing-price fallback, reload/non-resumability warning, and EA account-enforcement risk. A required checkbox authorizes exactly one batch; there is no remembered authorization. It ends with one explicit **Start Pack Batch** action.
+
+On narrow screens, use a single-column catalog and a sticky Pack Batch summary. Trap keyboard focus, allow `Escape` only during selection/review, and return focus to **Auto Open** when the modal closes.
+
+Show the supported EasySoccer keys in the modal: `/` search, arrow-key navigation, `+`/`-` quantity, `R` review, `1` back/close, `S` stop after the current pack, and `N` start another batch. Duplicate player cards use a distinct red border/background/badge. These are independent EasySoccer interactions; unrelated Paletools sniping, SBC-builder, and destructive bulk Quick Sell shortcuts are out of scope.
 
 ### Progress and Pack Batch Summary
 
@@ -60,17 +82,23 @@ During the run, keep the same panel open and replace selection controls with:
 - Tradeable Duplicates awaiting a decision;
 - **Stop after current pack**.
 
+Normal dismissal and `Escape` are disabled while running. Leaving My Packs behaves like **Stop after current pack**.
+
 The final Pack Batch Summary contains:
 
 - completed, stopped, or failed status;
-- requested/opened/failed pack counts;
+- requested/opened/failed/uncertain pack counts;
 - total Items and players;
-- the five best players;
+- the five best players as compact EasySoccer cards with image, name, rating, pack number, tradeability, duplicate state, and final destination;
 - duplicates moved to Transfer List;
 - duplicates Quick Sold and Coins received;
 - untradeable duplicates moved to SBC Storage;
 - unresolved Items and the reason;
 - Market Quote source/time for every automatic duplicate decision.
+
+Normal Items remain aggregate totals. Every duplicate and unresolved Item is listed individually in expandable sections, grouped by outcome and ordered by pack/response order. Confirmed Coins exclude attempted or uncertain Quick Sells. Every terminal outcome renders a summary, including failures before the first pack. The summary offers **Close** and **Start Another Batch**; the latter re-fetches My Packs.
+
+Batch and Item details are memory-only for the current Web App session. Dismissing the summary discards them.
 
 ## Module design
 
@@ -144,10 +172,10 @@ It owns sequencing and stop rules. It delegates catalog resolution, aggregation,
 Interface:
 
 ```js
-mountOwnedPackAutoOpen({ catalog, onConfirm, onStop }) => ViewHandle
+mountOwnedPackAutoOpen() => void
 ```
 
-It owns DOM lifecycle, accessibility, responsive layout, and rendering immutable snapshots. It contains no pricing or disposition policy.
+It installs the My Packs lifecycle observer and owns DOM lifecycle, accessibility, responsive layout, and rendering immutable snapshots. Pricing and disposition policy stay in the modules above.
 
 ## Execution sequence
 
@@ -155,15 +183,16 @@ It owns DOM lifecycle, accessibility, responsive layout, and rendering immutable
 2. Fetch packs and build strict Owned Pack groups.
 3. Open the picker and collect one group plus an exact quantity.
 4. Present the immutable authorization summary.
-5. On confirmation, re-fetch packs and resolve the selected instances.
+5. On confirmation, verify account/platform/session identity, empty Unassigned, destination capacity, then re-fetch packs and resolve the selected instances.
 6. Create one `PackAggregationStore` and begin the sequential runner.
 7. Before every pack, ensure Unassigned is clear and no stop was requested.
 8. Open one pack without animation and immediately record its Items.
-9. Move normal Items to their valid destination.
-10. For Tradeable Duplicates, request one cached/bounded quote per unique definition, apply the 5% policy, then perform the authorized action.
-11. Move eligible untradeable duplicates to SBC Storage. If they cannot be stored, leave them unresolved and stop before opening another pack.
-12. Confirm Unassigned is clear before continuing.
-13. Finish once the exact quantity is opened or a stop condition occurs, then render the Pack Batch Summary.
+9. Refresh Unassigned, reconcile every response Item by exact Item ID (or one unambiguous definition fallback), and use the refreshed objects for all disposition decisions.
+10. Move normal Items to their valid destination.
+11. For Tradeable player Duplicates, request one cached/bounded quote per unique definition, verify three-listing/20% confidence before Quick Sell, apply the 5% policy, then perform the authorized action.
+12. Move eligible untradeable duplicates to SBC Storage. If they cannot be stored, leave them unresolved and stop before opening another pack.
+13. Confirm Unassigned is clear before continuing.
+14. Finish once the exact quantity is opened or a stop condition occurs, then render the Pack Batch Summary.
 
 ## Stop and failure rules
 
@@ -175,9 +204,11 @@ It owns DOM lifecycle, accessibility, responsive layout, and rendering immutable
 | Market Quote missing/stale/extinct/error | Transfer List/review fallback; never Quick Sell |
 | Transfer List is full | Leave the Item unresolved and stop before the next pack |
 | SBC Storage is full | Leave the untradeable duplicate unresolved and stop |
-| Quick Sell result is uncertain | Stop the batch; do not retry the irreversible action |
+| Explicit retryable disposition failure with no applied action | Retry at most twice; three total attempts |
+| Quick Sell or move result is missing/uncertain | Stop the batch; never retry the uncertain action |
 | Unassigned remains non-empty | Stop and show every unresolved Item in the summary |
 | Session, rate-limit, or account error | Stop immediately and preserve the observed summary |
+| Web App navigation leaves My Packs | Finish the current confirmed operation, then stop before the next pack |
 
 ## Chrome inspection and verification
 
@@ -201,7 +232,11 @@ Chrome is a required implementation tool, not an optional final check.
 6. Verify progress, no animation, duplicate fallback, and Pack Batch Summary.
 7. Save before/after screenshots and record any DOM-anchor instability discovered in Chrome.
 
-Current planning-session limitation: the Chrome control bridge rejected this repository's WSL path before connecting. Live baseline inspection therefore remains a mandatory pre-implementation checkpoint; it has not been represented as completed from static package inspection.
+The previous WSL-path limitation is resolved. Chrome inspection successfully captured the signed-in My Packs surface, Paletools aggregation behavior, the existing EasySoccer queue modal, selected-card quantity controls, desktop layout, and narrow-width behavior. No pack was opened. Final verification still requires Paletools disabled and the updated EasySoccer userscript enabled.
+
+A final read-only Chrome check after implementation confirmed that the native anchor `.ut-store-hub-view > .ea-filter-bar-view` is still present and that the first button is the selected **My Packs** tab. Paletools remained disabled and EA rendered the six Owned Packs as separate native cards. The installed Tampermonkey copy is still the previous EasySoccer build, so the new trigger was correctly absent; no browser extension state or account Item was changed during this check.
+
+A follow-up Chrome inspection of Paletools v26.0.28 confirmed its aggregated My Packs tab/card counts, pack-type selector, search, hide-locked control, shortcut hints, duplicate-highlighting option, and its configurable Unassigned keyboard map. EasySoccer reuses only the observable information hierarchy and shortcut discoverability. It does not copy Paletools source, assets, branding, or destructive bulk-action behavior.
 
 ## Automated verification
 
@@ -211,14 +246,17 @@ Add Node tests around the same module interfaces used by production:
 - stable grouping distinguishes tradeable and untradeable variants;
 - fresh-pack revalidation prevents opening more than selected/available;
 - the aggregation store is idempotent and produces immutable snapshots;
-- best-five ranking is deterministic;
+- best-five ranking uses rating only and preserves packed order for ties;
 - the runner opens exactly the confirmed count and never runs concurrent opens;
 - stop waits for the current operation and prevents the next pack;
-- three-search budget and ten-minute quote cache;
+- three-search budget, ten-minute quote cache, exact definition/platform identity, and three-listing/20% confidence;
 - 5% calculation and equality → Quick Sell;
 - missing/stale quote → Review/Transfer List fallback;
 - Transfer List means move only, never create an auction;
 - uncertain open/Quick Sell result has no automatic retry;
+- explicit retryable, non-applied disposition failures allow at most two retries;
+- player-only automatic duplicate policy and SBC Storage priority for eligible untradeable duplicates;
+- interactive packs, loans/time-limited players, and non-player duplicates fail closed;
 - full Transfer List/SBC Storage and remaining Unassigned stop the batch;
 - the summary includes every completed and unresolved action.
 
